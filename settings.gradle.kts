@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 rootProject.name = "society-safety-app"
 include (":app")
 include(":core-base")
+include(":core-network")

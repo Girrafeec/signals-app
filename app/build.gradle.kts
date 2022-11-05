@@ -62,4 +62,6 @@ dependencies {
     // Dagger
     implementation(Dependencies.Dagger.dagger)
     kapt(Dependencies.Dagger.daggerCompiler)
+
+    implementation(project(":core-network"))
 }

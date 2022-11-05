@@ -36,4 +36,9 @@ object Versions {
 
     // Mockito
     const val kotlinMockitoVersion = "4.0.0"
+
+    // Retrofit
+    const val retrofitVersion = "2.9.0"
+
+    const val okHttp3Version = "4.10.0"
 }

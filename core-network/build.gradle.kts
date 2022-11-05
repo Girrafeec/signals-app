@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -34,4 +35,19 @@ android {
 }
 
 dependencies {
+
+    // Retrofit
+    implementation(Dependencies.Retrofit.retrofit)
+    implementation(Dependencies.Retrofit.retrofitConverterGson)
+
+    // OkHttp3
+    implementation(Dependencies.OkHttp3.okHttp3)
+
+    // Dagger
+    implementation(Dependencies.Dagger.dagger)
+    kapt(Dependencies.Dagger.daggerCompiler)
+
+    testImplementation(Dependencies.jUnit.jUnit)
+
+    implementation(project(":core-base"))
 }

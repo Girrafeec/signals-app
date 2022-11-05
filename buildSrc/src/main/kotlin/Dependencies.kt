@@ -69,4 +69,15 @@ class Dependencies {
         const val mockitoKotlin = "org.mockito.kotlin:mockito-kotlin:${Versions.kotlinMockitoVersion}"
         const val mockitoInline = "org.mockito:mockito-inline:${Versions.kotlinMockitoVersion}"
     }
+
+    object Retrofit {
+        const val retrofit = "com.squareup.retrofit2:retrofit2:${Versions.retrofitVersion}"
+        const val retrofitConverterGson = "com.squareup.retrofit2:converter-gson:${Versions.retrofitVersion}"
+    }
+
+    object OkHttp3 {
+        const val okHttp3 = "com.squareup.okhttp3:okhttp:${Versions.okHttp3Version}"
+        const val mockWebServer = "com.squareup.okhttp3:mockwebserver:${Versions.okHttp3Version}"
+    }
+
 }

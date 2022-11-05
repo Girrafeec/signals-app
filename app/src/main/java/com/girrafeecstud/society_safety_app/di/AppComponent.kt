@@ -1,9 +1,12 @@
 package com.girrafeecstud.society_safety_app.di
 
+import com.girrafeecstud.society_safety_app.core_network.data.di.module.NetworkModule
 import dagger.Component
 
 @Component(
-    modules = [],
+    modules = [
+        NetworkModule::class
+              ],
     dependencies = [
         AppDependencies::class
     ]
