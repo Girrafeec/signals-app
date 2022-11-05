@@ -14,7 +14,7 @@ object Versions {
 
     // Jetpack
     const val jetpackNavigationComponentVersion = ""
-    const val jetapckLifecycleVersion = ""
+    const val jetapckLifecycleVersion = "2.5.1"
 //    const val jetpackExtensionsVersion = ""
 //    const val jetpackLiveDataVersion = ""
 
