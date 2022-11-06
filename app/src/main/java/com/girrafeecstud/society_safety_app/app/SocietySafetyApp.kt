@@ -6,6 +6,7 @@ import com.girrafeecstud.society_safety_app.di.AppComponent
 import com.girrafeecstud.society_safety_app.di.AppDependencies
 import com.girrafeecstud.society_safety_app.di.DaggerAppComponent
 import com.girrafeecstud.society_safety_app.feature_auth.di.AuthComponent
+import com.girrafeecstud.society_safety_app.feature_auth.di.DaggerAuthComponent
 import com.girrafeecstud.society_safety_app.feature_auth.di.provider.AuthComponentProvider
 
 class SocietySafetyApp: Application(), AuthComponentProvider {
@@ -21,9 +22,7 @@ class SocietySafetyApp: Application(), AuthComponentProvider {
             .build()
     }
 
-    override fun getAuthComponent(): AuthComponent {
-        TODO("Прописать создание компонента")
-    }
+    override fun getAuthComponent(): AuthComponent = DaggerAuthComponent.builder().build()
 
     private inner class AppDependenciesImpl: AppDependencies {
         override val applicationContext: Context = this@SocietySafetyApp

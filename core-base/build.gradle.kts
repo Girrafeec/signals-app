@@ -37,7 +37,14 @@ dependencies {
     // AppCompat
     implementation(Dependencies.AndroidX.AppCompat.appCompat)
 
+    // Dagger
+    implementation(Dependencies.Dagger.dagger)
+
     // Navigation
     implementation(Dependencies.Jetpack.Navigation.navigationFragmentKtx)
     implementation(Dependencies.Jetpack.Navigation.navigationUiKtx)
+
+    // ViewModel
+    implementation(Dependencies.Jetpack.ViewModel.viewModel)
+    implementation(Dependencies.Jetpack.LiveData.liveData)
 }

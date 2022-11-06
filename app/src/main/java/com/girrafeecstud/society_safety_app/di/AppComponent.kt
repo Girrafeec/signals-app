@@ -1,5 +1,6 @@
 package com.girrafeecstud.society_safety_app.di
 
+import com.girrafeecstud.society_safety_app.feature_auth.di.provider.AuthComponentProvider
 import dagger.Component
 
 @ApplicationScope
