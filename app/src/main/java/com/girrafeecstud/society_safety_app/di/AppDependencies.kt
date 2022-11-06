@@ -4,6 +4,6 @@ import android.content.Context
 
 interface AppDependencies {
 
-    val context: Context
+    val applicationContext: Context
 
 }

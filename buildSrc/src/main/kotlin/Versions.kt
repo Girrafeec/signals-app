@@ -13,10 +13,8 @@ object Versions {
     const val coreKtxVersion = "1.8.0"
 
     // Jetpack
-    const val jetpackNavigationComponentVersion = ""
+    const val jetpackNavigationComponentVersion = "2.5.3"
     const val jetapckLifecycleVersion = "2.5.1"
-//    const val jetpackExtensionsVersion = ""
-//    const val jetpackLiveDataVersion = ""
 
     // ConstraintLayout
     const val constraintLayoutVersion = "2.1.4"

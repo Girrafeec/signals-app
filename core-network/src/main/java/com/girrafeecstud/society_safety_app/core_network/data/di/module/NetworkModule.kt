@@ -10,6 +10,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
+// TODO решить вопрос с scope зависимостей модуля
+
 @Module
 class NetworkModule {
 

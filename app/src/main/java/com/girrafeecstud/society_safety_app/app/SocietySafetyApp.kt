@@ -5,8 +5,10 @@ import android.content.Context
 import com.girrafeecstud.society_safety_app.di.AppComponent
 import com.girrafeecstud.society_safety_app.di.AppDependencies
 import com.girrafeecstud.society_safety_app.di.DaggerAppComponent
+import com.girrafeecstud.society_safety_app.feature_auth.di.AuthComponent
+import com.girrafeecstud.society_safety_app.feature_auth.di.provider.AuthComponentProvider
 
-class SocietySafetyApp: Application() {
+class SocietySafetyApp: Application(), AuthComponentProvider {
 
     lateinit var appComponent: AppComponent
 
@@ -19,8 +21,12 @@ class SocietySafetyApp: Application() {
             .build()
     }
 
+    override fun getAuthComponent(): AuthComponent {
+        TODO("Прописать создание компонента")
+    }
+
     private inner class AppDependenciesImpl: AppDependencies {
-        override val context: Context = this@SocietySafetyApp
+        override val applicationContext: Context = this@SocietySafetyApp
     }
 
 }

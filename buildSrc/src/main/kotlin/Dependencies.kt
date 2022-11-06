@@ -10,8 +10,9 @@ class Dependencies {
             const val liveData = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.jetapckLifecycleVersion}"
         }
 
-        object Extensions {
-            const val extensions = "androidx.lifecycle:lifecycle-extensions:${Versions.jetapckLifecycleVersion}"
+        object Navigation {
+            const val navigationFragmentKtx = "androidx.navigation:navigation-fragment-ktx:${Versions.jetpackNavigationComponentVersion}"
+            const val navigationUiKtx = "androidx.navigation:navigation-ui-ktx:${Versions.jetpackNavigationComponentVersion}"
         }
 
     }
@@ -54,6 +55,7 @@ class Dependencies {
 
     object Coroutines {
         const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutinesVersion}"
+        const val coroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutinesVersion}"
     }
 
     object jUnit {
@@ -71,7 +73,7 @@ class Dependencies {
     }
 
     object Retrofit {
-        const val retrofit = "com.squareup.retrofit2:retrofit2:${Versions.retrofitVersion}"
+        const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofitVersion}"
         const val retrofitConverterGson = "com.squareup.retrofit2:converter-gson:${Versions.retrofitVersion}"
     }
 

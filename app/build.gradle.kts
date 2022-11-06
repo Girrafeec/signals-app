@@ -63,5 +63,10 @@ dependencies {
     implementation(Dependencies.Dagger.dagger)
     kapt(Dependencies.Dagger.daggerCompiler)
 
-    implementation(project(":core-network"))
+    // Navigation
+    implementation(Dependencies.Jetpack.Navigation.navigationFragmentKtx)
+    implementation(Dependencies.Jetpack.Navigation.navigationUiKtx)
+
+//    implementation(project(":core-network"))
+    implementation(project(":feature-auth"))
 }

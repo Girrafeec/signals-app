@@ -1,5 +1,5 @@
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     id("org.jetbrains.kotlin.android")
 }
 
@@ -34,4 +34,10 @@ android {
 }
 
 dependencies {
+    // AppCompat
+    implementation(Dependencies.AndroidX.AppCompat.appCompat)
+
+    // Navigation
+    implementation(Dependencies.Jetpack.Navigation.navigationFragmentKtx)
+    implementation(Dependencies.Jetpack.Navigation.navigationUiKtx)
 }

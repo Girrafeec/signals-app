@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_graph">
+
+    <action
+        android:id="@+id/action_global_authFlowFragment"
+        app:destination="@id/authFlowFragment"
+        app:popUpTo="@id/app_graph"/>
+
+    <fragment
+        android:id="@+id/authFlowFragment"
+        android:name="com.girrafeecstud.society_safety_app.feature_auth.ui.AuthFlowFragment"
+        android:label="AuthFlowFragment"
+        tools:layout="@layout/fragment_auth_flow"/>
+
+</navigation>
