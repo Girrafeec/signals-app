@@ -67,6 +67,7 @@ dependencies {
     implementation(Dependencies.Jetpack.Navigation.navigationFragmentKtx)
     implementation(Dependencies.Jetpack.Navigation.navigationUiKtx)
 
-//    implementation(project(":core-network"))
+    implementation(project(":core-network"))
     implementation(project(":feature-auth"))
+    implementation(project(":core-base"))
 }

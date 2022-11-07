@@ -7,6 +7,7 @@ import com.girrafeecstud.society_safety_app.feature_auth.di.annotation.Registrat
 import com.girrafeecstud.society_safety_app.feature_auth.domain.di.RegistrationUseCaseModule
 import dagger.Subcomponent
 
+@RegistrationScope
 @Subcomponent(
     modules = [
         RegistrationApiModule::class,
@@ -15,8 +16,13 @@ import dagger.Subcomponent
         RegistrationUseCaseModule::class
     ]
 )
-@RegistrationScope
 interface RegistrationComponent {
 
+    @Subcomponent.Builder
+    interface Builder {
+
+        fun build(): RegistrationComponent
+
+    }
 
 }

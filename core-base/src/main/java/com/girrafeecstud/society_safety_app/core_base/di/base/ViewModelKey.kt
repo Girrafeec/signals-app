@@ -1,4 +1,4 @@
-package com.girrafeecstud.society_safety_app.core_base.di
+package com.girrafeecstud.society_safety_app.core_base.di.base
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

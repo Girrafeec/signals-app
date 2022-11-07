@@ -3,6 +3,7 @@ package com.girrafeecstud.society_safety_app.core_base.presentation.base
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.Component
 
 abstract class BaseViewModel: ViewModel() {
 

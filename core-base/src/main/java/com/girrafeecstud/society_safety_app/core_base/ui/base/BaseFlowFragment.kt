@@ -1,7 +1,6 @@
-package com.girrafeecstud.society_safety_app.core_base.ui
+package com.girrafeecstud.society_safety_app.core_base.ui.base
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment

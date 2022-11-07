@@ -2,16 +2,19 @@ package com.girrafeecstud.society_safety_app.app
 
 import android.app.Application
 import android.content.Context
+import com.girrafeecstud.society_safety_app.core_base.presentation.base.MainViewModelFactory
+import com.girrafeecstud.society_safety_app.core_network.data.di.CoreNetworkComponent
+import com.girrafeecstud.society_safety_app.core_network.data.di.DaggerCoreNetworkComponent
+import com.girrafeecstud.society_safety_app.core_network.data.di.NetworkDependencies
 import com.girrafeecstud.society_safety_app.di.AppComponent
 import com.girrafeecstud.society_safety_app.di.AppDependencies
 import com.girrafeecstud.society_safety_app.di.DaggerAppComponent
-import com.girrafeecstud.society_safety_app.feature_auth.di.AuthComponent
-import com.girrafeecstud.society_safety_app.feature_auth.di.DaggerAuthComponent
-import com.girrafeecstud.society_safety_app.feature_auth.di.provider.AuthComponentProvider
 
-class SocietySafetyApp: Application(), AuthComponentProvider {
+class SocietySafetyApp: Application() {
 
     lateinit var appComponent: AppComponent
+
+    lateinit var networkComponent: CoreNetworkComponent
 
     override fun onCreate() {
         super.onCreate()
@@ -20,11 +23,19 @@ class SocietySafetyApp: Application(), AuthComponentProvider {
             .builder()
             .appDependencies(AppDependenciesImpl())
             .build()
+
+        networkComponent = DaggerCoreNetworkComponent
+            .builder()
+            .networkDependencies(NetworkDependenciesImpl())
+            .build()
     }
 
-    override fun getAuthComponent(): AuthComponent = DaggerAuthComponent.builder().build()
-
     private inner class AppDependenciesImpl: AppDependencies {
+        override val applicationContext: Context = this@SocietySafetyApp
+    }
+
+    // TODO реализовать отправку контекста из appComponent
+    private inner class NetworkDependenciesImpl: NetworkDependencies {
         override val applicationContext: Context = this@SocietySafetyApp
     }
 

@@ -20,6 +20,7 @@ class NetworkModule {
     fun provideBaseApiUrl() = BaseUrlConfig.BASE_API_URL
 
     @Provides
+    @Singleton
     fun provideGsonConverterFactory(): GsonConverterFactory = GsonConverterFactory.create()
 
     @Provides
@@ -31,17 +32,17 @@ class NetworkModule {
             .addInterceptor(networkConnectionInterceptor)
             .build()
 
-    @Provides
-    @Singleton
-    fun provideRetrofit(
-        gsonConverterFactory: GsonConverterFactory,
-        okHttpClient: OkHttpClient,
-        @BaseApiUrl baseApiUrl: String
-    ): Retrofit =
-        Retrofit.Builder()
-            .baseUrl(baseApiUrl)
-            .addConverterFactory(gsonConverterFactory)
-            .client(okHttpClient)
-            .build()
+//    @Provides
+//    @Singleton
+//    fun provideRetrofit(
+//        gsonConverterFactory: GsonConverterFactory,
+//        okHttpClient: OkHttpClient,
+//        @BaseApiUrl baseApiUrl: String
+//    ): Retrofit =
+//        Retrofit.Builder()
+//            .baseUrl(baseApiUrl)
+//            .addConverterFactory(gsonConverterFactory)
+//            .client(okHttpClient)
+//            .build()
 
 }
