@@ -32,17 +32,17 @@ class NetworkModule {
             .addInterceptor(networkConnectionInterceptor)
             .build()
 
-//    @Provides
-//    @Singleton
-//    fun provideRetrofit(
-//        gsonConverterFactory: GsonConverterFactory,
-//        okHttpClient: OkHttpClient,
-//        @BaseApiUrl baseApiUrl: String
-//    ): Retrofit =
-//        Retrofit.Builder()
-//            .baseUrl(baseApiUrl)
-//            .addConverterFactory(gsonConverterFactory)
-//            .client(okHttpClient)
-//            .build()
+    @Provides
+    @Singleton
+    fun provideRetrofit(
+        gsonConverterFactory: GsonConverterFactory,
+        okHttpClient: OkHttpClient,
+        @BaseApiUrl baseApiUrl: String
+    ): Retrofit =
+        Retrofit.Builder()
+            .baseUrl(baseApiUrl)
+            .addConverterFactory(gsonConverterFactory)
+            .client(okHttpClient)
+            .build()
 
 }

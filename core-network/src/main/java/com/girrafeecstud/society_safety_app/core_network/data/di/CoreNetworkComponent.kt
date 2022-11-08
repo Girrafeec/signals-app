@@ -1,5 +1,6 @@
 package com.girrafeecstud.society_safety_app.core_network.data.di
 
+import android.util.Log
 import com.girrafeecstud.society_safety_app.core_network.data.di.module.NetworkModule
 import dagger.Component
 import javax.inject.Singleton
@@ -13,7 +14,7 @@ import javax.inject.Singleton
         NetworkDependencies::class
     ]
 )
-interface CoreNetworkComponent {
+interface CoreNetworkComponent: CoreNetworkApi {
 
     @Component.Builder
     interface Builder {
@@ -21,6 +22,26 @@ interface CoreNetworkComponent {
         fun networkDependencies(networkDependencies: NetworkDependencies): Builder
 
         fun build(): CoreNetworkComponent
+
+    }
+
+    companion object {
+
+        private var _coreNetworkComponent: CoreNetworkComponent? = null
+
+        val coreNetworkComponent get() = _coreNetworkComponent!!
+
+        fun init(networkDependencies: NetworkDependencies) {
+            if (_coreNetworkComponent == null)
+                _coreNetworkComponent = DaggerCoreNetworkComponent
+                    .builder()
+                    .networkDependencies(networkDependencies = networkDependencies)
+                    .build()
+        }
+
+        fun reset() {
+            _coreNetworkComponent = null
+        }
 
     }
 

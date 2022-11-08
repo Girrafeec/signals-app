@@ -2,6 +2,8 @@ package com.girrafeecstud.society_safety_app.app
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
+import com.girrafeecstud.society_safety_app.core_base.di.CoreBaseComponent
 import com.girrafeecstud.society_safety_app.core_base.presentation.base.MainViewModelFactory
 import com.girrafeecstud.society_safety_app.core_network.data.di.CoreNetworkComponent
 import com.girrafeecstud.society_safety_app.core_network.data.di.DaggerCoreNetworkComponent
@@ -24,10 +26,9 @@ class SocietySafetyApp: Application() {
             .appDependencies(AppDependenciesImpl())
             .build()
 
-        networkComponent = DaggerCoreNetworkComponent
-            .builder()
-            .networkDependencies(NetworkDependenciesImpl())
-            .build()
+        // TODO подумать над тем, как это делать иначе
+        CoreNetworkComponent.init(NetworkDependenciesImpl())
+        CoreBaseComponent.init()
     }
 
     private inner class AppDependenciesImpl: AppDependencies {

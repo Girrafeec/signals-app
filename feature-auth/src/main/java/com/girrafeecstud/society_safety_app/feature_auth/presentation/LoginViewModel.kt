@@ -23,26 +23,25 @@ class LoginViewModel @Inject constructor(
     }
 
     fun login() {
-        Log.i("tag", "clicked")
-//        viewModelScope.launch {
-//            loginUseCase(user = UserLoginEntity("", ""))
-//                .onStart {
-//                    setLoading()
-//                }
-//                .collect { result ->
-//                    when (result) {
-//                        is BusinessResult.Success -> {
-//                            setSuccessResult(data = null)
-//                        }
-//                        is BusinessResult.Error -> {
-//                            setError(data = null)
-//                        }
-//                        is BusinessResult.Exception -> {
-//                            TODO("нужно ли отдельное состояние для exception?")
-//                        }
-//                    }
-//                }
-//        }
+        viewModelScope.launch {
+            loginUseCase(user = UserLoginEntity("", ""))
+                .onStart {
+                    setLoading()
+                }
+                .collect { result ->
+                    when (result) {
+                        is BusinessResult.Success -> {
+                            setSuccessResult(data = null)
+                        }
+                        is BusinessResult.Error -> {
+                            setError(data = null)
+                        }
+                        is BusinessResult.Exception -> {
+                            TODO("нужно ли отдельное состояние для exception?")
+                        }
+                    }
+                }
+        }
     }
 
     override fun closeConnection() {

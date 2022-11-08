@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -39,6 +40,7 @@ dependencies {
 
     // Dagger
     implementation(Dependencies.Dagger.dagger)
+    kapt(Dependencies.Dagger.daggerCompiler)
 
     // Navigation
     implementation(Dependencies.Jetpack.Navigation.navigationFragmentKtx)

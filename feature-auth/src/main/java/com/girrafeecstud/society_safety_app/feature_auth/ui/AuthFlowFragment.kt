@@ -2,14 +2,19 @@ package com.girrafeecstud.society_safety_app.feature_auth.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.girrafeecstud.society_safety_app.core_base.ui.base.BaseFlowFragment
+import com.girrafeecstud.society_safety_app.core_network.data.di.CoreNetworkComponent
 import com.girrafeecstud.society_safety_app.feature_auth.R
 import com.girrafeecstud.society_safety_app.feature_auth.databinding.FragmentAuthFlowBinding
 import com.girrafeecstud.society_safety_app.feature_auth.di.AuthComponent
+import com.girrafeecstud.society_safety_app.feature_auth.di.DaggerAuthComponent_AuthDependenciesComponent
 import com.girrafeecstud.society_safety_app.feature_auth.presentation.AuthComponentViewModel
 
 class AuthFlowFragment : BaseFlowFragment(
@@ -20,15 +25,17 @@ class AuthFlowFragment : BaseFlowFragment(
 
     private val binding get() = _binding!!
 
-    private var _authComponent: AuthComponent? = null
-
-    val authComponent get() = _authComponent!!
-
     override fun onAttach(context: Context) {
-        _authComponent = ViewModelProvider(this).get(AuthComponentViewModel::class.java).authComponent
-        authComponent.inject(this)
-//        ViewModelProvider(this).get(AuthComponentViewModel::class.java)
-//            .authComponent.inject(this)
+
+        AuthComponent.init(
+            DaggerAuthComponent_AuthDependenciesComponent
+                .builder()
+                .coreNetworkApi(CoreNetworkComponent.coreNetworkComponent)
+//                .coreBaseApi(CoreBaseComponent.coreBaseComponent)
+                .build()
+        )
+
+        AuthComponent.authComponent.inject(this)
         super.onAttach(context)
     }
 
@@ -45,6 +52,7 @@ class AuthFlowFragment : BaseFlowFragment(
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        AuthComponent.reset()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

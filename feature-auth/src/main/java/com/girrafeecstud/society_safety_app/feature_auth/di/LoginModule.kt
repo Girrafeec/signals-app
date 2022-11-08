@@ -1,6 +1,7 @@
 package com.girrafeecstud.society_safety_app.feature_auth.di
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.girrafeecstud.society_safety_app.core_base.di.base.ViewModelKey
 import com.girrafeecstud.society_safety_app.feature_auth.data.network.mapper.UserLoginEntityRequestDtoMapper
 import com.girrafeecstud.society_safety_app.feature_auth.data.network.mapper.UserLoginResponseDtoUUIDMapper
