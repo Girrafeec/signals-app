@@ -11,6 +11,6 @@ interface RegistrationApi {
 
     // TODO change return rype to Response<Nothing>
     @POST(AuthApiConfig.REGISTRATION_API_PATH)
-    suspend fun registration(@Body registrationRequest: UserRegistrationRequestDto): Response<UserRegistrationResponseDto>
+    suspend fun registration(@Body registrationRequest: UserRegistrationRequestDto): Response<Void>
 
 }

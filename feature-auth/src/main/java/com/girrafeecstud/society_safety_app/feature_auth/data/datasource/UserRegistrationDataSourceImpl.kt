@@ -28,7 +28,10 @@ class UserRegistrationDataSourceImpl @Inject constructor(
                 val response = api.registration(registrationRequest = registrationRequest)
                 val responseBody = response.body()
 
-                if (response.isSuccessful && responseBody != null) {
+                println(response.code())
+
+                if (response.isSuccessful) {
+                    println("here")
                     emit(BusinessResult.Success(_data = null))
                 } else {
                     emit(BusinessResult.Error(businessErrorType = BusinessErrorType.USER_ALREADY_EXISTS))
@@ -38,6 +41,7 @@ class UserRegistrationDataSourceImpl @Inject constructor(
             } catch (exception: SocketTimeoutException) {
                 emit(BusinessResult.Exception(exceptionType = ExceptionType.INTERNET_CONNECTION_TIMEOUT))
             }catch (exception: IOException) {
+                exception.printStackTrace()
                 emit(BusinessResult.Exception(exceptionType = ExceptionType.INTERNET_CONNECTION_TIMEOUT))
             }
 

@@ -9,8 +9,7 @@ class AuthSharedPreferencesRepository @Inject constructor(
     private val dataSource: AuthSharedPreferencesDataSource
 ) {
 
-    suspend fun getUserAuthorizedStatus(): BusinessResult<Boolean> =
-        BusinessResult.Success(_data = false)
+    suspend fun getUserAuthorizedStatus(): Boolean = dataSource.getUserAuthorizedStatus()
 
     suspend fun setUserAuthorized() = dataSource.setUserAuthorized()
 

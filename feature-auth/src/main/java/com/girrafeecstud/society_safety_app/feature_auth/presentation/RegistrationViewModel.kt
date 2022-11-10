@@ -1,5 +1,6 @@
 package com.girrafeecstud.society_safety_app.feature_auth.presentation
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.girrafeecstud.society_safety_app.core_base.domain.base.BusinessResult
@@ -38,13 +39,17 @@ class RegistrationViewModel @Inject constructor(
             ).collect { result ->
                 when (result) {
                     is BusinessResult.Success -> {
+                        Log.i("taqg", "succ vm")
                         setSuccessResult(data = null)
                     }
                     is BusinessResult.Error -> {
+                        println(result.businessErrorType)
                         setError(data = null)
                     }
                     is BusinessResult.Exception -> {
-                        TODO("нужно ли отдельное состояние для exception?")
+                        println(result.exceptionType)
+                        //TODO нужно ли отдельное состояние для exception?
+                        setError(data = null)
                     }
                 }
             }

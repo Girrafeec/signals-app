@@ -54,6 +54,7 @@ class RegistrationFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.registrationBtn.setOnClickListener { registrationButtonListener() }
+        binding.openLoginFragmentBtn.setOnClickListener { signUpButtonListener() }
 
         subscribeObservers()
     }
@@ -72,22 +73,28 @@ class RegistrationFragment : BaseFragment() {
         registrationViewModel.getState().observe(viewLifecycleOwner) { state ->
             when (state) {
                 is MainState.IsLoading -> handleLoading(isLoading = state.isLoading)
-                is MainState.ErrorResult -> handleSuccess(null)
-                is MainState.SuccessResult -> handleError(null)
+                is MainState.ErrorResult -> handleError(null)
+                is MainState.SuccessResult -> handleSuccess(null)
             }
         }
 
     }
 
     override fun handleLoading(isLoading: Boolean) {
-        (parentFragment as AuthFlowFragment).openLoginFragment()
+
     }
 
     override fun handleSuccess(any: Any?) {
-        Log.i("tag", "login success")
+        Log.i("tag", "log")
+        (parentFragment?.parentFragment as AuthFlowFragment).openLoginFragment()
     }
 
     override fun handleError(any: Any?) {
+        // TODO поменять на интерфейсы
         Toast.makeText(parentFragment?.context, "error", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun signUpButtonListener() {
+        (parentFragment?.parentFragment as AuthFlowFragment).openLoginFragment()
     }
 }

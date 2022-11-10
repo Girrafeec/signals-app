@@ -22,7 +22,7 @@ class RegistrationModule {
     interface RegistrationBindModule {
         @Binds
         @RegistrationScope
-        @ViewModelKey(LoginViewModel::class)
+        @ViewModelKey(RegistrationViewModel::class)
         @IntoMap
         fun bindRegistrationViewModel(impl: RegistrationViewModel): ViewModel
     }

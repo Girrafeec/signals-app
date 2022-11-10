@@ -6,9 +6,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavDeepLinkRequest
+import androidx.navigation.fragment.findNavController
 import com.girrafeecstud.society_safety_app.core_base.ui.base.BaseFlowFragment
 import com.girrafeecstud.society_safety_app.core_network.data.di.CoreNetworkComponent
 import com.girrafeecstud.society_safety_app.core_preferences.di.CorePreferencesComponent
@@ -47,14 +50,14 @@ class AuthFlowFragment : BaseFlowFragment(
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentAuthFlowBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
         AuthComponent.reset()
+        Log.i("tag", "auth destroyed")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -68,7 +71,11 @@ class AuthFlowFragment : BaseFlowFragment(
 
     // TODO как открыть новый flow fragment, если я не знаю его id и id из графа навигации в mainComponent
     fun openMainFlowFragment() {
-//        navController.navigate()
+        val request = NavDeepLinkRequest.Builder
+            .fromUri("android-app://com.girrafeecstud.society_safety_app/main_flow_fragment".toUri())
+            .build()
+        //navController.navigate(request)
+        findNavController().navigate(request)
     }
 
     fun openLoginFragment() {

@@ -4,8 +4,6 @@ import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.girrafeecstud.society_safety_app.core_base.domain.base.BusinessResult
 import com.girrafeecstud.society_safety_app.core_base.presentation.base.BaseViewModel
-import com.girrafeecstud.society_safety_app.core_preferences.data.datasource.AuthSharedPreferencesDataSource
-import com.girrafeecstud.society_safety_app.core_preferences.data.repository.AuthSharedPreferencesRepository
 import com.girrafeecstud.society_safety_app.feature_auth.domain.entity.UserLoginEntity
 import com.girrafeecstud.society_safety_app.feature_auth.domain.usecase.UserLoginUseCase
 import kotlinx.coroutines.flow.onStart
@@ -39,7 +37,8 @@ class LoginViewModel @Inject constructor(
                             setError(data = null)
                         }
                         is BusinessResult.Exception -> {
-                            TODO("нужно ли отдельное состояние для exception?")
+                            //TODO нужно ли отдельное состояние для exception?
+                            setError(data = null)
                         }
                     }
                 }

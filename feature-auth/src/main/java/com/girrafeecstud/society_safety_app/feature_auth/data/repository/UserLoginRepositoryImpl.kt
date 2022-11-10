@@ -23,6 +23,7 @@ class UserLoginRepositoryImpl @Inject constructor(
                     is BusinessResult.Success -> {
                         // Saving user Id (in future - token)
                         authSharedPreferencesDataSource.setUserId(userId = result._data.toString())
+                        authSharedPreferencesDataSource.setUserAuthorized()
                         emit(BusinessResult.Success(_data = null))
                     }
                     is BusinessResult.Error -> {

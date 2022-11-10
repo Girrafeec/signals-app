@@ -42,6 +42,7 @@ class UserLoginDataSourceImpl @Inject constructor(
             } catch (exception: SocketTimeoutException) {
                 emit(BusinessResult.Exception(exceptionType = ExceptionType.INTERNET_CONNECTION_TIMEOUT))
             }catch (exception: IOException) {
+                exception.printStackTrace()
                 emit(BusinessResult.Exception(exceptionType = ExceptionType.INTERNET_CONNECTION_TIMEOUT))
             }
 

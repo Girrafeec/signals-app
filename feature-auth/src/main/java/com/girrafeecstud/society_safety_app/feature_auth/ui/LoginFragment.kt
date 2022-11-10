@@ -56,6 +56,7 @@ class LoginFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.loginBtn.setOnClickListener { loginButtonClickListener() }
+        binding.createAccountBtn.setOnClickListener { createAccountBtnListener() }
 
         subscribeObservers()
     }
@@ -67,13 +68,17 @@ class LoginFragment : BaseFragment() {
         )
     }
 
+    private fun createAccountBtnListener() {
+        (parentFragment?.parentFragment as AuthFlowFragment).openRegistrationFragment()
+    }
+
     override fun subscribeObservers() {
 
         loginViewModel.getState().observe(viewLifecycleOwner) { state ->
             when (state) {
                 is MainState.IsLoading -> handleLoading(isLoading = state.isLoading)
-                is MainState.ErrorResult -> handleSuccess(null)
-                is MainState.SuccessResult -> handleError(null)
+                is MainState.ErrorResult -> handleError(null)
+                is MainState.SuccessResult -> handleSuccess(null)
             }
         }
 
@@ -85,6 +90,7 @@ class LoginFragment : BaseFragment() {
 
     override fun handleSuccess(any: Any?) {
         Log.i("tag", "login success")
+        (parentFragment?.parentFragment as AuthFlowFragment).openMainFlowFragment()
     }
 
     override fun handleError(any: Any?) {
