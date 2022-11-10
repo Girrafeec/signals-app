@@ -6,17 +6,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import com.girrafeecstud.society_safety_app.core_base.presentation.base.MainState
 import com.girrafeecstud.society_safety_app.core_base.presentation.base.MainViewModelFactory
+import com.girrafeecstud.society_safety_app.core_base.ui.base.BaseFragment
 import com.girrafeecstud.society_safety_app.feature_auth.databinding.FragmentLoginBinding
 import com.girrafeecstud.society_safety_app.feature_auth.di.AuthComponent
 import com.girrafeecstud.society_safety_app.feature_auth.presentation.LoginComponentViewModel
 import com.girrafeecstud.society_safety_app.feature_auth.presentation.LoginViewModel
 import javax.inject.Inject
 
-class LoginFragment : Fragment() {
+class LoginFragment : BaseFragment() {
 
     private var _binding: FragmentLoginBinding? = null
 
@@ -41,8 +44,7 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onDestroyView() {
@@ -54,10 +56,38 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.loginBtn.setOnClickListener { loginButtonClickListener() }
+
+        subscribeObservers()
     }
 
     private fun loginButtonClickListener() {
-        loginViewModel.login()
+        loginViewModel.login(
+            userPhoneNumber = binding.loginNameEdtTxt.text.toString(),
+            userPassword = binding.loginPasswordEdtTxt.text.toString()
+        )
     }
 
+    override fun subscribeObservers() {
+
+        loginViewModel.getState().observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is MainState.IsLoading -> handleLoading(isLoading = state.isLoading)
+                is MainState.ErrorResult -> handleSuccess(null)
+                is MainState.SuccessResult -> handleError(null)
+            }
+        }
+
+    }
+
+    override fun handleLoading(isLoading: Boolean) {
+
+    }
+
+    override fun handleSuccess(any: Any?) {
+        Log.i("tag", "login success")
+    }
+
+    override fun handleError(any: Any?) {
+        Toast.makeText(parentFragment?.context, "error", Toast.LENGTH_SHORT).show()
+    }
 }

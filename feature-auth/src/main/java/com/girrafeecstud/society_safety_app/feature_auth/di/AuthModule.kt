@@ -4,7 +4,8 @@ import dagger.Module
 
 @Module(
     subcomponents = [
-        LoginComponent::class
+        LoginComponent::class,
+        RegistrationComponent::class
     ]
 )
 class AuthModule {

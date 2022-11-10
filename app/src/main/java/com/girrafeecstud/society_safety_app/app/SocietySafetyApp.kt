@@ -8,6 +8,8 @@ import com.girrafeecstud.society_safety_app.core_base.presentation.base.MainView
 import com.girrafeecstud.society_safety_app.core_network.data.di.CoreNetworkComponent
 import com.girrafeecstud.society_safety_app.core_network.data.di.DaggerCoreNetworkComponent
 import com.girrafeecstud.society_safety_app.core_network.data.di.NetworkDependencies
+import com.girrafeecstud.society_safety_app.core_preferences.di.CorePreferencesComponent
+import com.girrafeecstud.society_safety_app.core_preferences.di.dependencies.CorePreferencesDependencies
 import com.girrafeecstud.society_safety_app.di.AppComponent
 import com.girrafeecstud.society_safety_app.di.AppDependencies
 import com.girrafeecstud.society_safety_app.di.DaggerAppComponent
@@ -27,7 +29,8 @@ class SocietySafetyApp: Application() {
             .build()
 
         // TODO подумать над тем, как это делать иначе
-        CoreNetworkComponent.init(NetworkDependenciesImpl())
+        CoreNetworkComponent.init(networkDependencies = NetworkDependenciesImpl())
+        CorePreferencesComponent.init(preferencesDependencies = CorePreferencesDependenciesImpl())
         CoreBaseComponent.init()
     }
 
@@ -37,6 +40,10 @@ class SocietySafetyApp: Application() {
 
     // TODO реализовать отправку контекста из appComponent
     private inner class NetworkDependenciesImpl: NetworkDependencies {
+        override val applicationContext: Context = this@SocietySafetyApp
+    }
+
+    private inner class CorePreferencesDependenciesImpl: CorePreferencesDependencies {
         override val applicationContext: Context = this@SocietySafetyApp
     }
 

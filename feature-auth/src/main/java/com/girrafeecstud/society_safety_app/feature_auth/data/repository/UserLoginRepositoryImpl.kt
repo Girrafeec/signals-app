@@ -1,6 +1,8 @@
 package com.girrafeecstud.society_safety_app.feature_auth.data.repository
 
 import com.girrafeecstud.society_safety_app.core_base.domain.base.BusinessResult
+import com.girrafeecstud.society_safety_app.core_preferences.data.datasource.AuthSharedPreferencesDataSource
+import com.girrafeecstud.society_safety_app.core_preferences.data.repository.AuthSharedPreferencesRepository
 import com.girrafeecstud.society_safety_app.feature_auth.data.datasource.UserLoginDataSource
 import com.girrafeecstud.society_safety_app.feature_auth.domain.entity.UserLoginEntity
 import com.girrafeecstud.society_safety_app.feature_auth.domain.repository.UserLoginRepository
@@ -9,7 +11,8 @@ import java.util.*
 import javax.inject.Inject
 
 class UserLoginRepositoryImpl @Inject constructor(
-    private val dataSource: UserLoginDataSource
+    private val dataSource: UserLoginDataSource,
+    private val authSharedPreferencesDataSource: AuthSharedPreferencesDataSource
 ): UserLoginRepository {
 
      // TODO переписать нормальное получение результата?
@@ -18,7 +21,8 @@ class UserLoginRepositoryImpl @Inject constructor(
             dataSource.login(user = user).collect { result ->
                 when (result) {
                     is BusinessResult.Success -> {
-                        // TODO добавить сохранение id (в будущем токена) в память и сохранять статус авторизации
+                        // Saving user Id (in future - token)
+                        authSharedPreferencesDataSource.setUserId(userId = result._data.toString())
                         emit(BusinessResult.Success(_data = null))
                     }
                     is BusinessResult.Error -> {

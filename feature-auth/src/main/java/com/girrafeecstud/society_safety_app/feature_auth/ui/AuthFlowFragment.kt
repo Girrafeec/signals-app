@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.girrafeecstud.society_safety_app.core_base.ui.base.BaseFlowFragment
 import com.girrafeecstud.society_safety_app.core_network.data.di.CoreNetworkComponent
+import com.girrafeecstud.society_safety_app.core_preferences.di.CorePreferencesComponent
 import com.girrafeecstud.society_safety_app.feature_auth.R
 import com.girrafeecstud.society_safety_app.feature_auth.databinding.FragmentAuthFlowBinding
 import com.girrafeecstud.society_safety_app.feature_auth.di.AuthComponent
@@ -31,6 +32,7 @@ class AuthFlowFragment : BaseFlowFragment(
             DaggerAuthComponent_AuthDependenciesComponent
                 .builder()
                 .coreNetworkApi(CoreNetworkComponent.coreNetworkComponent)
+                .corePreferencesApi(CorePreferencesComponent.corePreferencesComponent)
 //                .coreBaseApi(CoreBaseComponent.coreBaseComponent)
                 .build()
         )
@@ -62,5 +64,18 @@ class AuthFlowFragment : BaseFlowFragment(
     // TODO добавить что-то?
     override fun setUpNavigation() {
 
+    }
+
+    // TODO как открыть новый flow fragment, если я не знаю его id и id из графа навигации в mainComponent
+    fun openMainFlowFragment() {
+//        navController.navigate()
+    }
+
+    fun openLoginFragment() {
+        navController.navigate(R.id.action_global_login_fragment)
+    }
+
+    fun openRegistrationFragment() {
+        navController.navigate(R.id.action_global_registration_fragment)
     }
 }

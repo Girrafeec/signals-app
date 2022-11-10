@@ -1,9 +1,9 @@
 package com.girrafeecstud.society_safety_app.core_base.di
 
-import androidx.lifecycle.ViewModelProvider
+import com.girrafeecstud.society_safety_app.core_base.presentation.base.MainViewModelFactory
 
 interface CoreBaseApi {
 
-    fun mainViewModelFactory(): ViewModelProvider.Factory
+    fun mainViewModelFactory(): MainViewModelFactory
 
 }

@@ -70,4 +70,5 @@ dependencies {
     implementation(project(":core-network"))
     implementation(project(":feature-auth"))
     implementation(project(":core-base"))
+    implementation(project(":core-preferences"))
 }

@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.girrafeecstud.society_safety_app.core_base.domain.base.BusinessResult
 import com.girrafeecstud.society_safety_app.core_base.presentation.base.BaseViewModel
+import com.girrafeecstud.society_safety_app.core_preferences.data.datasource.AuthSharedPreferencesDataSource
+import com.girrafeecstud.society_safety_app.core_preferences.data.repository.AuthSharedPreferencesRepository
 import com.girrafeecstud.society_safety_app.feature_auth.domain.entity.UserLoginEntity
 import com.girrafeecstud.society_safety_app.feature_auth.domain.usecase.UserLoginUseCase
 import kotlinx.coroutines.flow.onStart
@@ -14,7 +16,7 @@ class LoginViewModel @Inject constructor(
     private val loginUseCase: UserLoginUseCase
 ) : BaseViewModel() {
 
-    fun isUserPhoneNumberValid(userPhoneNmber: String) {
+    fun isUserPhoneNumberValid(userPhoneNumber: String) {
 
     }
 
@@ -22,9 +24,9 @@ class LoginViewModel @Inject constructor(
 
     }
 
-    fun login() {
+    fun login(userPhoneNumber: String, userPassword: String,) {
         viewModelScope.launch {
-            loginUseCase(user = UserLoginEntity("", ""))
+            loginUseCase(user = UserLoginEntity(userPhoneNumber = userPhoneNumber, userPassword = userPassword))
                 .onStart {
                     setLoading()
                 }
@@ -42,9 +44,5 @@ class LoginViewModel @Inject constructor(
                     }
                 }
         }
-    }
-
-    override fun closeConnection() {
-        super.closeConnection()
     }
 }

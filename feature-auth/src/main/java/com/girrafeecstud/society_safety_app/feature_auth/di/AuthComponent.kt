@@ -3,6 +3,7 @@ package com.girrafeecstud.society_safety_app.feature_auth.di
 import androidx.lifecycle.ViewModelProvider
 import com.girrafeecstud.society_safety_app.core_base.presentation.base.di.BaseViewModelFactoryModule
 import com.girrafeecstud.society_safety_app.core_network.data.di.CoreNetworkApi
+import com.girrafeecstud.society_safety_app.core_preferences.di.CorePreferencesApi
 import com.girrafeecstud.society_safety_app.feature_auth.di.annotation.AuthScope
 import com.girrafeecstud.society_safety_app.feature_auth.di.dependencies.AuthDependencies
 import com.girrafeecstud.society_safety_app.feature_auth.ui.AuthFlowFragment
@@ -12,7 +13,7 @@ import dagger.Component
 @Component(
     modules = [
         AuthModule::class,
-        BaseViewModelFactoryModule::class // Разобраться с этим модулем потом
+        BaseViewModelFactoryModule::class // TODO разобраться с этим
     ],
     dependencies = [
         AuthDependencies::class
@@ -23,6 +24,8 @@ interface AuthComponent {
     fun inject(fragment: AuthFlowFragment)
 
     fun loginComponent(): LoginComponent.Builder
+
+    fun registrationComponent(): RegistrationComponent.Builder
 
 //    fun mainViewModelFactory(): MainViewModelFactory
 
@@ -58,6 +61,7 @@ interface AuthComponent {
     @Component(
         dependencies = [
             CoreNetworkApi::class,
+            CorePreferencesApi::class
 //            CoreBaseApi::class
         ]
     )
