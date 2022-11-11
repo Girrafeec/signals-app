@@ -3,6 +3,8 @@ package com.girrafeecstud.society_safety_app.core_preferences.data.datasource
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
+import com.girrafeecstud.society_safety_app.core_base.domain.base.BusinessErrorType
+import com.girrafeecstud.society_safety_app.core_base.domain.base.BusinessResult
 import javax.inject.Inject
 
 class AuthSharedPreferencesDataSource @Inject constructor(
@@ -44,9 +46,15 @@ class AuthSharedPreferencesDataSource @Inject constructor(
             .apply()
     }
 
-    suspend fun getUserId(): String? {
-        return sharedPreferences
+    // TODO добавить обработку значения null здесь, а не в репозитории
+    suspend fun getUserId(): BusinessResult<String> {
+
+        val result = sharedPreferences
             .getString(USER_ID, null)
+
+        if (result.equals(null))
+            return BusinessResult.Error(businessErrorType = BusinessErrorType.USER_UNAUTHORIZED)
+        return BusinessResult.Success(_data = result)
     }
 
     suspend fun setUserId(userId: String) {

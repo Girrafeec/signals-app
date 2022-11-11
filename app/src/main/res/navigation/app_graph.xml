@@ -18,7 +18,11 @@
         android:id="@+id/authFlowFragment"
         android:name="com.girrafeecstud.society_safety_app.feature_auth.ui.AuthFlowFragment"
         android:label="AuthFlowFragment"
-        tools:layout="@layout/fragment_auth_flow"/>
+        tools:layout="@layout/fragment_auth_flow">
+
+        <deepLink
+            app:uri="android-app://com.girrafeecstud.society_safety_app/auth_flow_fragment"/>
+    </fragment>
 
     <fragment
         android:id="@+id/mainFlowFragment"
