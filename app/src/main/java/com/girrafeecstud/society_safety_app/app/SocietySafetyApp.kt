@@ -13,6 +13,8 @@ import com.girrafeecstud.society_safety_app.core_preferences.di.dependencies.Cor
 import com.girrafeecstud.society_safety_app.di.AppComponent
 import com.girrafeecstud.society_safety_app.di.AppDependencies
 import com.girrafeecstud.society_safety_app.di.DaggerAppComponent
+import com.girrafeecstud.society_safety_app.feature_location_tracker.di.LocationTrackerComponent
+import com.girrafeecstud.society_safety_app.feature_location_tracker.di.dependencies.LocationTrackerDependencies
 
 class SocietySafetyApp: Application() {
 
@@ -32,6 +34,7 @@ class SocietySafetyApp: Application() {
         CoreNetworkComponent.init(networkDependencies = NetworkDependenciesImpl())
         CorePreferencesComponent.init(preferencesDependencies = CorePreferencesDependenciesImpl())
         CoreBaseComponent.init()
+        LocationTrackerComponent.init(LocationTrackerDependenciesImpl())
     }
 
     private inner class AppDependenciesImpl: AppDependencies {
@@ -47,4 +50,7 @@ class SocietySafetyApp: Application() {
         override val applicationContext: Context = this@SocietySafetyApp
     }
 
+    private inner class LocationTrackerDependenciesImpl: LocationTrackerDependencies {
+        override val applicationContext: Context = this@SocietySafetyApp
+    }
 }

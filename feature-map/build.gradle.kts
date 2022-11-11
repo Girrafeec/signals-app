@@ -90,7 +90,11 @@ dependencies {
     implementation(Dependencies.Jetpack.Navigation.navigationFragmentKtx)
     implementation(Dependencies.Jetpack.Navigation.navigationUiKtx)
 
+    // EasyPermissions
+    implementation(Dependencies.EasyPermissions.easyPermissions)
+
     implementation(project(":core-network"))
     implementation(project(":core-preferences"))
     implementation(project(":core-base"))
+    implementation(project(":feature-location-tracker"))
 }

@@ -39,4 +39,10 @@ object Versions {
     const val retrofitVersion = "2.9.0"
 
     const val okHttp3Version = "4.10.0"
+
+    const val easyPermissionsVersion = "3.0.0"
+
+    const val gmsMaps = "17.0.0"
+
+    const val gmsLocation = "17.0.0"
 }

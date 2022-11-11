@@ -10,6 +10,10 @@ class Dependencies {
             const val liveData = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.jetapckLifecycleVersion}"
         }
 
+        object LifecycleService {
+            const val lifecycleService = "androidx.lifecycle:lifecycle-service:${Versions.jetapckLifecycleVersion}"
+        }
+
         object Navigation {
             const val navigationFragmentKtx = "androidx.navigation:navigation-fragment-ktx:${Versions.jetpackNavigationComponentVersion}"
             const val navigationUiKtx = "androidx.navigation:navigation-ui-ktx:${Versions.jetpackNavigationComponentVersion}"
@@ -21,6 +25,11 @@ class Dependencies {
 
         object Material {
             const val material = "com.google.android.material:material:${Versions.materialVersion}"
+        }
+
+        object GMS {
+            const val gmsMaps = "com.google.android.gms:play-services-maps${Versions.gmsMaps}"
+            const val gmsLocation = "com.google.android.gms:play-services-location:${Versions.gmsLocation}"
         }
 
     }
@@ -80,6 +89,10 @@ class Dependencies {
     object OkHttp3 {
         const val okHttp3 = "com.squareup.okhttp3:okhttp:${Versions.okHttp3Version}"
         const val mockWebServer = "com.squareup.okhttp3:mockwebserver:${Versions.okHttp3Version}"
+    }
+
+    object EasyPermissions {
+        const val easyPermissions = "pub.devrel:easypermissions:${Versions.easyPermissionsVersion}"
     }
 
 }

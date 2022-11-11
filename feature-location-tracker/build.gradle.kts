@@ -82,13 +82,21 @@ dependencies {
     // OkHttp3
     implementation(Dependencies.OkHttp3.okHttp3)
 
-    // ViewModel, LiveData
+    // ViewModel, LiveData, LifecycleService
     implementation(Dependencies.Jetpack.ViewModel.viewModel)
     implementation(Dependencies.Jetpack.LiveData.liveData)
+    implementation(Dependencies.Jetpack.LifecycleService.lifecycleService)
 
     // Navigation
     implementation(Dependencies.Jetpack.Navigation.navigationFragmentKtx)
     implementation(Dependencies.Jetpack.Navigation.navigationUiKtx)
+
+    // EasyPermissions
+    implementation(Dependencies.EasyPermissions.easyPermissions)
+
+    // GMS
+    implementation(Dependencies.Google.GMS.gmsLocation)
+//    implementation(Dependencies.Google.GMS.gmsMaps)
 
     implementation(project(":core-network"))
     implementation(project(":core-preferences"))

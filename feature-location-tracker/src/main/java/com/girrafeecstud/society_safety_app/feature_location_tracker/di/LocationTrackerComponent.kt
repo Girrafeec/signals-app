@@ -12,10 +12,10 @@ import dagger.Component
 @LocationTrackerScope
 @Component(
     modules = [
-        UserLocationTrackerApiModule::class,
-        LocationTrackerModule::class,
-        LocationTrackerDataSourceModule::class,
-        LocationTrackerRepositoryModule::class
+//        UserLocationTrackerApiModule::class,
+//        LocationTrackerModule::class,
+//        LocationTrackerDataSourceModule::class,
+//        LocationTrackerRepositoryModule::class
               ],
     dependencies = [
         LocationTrackerDependencies::class
@@ -52,13 +52,13 @@ interface LocationTrackerComponent : LocationTrackerApi {
 
     }
 
-    @LocationTrackerScope
-    @Component(
-        dependencies = [
-            CoreNetworkApi::class,
-            CorePreferencesApi::class
-        ]
-    )
-    interface LocationTrackerDependenciesComponent : LocationTrackerDependencies
+//    @LocationTrackerScope
+//    @Component(
+//        dependencies = [
+////            CoreNetworkApi::class,
+////            CorePreferencesApi::class
+//        ]
+//    )
+//    interface LocationTrackerDependenciesComponent : LocationTrackerDependencies
 
 }
