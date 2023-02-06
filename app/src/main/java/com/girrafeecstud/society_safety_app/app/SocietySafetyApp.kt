@@ -2,21 +2,20 @@ package com.girrafeecstud.society_safety_app.app
 
 import android.app.Application
 import android.content.Context
-import android.util.Log
 import com.girrafeecstud.society_safety_app.core_base.di.CoreBaseComponent
-import com.girrafeecstud.society_safety_app.core_base.presentation.base.MainViewModelFactory
 import com.girrafeecstud.society_safety_app.core_network.data.di.CoreNetworkComponent
-import com.girrafeecstud.society_safety_app.core_network.data.di.DaggerCoreNetworkComponent
 import com.girrafeecstud.society_safety_app.core_network.data.di.NetworkDependencies
 import com.girrafeecstud.society_safety_app.core_preferences.di.CorePreferencesComponent
 import com.girrafeecstud.society_safety_app.core_preferences.di.dependencies.CorePreferencesDependencies
 import com.girrafeecstud.society_safety_app.di.AppComponent
 import com.girrafeecstud.society_safety_app.di.AppDependencies
 import com.girrafeecstud.society_safety_app.di.DaggerAppComponent
-import com.girrafeecstud.society_safety_app.feature_location_tracker.di.LocationTrackerComponent
-import com.girrafeecstud.society_safety_app.feature_location_tracker.di.dependencies.LocationTrackerDependencies
+import com.girrafeecstud.society_safety_app.feature_map.di.DaggerMainComponent_MainDependenciesComponent
+import com.girrafeecstud.society_safety_app.feature_map.di.MainComponent
+import com.girrafeecstud.society_safety_app.location_tracker_impl.di.LocationTrackerFeatureComponent
+import com.girrafeecstud.society_safety_app.location_tracker_impl.di.dependencies.LocationTrackerDependencies
 
-class SocietySafetyApp: Application() {
+class SocietySafetyApp : Application() {
 
     lateinit var appComponent: AppComponent
 
@@ -34,7 +33,14 @@ class SocietySafetyApp: Application() {
         CoreNetworkComponent.init(networkDependencies = NetworkDependenciesImpl())
         CorePreferencesComponent.init(preferencesDependencies = CorePreferencesDependenciesImpl())
         CoreBaseComponent.init()
-        LocationTrackerComponent.init(LocationTrackerDependenciesImpl())
+        LocationTrackerFeatureComponent.init(LocationTrackerDependenciesImpl())
+        // TODO how to reset class?
+        MainComponent.init(dependencies = DaggerMainComponent_MainDependenciesComponent
+            .builder()
+            .corePreferencesApi(CorePreferencesComponent.corePreferencesComponent)
+            .locationTrackerFeatureApi(LocationTrackerFeatureComponent.locationTrackerFeatureComponent)
+            .build()
+        )
     }
 
     private inner class AppDependenciesImpl: AppDependencies {
@@ -53,4 +59,6 @@ class SocietySafetyApp: Application() {
     private inner class LocationTrackerDependenciesImpl: LocationTrackerDependencies {
         override val applicationContext: Context = this@SocietySafetyApp
     }
+
+    // TODO what to do with whese components when application is destroyed?
 }

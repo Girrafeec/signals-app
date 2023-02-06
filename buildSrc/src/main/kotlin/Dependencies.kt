@@ -95,4 +95,8 @@ class Dependencies {
         const val easyPermissions = "pub.devrel:easypermissions:${Versions.easyPermissionsVersion}"
     }
 
+    object OSMDroid {
+        const val osmDroid = "org.osmdroid:osmdroid-android:${Versions.osmDroid}"
+    }
+
 }

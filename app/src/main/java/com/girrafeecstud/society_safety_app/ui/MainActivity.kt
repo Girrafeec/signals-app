@@ -43,18 +43,20 @@ class MainActivity : AppCompatActivity() {
 
         // Choose start destination
         mainViewModel.requestUserAuthorizedStatus()
-        mainViewModel.getUserAuthorizedStatus().observe(this) { isUserAuthorized ->
-            when (isUserAuthorized) {
-                false -> {
-                    navGraph.setStartDestination(R.id.authFlowFragment)
-                    navController.graph = navGraph //TODO исправить и добавить как-то ожидание
-                }
-                true -> {
-                    navGraph.setStartDestination(R.id.mainFlowFragment)
-                    navController.graph = navGraph
-                }
-            }
-        }
+//        mainViewModel.getUserAuthorizedStatus().observe(this) { isUserAuthorized ->
+//            when (isUserAuthorized) {
+//                false -> {
+//                    navGraph.setStartDestination(R.id.authFlowFragment)
+//                    navController.graph = navGraph //TODO исправить и добавить как-то ожидание
+//                }
+//                true -> {
+//                    navGraph.setStartDestination(R.id.mainFlowFragment)
+//                    navController.graph = navGraph
+//                }
+//            }
+//        }
+        navGraph.setStartDestination(R.id.mainFlowFragment)
+        navController.graph = navGraph
 
 
     }

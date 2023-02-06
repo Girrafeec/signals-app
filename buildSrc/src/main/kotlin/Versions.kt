@@ -44,5 +44,7 @@ object Versions {
 
     const val gmsMaps = "17.0.0"
 
-    const val gmsLocation = "17.0.0"
+    const val gmsLocation = "21.0.1"
+
+    const val osmDroid = "6.1.13"
 }
