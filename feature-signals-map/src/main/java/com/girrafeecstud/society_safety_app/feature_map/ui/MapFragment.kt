@@ -1,11 +1,7 @@
 package com.girrafeecstud.society_safety_app.feature_map.ui
 
-import android.app.ActivityManager
 import android.content.Context
-import android.content.Context.ACTIVITY_SERVICE
 import android.content.Context.MODE_PRIVATE
-import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,8 +21,8 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.osmdroid.config.Configuration
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
-import org.osmdroid.util.GeoPoint
-import java.util.*
+import org.osmdroid.views.CustomZoomButtonsController
+import org.osmdroid.views.MapView
 import javax.inject.Inject
 
 class MapFragment : BaseFragment() {
@@ -44,6 +40,10 @@ class MapFragment : BaseFragment() {
     private val signalsMapViewModel: SignalsMapViewModel by viewModels {
         mainViewModelFactory
     }
+
+    private val currentLocationOverlay = CurrentLocationOverlay()
+
+    private var isFirstLocationOverlay = true
 
     override fun onAttach(context: Context) {
         MainComponent.mainComponent.injectMap(this)
@@ -72,13 +72,16 @@ class MapFragment : BaseFragment() {
         startLocationTracker()
 
         registerObservers()
+        setListeners()
     }
 
     override fun onPause() {
+        binding.signalsMapView.onPause()
         super.onPause()
     }
 
     override fun onResume() {
+        binding.signalsMapView.onResume()
         super.onResume()
     }
 
@@ -86,6 +89,22 @@ class MapFragment : BaseFragment() {
         //TODO читать больше про настройку карт
         Configuration.getInstance().load(requireActivity().applicationContext, requireActivity().getSharedPreferences("society-safety-app", MODE_PRIVATE))
         binding.signalsMapView.setTileSource(TileSourceFactory.MAPNIK)
+        // Disabling built-in zoom controls
+        binding.signalsMapView.zoomController.setVisibility(CustomZoomButtonsController.Visibility.NEVER)
+        // Setting zooming map with fingers
+        binding.signalsMapView.setMultiTouchControls(true)
+        // Set default zoom levels
+        binding.signalsMapView.maxZoomLevel = 20.0
+        binding.signalsMapView.minZoomLevel = 4.0
+        binding.signalsMapView.controller.setZoom(4.0)
+//        // Remove vertical repeating and allow horizontal repeating
+        binding.signalsMapView.isHorizontalMapRepetitionEnabled = true
+        binding.signalsMapView.isVerticalMapRepetitionEnabled = false
+        binding.signalsMapView.setScrollableAreaLimitLatitude(
+            MapView.getTileSystem().maxLatitude,
+            MapView.getTileSystem().minLatitude,
+            0
+        )
     }
 
     private fun requestLocationPermissions() {
@@ -98,12 +117,13 @@ class MapFragment : BaseFragment() {
         locationTrackerEngine.startLocationTracker(context = requireActivity().applicationContext)
     }
 
-    private fun registerObservers() {
-////        signalsMapViewModel.getData()
-//        signalsMapViewModel.location.observe(viewLifecycleOwner) {
-//            setLocationOnMap(location = it)
-//        }
+    private fun setListeners() {
+        binding.currentLocationButton.setOnClickListener { animateToCurrentLocation() }
+        binding.zoomInButton.setOnClickListener { zoomInMap() }
+        binding.zoomOutButton.setOnClickListener { zoomOutMap() }
+    }
 
+    private fun registerObservers() {
         // TODO do something with result because it may become too complicated to process result here
         lifecycleScope.launchWhenStarted {
             signalsMapViewModel.location
@@ -125,11 +145,26 @@ class MapFragment : BaseFragment() {
 
     // TODO делать что-то с null safety
     private fun setLocationOnMap(location: UserLocation?) {
-        val currentLocation = GeoPoint(location?.latitude!!, location?.longitude!!)
-        val mapController = binding.signalsMapView.controller
-        mapController.setZoom(17.5)
-//        mapController.setCenter(currentLocation)
-        mapController.animateTo(currentLocation)
+        currentLocationOverlay.setLocation(location = location)
+        binding.signalsMapView.overlays.add(currentLocationOverlay)
+//        binding.signalsMapView.invalidate()
+        if (isFirstLocationOverlay) {
+            animateToCurrentLocation()
+            isFirstLocationOverlay = false
+        }
+    }
+
+    private fun zoomInMap() {
+        binding.signalsMapView.controller.zoomIn()
+    }
+
+    private fun zoomOutMap() {
+        binding.signalsMapView.controller.zoomOut()
+    }
+
+    private fun animateToCurrentLocation() {
+        binding.signalsMapView.controller.animateTo(currentLocationOverlay.geoPoint)
+        binding.signalsMapView.controller.setZoom(17.5)
     }
 
 }
