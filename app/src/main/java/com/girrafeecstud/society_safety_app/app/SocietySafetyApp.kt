@@ -12,8 +12,13 @@ import com.girrafeecstud.society_safety_app.di.AppDependencies
 import com.girrafeecstud.society_safety_app.di.DaggerAppComponent
 import com.girrafeecstud.society_safety_app.feature_map.di.DaggerMainComponent_MainDependenciesComponent
 import com.girrafeecstud.society_safety_app.feature_map.di.MainComponent
+import com.girrafeecstud.society_safety_app.feature_signals.di.DaggerSignalsFeatureComponent_SignalsFeatureDependenciesComponent
+import com.girrafeecstud.society_safety_app.feature_signals.di.SignalsFeatureComponent
 import com.girrafeecstud.society_safety_app.location_tracker_impl.di.LocationTrackerFeatureComponent
 import com.girrafeecstud.society_safety_app.location_tracker_impl.di.dependencies.LocationTrackerDependencies
+import com.girrafeecstud.sos_signal_api.di.SosSignalFeatureApi
+import com.girrafeecstud.sos_signal_impl.di.SosSignalFeatureComponent
+import com.girrafeecstud.sos_signal_impl.di.dependencies.SosSignalDependencies
 
 class SocietySafetyApp : Application() {
 
@@ -41,6 +46,13 @@ class SocietySafetyApp : Application() {
             .locationTrackerFeatureApi(LocationTrackerFeatureComponent.locationTrackerFeatureComponent)
             .build()
         )
+        SosSignalFeatureComponent.init(dependencies = SosSignalPedendenciesImpl())
+        // TODO how to reset class?
+        SignalsFeatureComponent.init(dependencies = DaggerSignalsFeatureComponent_SignalsFeatureDependenciesComponent
+            .builder()
+            .sosSignalFeatureApi(SosSignalFeatureComponent.sosSignalFeatureComponent)
+            .build()
+        )
     }
 
     private inner class AppDependenciesImpl: AppDependencies {
@@ -57,6 +69,10 @@ class SocietySafetyApp : Application() {
     }
 
     private inner class LocationTrackerDependenciesImpl: LocationTrackerDependencies {
+        override val applicationContext: Context = this@SocietySafetyApp
+    }
+
+    private inner class SosSignalPedendenciesImpl: SosSignalDependencies {
         override val applicationContext: Context = this@SocietySafetyApp
     }
 

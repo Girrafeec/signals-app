@@ -2,6 +2,7 @@ package com.girrafeecstud.society_safety_app.feature_map.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
@@ -61,13 +62,16 @@ class MainFlowFragment: BaseFlowFragment(
         super.onViewCreated(view, savedInstanceState)
 
         binding.mainActionBar.logOutImgBtn.setOnClickListener { logOut() }
+        setListeners()
     }
-
-
 
     // TODO добавить что-то?
     override fun setUpNavigation() {
 
+    }
+
+    override fun setListeners() {
+        binding.sosBtn.setOnClickListener { openSosFragment() }
     }
 
     private fun logOut() {
@@ -76,6 +80,13 @@ class MainFlowFragment: BaseFlowFragment(
             .fromUri("android-app://com.girrafeecstud.society_safety_app/auth_flow_fragment".toUri())
             .build()
         //navController.navigate(request)
+        findNavController().navigate(request)
+    }
+
+    private fun openSosFragment() {
+        val request = NavDeepLinkRequest.Builder
+            .fromUri("android-app://com.girrafeecstud.society_safety_app/signals_flow_fragment".toUri())
+            .build()
         findNavController().navigate(request)
     }
 

@@ -74,4 +74,7 @@ dependencies {
     implementation(project(":feature-signals-map"))
     implementation(project(":feature-location-tracker-api"))
     implementation(project(":feature-location-tracker-impl"))
+    implementation(project(":feature-signals"))
+    implementation(project(":feature-sos-signal-api"))
+    implementation(project(":feature-sos-signal-impl"))
 }

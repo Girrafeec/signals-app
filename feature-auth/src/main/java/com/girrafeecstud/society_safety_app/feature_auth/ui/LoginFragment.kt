@@ -7,14 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.girrafeecstud.society_safety_app.core_base.presentation.base.MainState
 import com.girrafeecstud.society_safety_app.core_base.presentation.base.MainViewModelFactory
 import com.girrafeecstud.society_safety_app.core_base.ui.base.BaseFragment
 import com.girrafeecstud.society_safety_app.feature_auth.databinding.FragmentLoginBinding
-import com.girrafeecstud.society_safety_app.feature_auth.di.AuthComponent
 import com.girrafeecstud.society_safety_app.feature_auth.presentation.LoginComponentViewModel
 import com.girrafeecstud.society_safety_app.feature_auth.presentation.LoginViewModel
 import javax.inject.Inject
@@ -58,7 +56,7 @@ class LoginFragment : BaseFragment() {
         binding.loginBtn.setOnClickListener { loginButtonClickListener() }
         binding.createAccountBtn.setOnClickListener { createAccountBtnListener() }
 
-        subscribeObservers()
+        registerObservers()
     }
 
     private fun loginButtonClickListener() {
@@ -72,7 +70,7 @@ class LoginFragment : BaseFragment() {
         (parentFragment?.parentFragment as AuthFlowFragment).openRegistrationFragment()
     }
 
-    override fun subscribeObservers() {
+    override fun registerObservers() {
 
         loginViewModel.getState().observe(viewLifecycleOwner) { state ->
             when (state) {

@@ -26,4 +26,6 @@ abstract class BaseFlowFragment constructor(
     }
 
     protected open fun setUpNavigation() {}
+
+    protected open fun setListeners() {}
 }

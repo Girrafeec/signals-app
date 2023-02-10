@@ -55,9 +55,12 @@ class MainActivity : AppCompatActivity() {
 //                }
 //            }
 //        }
+
         navGraph.setStartDestination(R.id.mainFlowFragment)
         navController.graph = navGraph
 
+//        navGraph.setStartDestination(R.id.signalsFlowFragment)
+//        navController.graph = navGraph
 
     }
 

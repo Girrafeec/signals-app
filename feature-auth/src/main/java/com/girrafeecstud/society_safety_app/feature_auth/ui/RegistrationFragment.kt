@@ -56,7 +56,7 @@ class RegistrationFragment : BaseFragment() {
         binding.registrationBtn.setOnClickListener { registrationButtonListener() }
         binding.openLoginFragmentBtn.setOnClickListener { signUpButtonListener() }
 
-        subscribeObservers()
+        registerObservers()
     }
 
     private fun registrationButtonListener() {
@@ -68,7 +68,7 @@ class RegistrationFragment : BaseFragment() {
         )
     }
 
-    override fun subscribeObservers() {
+    override fun registerObservers() {
 
         registrationViewModel.getState().observe(viewLifecycleOwner) { state ->
             when (state) {

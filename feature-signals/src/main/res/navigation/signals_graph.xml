@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/signals_graph"
+    app:startDestination="@id/sos_signal_fragment">
+
+    <action
+        android:id="@+id/action_global_sos_signal_fragment"
+        app:destination="@id/sos_signal_fragment"/>
+
+    <fragment
+        android:id="@+id/sos_signal_fragment"
+        android:name="com.girrafeecstud.society_safety_app.feature_signals.ui.SosSignalFragment"
+        android:label="SosSignalFragment"
+        tools:layout="@layout/fragment_sos_signal"/>
+
+</navigation>

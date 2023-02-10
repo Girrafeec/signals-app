@@ -3,6 +3,7 @@ package com.girrafeecstud.society_safety_app.feature_map.ui
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -117,13 +118,13 @@ class MapFragment : BaseFragment() {
         locationTrackerEngine.startLocationTracker(context = requireActivity().applicationContext)
     }
 
-    private fun setListeners() {
+    override fun setListeners() {
         binding.currentLocationButton.setOnClickListener { animateToCurrentLocation() }
         binding.zoomInButton.setOnClickListener { zoomInMap() }
         binding.zoomOutButton.setOnClickListener { zoomOutMap() }
     }
 
-    private fun registerObservers() {
+    override fun registerObservers() {
         // TODO do something with result because it may become too complicated to process result here
         lifecycleScope.launchWhenStarted {
             signalsMapViewModel.location
@@ -140,7 +141,6 @@ class MapFragment : BaseFragment() {
                 }
                 .launchIn(lifecycleScope)
         }
-
     }
 
     // TODO делать что-то с null safety
