@@ -7,12 +7,17 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.girrafeecstud.society_safety_app.R
 import com.girrafeecstud.society_safety_app.app.SocietySafetyApp
-import com.girrafeecstud.society_safety_app.core_base.presentation.base.MainViewModelFactory
 import com.girrafeecstud.society_safety_app.databinding.ActivityMainBinding
+import com.girrafeecstud.society_safety_app.navigation.DefaultMapsFlowScreen
+import com.girrafeecstud.society_safety_app.navigation.destination.FlowDestination
+import com.girrafeecstud.society_safety_app.navigation.ToFlowNavigable
 import com.girrafeecstud.society_safety_app.presentation.MainViewModel
-import javax.inject.Inject
+import com.girrafeecstud.society_safety_app.navigation.FlowNavigator
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ToFlowNavigable {
+
+    // TODO DI
+    private val flowNavigator = FlowNavigator()
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
@@ -39,7 +44,13 @@ class MainActivity : AppCompatActivity() {
 
         navController = navHostFragment.navController
 
-        val navGraph = navController.navInflater.inflate(R.navigation.app_graph)
+        flowNavigator.setNavController(navController)
+
+        flowNavigator.setStartDestination(
+            destination = FlowDestination.MapsFlow(
+                _defaultScreen = DefaultMapsFlowScreen.SIGNALS_MAP_SCREEN
+            )
+        )
 
         // Choose start destination
         mainViewModel.requestUserAuthorizedStatus()
@@ -56,12 +67,9 @@ class MainActivity : AppCompatActivity() {
 //            }
 //        }
 
-        navGraph.setStartDestination(R.id.mainFlowFragment)
-        navController.graph = navGraph
-
-//        navGraph.setStartDestination(R.id.signalsFlowFragment)
-//        navController.graph = navGraph
-
     }
 
+    override fun navigateToScreen(destination: FlowDestination) {
+        flowNavigator.navigateToDestination(destination = destination)
+    }
 }

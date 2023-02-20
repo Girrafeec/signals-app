@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/maps_flow"
+    app:startDestination="@id/map_fragment">
+
+    <argument
+        android:name="defaultScreen"
+        app:argType="com.girrafeecstud.society_safety_app.navigation.DefaultMapsFlowScreen"
+        android:defaultValue="SIGNALS_MAP_SCREEN"/>
+
+    <action
+        android:id="@+id/action_map_fragment"
+        app:destination="@id/map_fragment" />
+
+<!--    <action-->
+<!--        android:id="@+id/action_global_sos_signal_map_fragment"-->
+<!--        app:destination="@id/sos_signal_map_fragment"-->
+<!--        />-->
+
+    <fragment
+        android:id="@+id/map_fragment"
+        android:name="com.girrafeecstud.society_safety_app.feature_map.ui.MapFragment"
+        android:label="FragmentMap"
+        tools:layout="@layout/fragment_map" />
+
+    <fragment
+        android:id="@+id/sos_signal_map_fragment"
+        android:name="com.girrafeecstud.society_safety_app.feature_map.ui.SosSignalMapFragment"
+        android:label="fragment_sos_signal_map"
+        tools:layout="@layout/fragment_sos_signal_map">
+        <deepLink
+            app:uri="android-app://com.girrafeecstud.society_safety_app/sos_signal_fragment"/>
+    </fragment>
+
+</navigation>

@@ -9,6 +9,9 @@ import com.girrafeecstud.society_safety_app.core_base.ui.base.BaseFlowFragment
 import com.girrafeecstud.society_safety_app.feature_signals.R
 import com.girrafeecstud.society_safety_app.feature_signals.databinding.FragmentSignalsFlowBinding
 import com.girrafeecstud.society_safety_app.feature_signals.di.SignalsFeatureComponent
+import com.girrafeecstud.society_safety_app.navigation.DefaultMapsFlowScreen
+import com.girrafeecstud.society_safety_app.navigation.ToFlowNavigable
+import com.girrafeecstud.society_safety_app.navigation.destination.FlowDestination
 
 class SignalsFlowFragment : BaseFlowFragment(
     R.id.nav_host_fragment_signals_container
@@ -41,8 +44,15 @@ class SignalsFlowFragment : BaseFlowFragment(
         super.onViewCreated(view, savedInstanceState)
     }
 
-    override fun setUpNavigation() {
-        super.setUpNavigation()
+    override fun setUpNavigation() {}
+
+    fun openSosMapScreen() {
+        (requireActivity() as ToFlowNavigable)
+            .navigateToScreen(
+                destination = FlowDestination.MapsFlow(
+                    _defaultScreen = DefaultMapsFlowScreen.SOS_SIGNAL_MAP_SCREEN
+                )
+            )
     }
 
 

@@ -40,13 +40,14 @@ class SocietySafetyApp : Application() {
         CoreBaseComponent.init()
         LocationTrackerFeatureComponent.init(LocationTrackerDependenciesImpl())
         // TODO how to reset class?
+        SosSignalFeatureComponent.init(dependencies = SosSignalPedendenciesImpl())
         MainComponent.init(dependencies = DaggerMainComponent_MainDependenciesComponent
             .builder()
             .corePreferencesApi(CorePreferencesComponent.corePreferencesComponent)
             .locationTrackerFeatureApi(LocationTrackerFeatureComponent.locationTrackerFeatureComponent)
+            .sosSignalFeatureApi(SosSignalFeatureComponent.sosSignalFeatureComponent)
             .build()
         )
-        SosSignalFeatureComponent.init(dependencies = SosSignalPedendenciesImpl())
         // TODO how to reset class?
         SignalsFeatureComponent.init(dependencies = DaggerSignalsFeatureComponent_SignalsFeatureDependenciesComponent
             .builder()

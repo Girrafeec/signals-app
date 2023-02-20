@@ -1,7 +1,13 @@
 object Versions {
 
+    // Gradle
+    const val androidGradlePluginVersion = "7.2.2"
+
+    // Navigation safe args
+    const val navigationSafeArgsPluginVersion = "2.3.2"
+
     // Kotlin
-    const val kotlinVersion = "1.6.10"
+    const val kotlinVersion = "1.7.10"
 
     // Google
     const val materialVersion = "1.6.1"

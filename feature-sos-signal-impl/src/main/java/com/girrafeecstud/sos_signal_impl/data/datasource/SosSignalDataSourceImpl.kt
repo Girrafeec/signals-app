@@ -16,6 +16,7 @@ class SosSignalDataSourceImpl @Inject constructor(
         userToken: String
     ): Flow<BusinessResult<Nothing>> = flow {
         Log.i("tag", "sos signal has been sent")
+        emit(BusinessResult.Success(_data = null))
     }
 
     override fun updateSosSignal(

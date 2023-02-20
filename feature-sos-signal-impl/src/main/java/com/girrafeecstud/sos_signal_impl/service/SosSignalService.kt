@@ -12,6 +12,7 @@ import android.util.Log
 import com.girrafeecstud.sos_signal_api.domain.SendSosSignalUseCase
 import com.girrafeecstud.sos_signal_api.domain.entity.SosSignal
 import com.girrafeecstud.sos_signal_api.domain.entity.SosSignalType
+import com.girrafeecstud.sos_signal_impl.R
 import com.girrafeecstud.sos_signal_impl.di.SosSignalFeatureComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,6 +25,10 @@ import javax.inject.Inject
 class SosSignalService : Service() {
 
     private val binder = SosSignalServiceBinder()
+
+    private var _sosSignalNotification: Notification.Builder? = null
+
+    private val sosSignalNotification get() = _sosSignalNotification!!
 
    @Inject
     lateinit var sendSosSignalUseCase: SendSosSignalUseCase
@@ -39,8 +44,24 @@ class SosSignalService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
-        val notification: Notification.Builder
+        setupNotification()
 
+        startForeground(999, sosSignalNotification.build())
+
+        return START_STICKY
+    }
+
+    override fun onBind(p0: Intent?): IBinder {
+        Log.i("tag", "on bind")
+        return binder
+    }
+
+    override fun onUnbind(intent: Intent?): Boolean {
+        Log.i("tag", "on unbind")
+        return super.onUnbind(intent)
+    }
+
+    private fun setupNotification() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val CHANNEL_ID = "Foreground Sos Signal"
             val notificationChannel = NotificationChannel(
@@ -49,32 +70,16 @@ class SosSignalService : Service() {
                 NotificationManager.IMPORTANCE_HIGH
             )
             getSystemService(NotificationManager::class.java).createNotificationChannel(notificationChannel)
-            notification = Notification.Builder(this, CHANNEL_ID)
-                .setContentText("sos signal description")
+            _sosSignalNotification = Notification.Builder(this, CHANNEL_ID)
                 .setContentTitle("Sos signal sending")
         }
         else {
-            notification = Notification.Builder(this)
-                .setContentText("sos signal description")
+            _sosSignalNotification = Notification.Builder(this)
                 .setContentTitle("Sos signal sending")
         }
-
-        startSosSignal()
-        startForeground(999, notification.build())
-
-        return START_STICKY
     }
 
-    override fun onBind(p0: Intent?): IBinder? {
-        return binder
-    }
-
-    private fun startSosSignal() {
-        val sosSignal = SosSignal(
-            signalTitle = "Default title",
-            signalDescription = "Default description",
-            signalType = SosSignalType.DEFAULT_SOS_SIGNAL
-        )
+    private fun sendSosSignal(sosSignal: SosSignal) {
         val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
         scope.launch {
             sendSosSignalUseCase(sosSignal = sosSignal)
@@ -82,6 +87,14 @@ class SosSignalService : Service() {
                     Log.i("tag", "sos signal result collected")
                 }
         }
+    }
+
+    fun startSosSignal(sosSignal: SosSignal) {
+        sendSosSignal(sosSignal = sosSignal)
+    }
+
+    fun stopSosSignal() {
+
     }
 
     inner class SosSignalServiceBinder : Binder() {

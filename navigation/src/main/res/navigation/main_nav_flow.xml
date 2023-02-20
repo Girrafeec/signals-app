@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_nav_flow"
+    app:startDestination="@id/maps_flow_fragment">
+
+    <!--TODO start destination with loading screen?-->
+
+    <include
+        app:graph="@navigation/auth_flow"/>
+
+    <include
+        app:graph="@navigation/maps_flow"/>
+
+    <include
+        app:graph="@navigation/signals_flow"/>
+
+    <action
+        android:id="@+id/action_global_auth_flow"
+        app:destination="@+id/auth_flow_fragment"
+        app:popUpTo="@navigation/main_nav_flow"/>
+
+    <action
+        android:id="@+id/action_global_maps_flow"
+        app:destination="@+id/maps_flow_fragment"
+        app:popUpTo="@navigation/main_nav_flow">
+
+        <argument
+            android:name="defaultScreen"
+            app:argType="com.girrafeecstud.society_safety_app.navigation.DefaultMapsFlowScreen"
+            android:defaultValue="SIGNALS_MAP_SCREEN"/>
+
+    </action>
+
+    <action
+        android:id="@+id/action_global_signals_flow"
+        app:destination="@+id/signals_flow_fragment"
+        app:popUpTo="@navigation/main_nav_flow">
+
+        <argument
+            android:name="defaultScreen"
+            app:argType="com.girrafeecstud.society_safety_app.navigation.DefaultSignalsFlowScreen"
+            android:defaultValue="SOS_SIGNAL_SCREEN"/>
+
+    </action>
+
+    <fragment
+        android:id="@+id/auth_flow_fragment"
+        android:name="com.girrafeecstud.society_safety_app.feature_auth.ui.AuthFlowFragment"/>
+
+    <fragment
+        android:id="@+id/maps_flow_fragment"
+        android:name="com.girrafeecstud.society_safety_app.feature_map.ui.MapsFlowFragment">
+
+        <argument
+            android:name="defaultScreen"
+            app:argType="com.girrafeecstud.society_safety_app.navigation.DefaultMapsFlowScreen"
+            android:defaultValue="SIGNALS_MAP_SCREEN"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/signals_flow_fragment"
+        android:name="com.girrafeecstud.society_safety_app.feature_signals.ui.SignalsFlowFragment">
+
+        <argument
+            android:name="defaultScreen"
+            app:argType="com.girrafeecstud.society_safety_app.navigation.DefaultSignalsFlowScreen"
+            android:defaultValue="SOS_SIGNAL_SCREEN"/>
+
+    </fragment>
+
+</navigation>

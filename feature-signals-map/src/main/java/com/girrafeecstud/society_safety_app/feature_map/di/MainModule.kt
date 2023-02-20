@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.girrafeecstud.society_safety_app.core_base.di.base.ViewModelKey
 import com.girrafeecstud.society_safety_app.feature_map.presentation.SettingsViewModel
 import com.girrafeecstud.society_safety_app.feature_map.presentation.SignalsMapViewModel
+import com.girrafeecstud.society_safety_app.feature_map.presentation.SosSignalMapViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -21,4 +22,8 @@ abstract class MainModule {
     @ViewModelKey(SignalsMapViewModel::class)
     abstract fun bindSignalsMapViewModel(impl: SignalsMapViewModel): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(SosSignalMapViewModel::class)
+    abstract fun bindSosSignalMapViewModel(impl: SosSignalMapViewModel): ViewModel
 }

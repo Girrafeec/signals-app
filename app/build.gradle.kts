@@ -1,8 +1,9 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
+    id(Plugins.androidApplication)
+    id(Plugins.kotlinAndroid)
+    id(Plugins.kotlinKapt)
     id("kotlin-android-extensions")
+    id(Plugins.safeArgs)
 }
 
 android {
@@ -70,6 +71,7 @@ dependencies {
     implementation(project(":core-network"))
     implementation(project(":core-base"))
     implementation(project(":core-preferences"))
+    implementation(project(":navigation"))
     implementation(project(":feature-auth"))
     implementation(project(":feature-signals-map"))
     implementation(project(":feature-location-tracker-api"))
