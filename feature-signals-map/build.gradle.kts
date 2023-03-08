@@ -100,6 +100,7 @@ dependencies {
     implementation(project(":core-network"))
     implementation(project(":core-preferences"))
     implementation(project(":core-base"))
+    implementation(project(":event-bus"))
     implementation(project(":navigation"))
     implementation(project(":feature-location-tracker-api"))
     implementation(project(":feature-sos-signal-api"))

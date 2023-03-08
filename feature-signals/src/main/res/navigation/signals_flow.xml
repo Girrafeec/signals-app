@@ -7,7 +7,9 @@
 
     <action
         android:id="@+id/action_global_sos_signal_fragment"
-        app:destination="@id/sos_signal_fragment"/>
+        app:destination="@id/sos_signal_fragment"
+        app:popUpTo="@id/sos_signal_fragment"
+        app:popUpToInclusive="true"/>
 
     <fragment
         android:id="@+id/sos_signal_fragment"

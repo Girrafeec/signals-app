@@ -1,0 +1,3 @@
+package com.girrafeecstud.society_safety_app.core_base.presentation.base
+
+interface UiState

@@ -9,29 +9,42 @@ import android.os.Binder
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
+import com.girrafeecstud.society_safety_app.core_base.domain.base.BusinessResult
+import com.girrafeecstud.sos_signal_api.domain.DisableSosSignalUseCase
 import com.girrafeecstud.sos_signal_api.domain.SendSosSignalUseCase
+import com.girrafeecstud.sos_signal_api.domain.UpdateSosSignalUseCase
 import com.girrafeecstud.sos_signal_api.domain.entity.SosSignal
-import com.girrafeecstud.sos_signal_api.domain.entity.SosSignalType
-import com.girrafeecstud.sos_signal_impl.R
+import com.girrafeecstud.sos_signal_api.engine.SosSignalState
 import com.girrafeecstud.sos_signal_impl.di.SosSignalFeatureComponent
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.launch
+import com.girrafeecstud.sos_signal_impl.utils.SosSignalUtils
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 class SosSignalService : Service() {
 
+    companion object {
+        private var _sosSignalState = MutableStateFlow<SosSignalState>(SosSignalState.SosSignalDisabled)
+
+        val sosSignalState = _sosSignalState.asStateFlow()
+    }
+
     private val binder = SosSignalServiceBinder()
+
+    private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     private var _sosSignalNotification: Notification.Builder? = null
 
     private val sosSignalNotification get() = _sosSignalNotification!!
 
-   @Inject
+    @Inject
     lateinit var sendSosSignalUseCase: SendSosSignalUseCase
+
+    @Inject
+    lateinit var updateSosSignalUseCase: UpdateSosSignalUseCase
+
+    @Inject
+    lateinit var disableSosSignalUseCase: DisableSosSignalUseCase
 
     override fun onCreate() {
         SosSignalFeatureComponent.sosSignalFeatureComponent.inject(this)
@@ -42,18 +55,39 @@ class SosSignalService : Service() {
         super.onDestroy()
     }
 
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-
-        setupNotification()
-
-        startForeground(999, sosSignalNotification.build())
-
-        return START_STICKY
-    }
-
-    override fun onBind(p0: Intent?): IBinder {
+    override fun onBind(intent: Intent): IBinder? {
         Log.i("tag", "on bind")
         return binder
+    }
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        intent?.let {
+            when (it.action) {
+                SosSignalUtils.ACTION_SEND_SOS_SIGNAL -> {
+                    _sosSignalState.update { SosSignalState.SosSignalPreparing }
+                    setupNotification()
+                    startForeground(999, sosSignalNotification.build())
+                    registerObservers()
+                    val sosSignal = it.getParcelableExtra<SosSignal>("sosSignal")
+                    // TODO dealing with null safety?
+                    if (sosSignal != null) {
+                        sendSosSignal(sosSignal)
+                    }
+                }
+                SosSignalUtils.ACTION_UPDATE_SOS_SIGNAL -> {
+                    val sosSignal = it.getParcelableExtra<SosSignal>("sosSignal")
+                    // TODO dealing with null safety?
+                    if (sosSignal != null) {
+                        updateSosSignal(sosSignal)
+                    }
+                }
+                SosSignalUtils.ACTION_DISABLE_SOS_SIGNAL -> {
+                    disableSosSignal()
+                }
+            }
+        }
+
+        return START_STICKY
     }
 
     override fun onUnbind(intent: Intent?): Boolean {
@@ -79,21 +113,97 @@ class SosSignalService : Service() {
         }
     }
 
+    private fun registerObservers() {
+
+    }
+
     private fun sendSosSignal(sosSignal: SosSignal) {
-        val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
-        scope.launch {
+        serviceScope.launch {
             sendSosSignalUseCase(sosSignal = sosSignal)
-                .collect {
-                    Log.i("tag", "sos signal result collected")
+                .onStart {
+                    _sosSignalState.update { SosSignalState.SosSignalSending }
+                }
+                .collect { result ->
+                    when (result) {
+                        is BusinessResult.Success -> {
+                            _sosSignalState.update {
+                                SosSignalState.SosSignalSuccess(sosSignal = sosSignal)
+                            }
+                        }
+                        is BusinessResult.Error -> {
+                            _sosSignalState.update {
+                                SosSignalState.SosSignalError(sosSignal = sosSignal)
+                            }
+                            trySendSosSignal(sosSignal = sosSignal)
+                        }
+                        is BusinessResult.Exception -> {
+                            _sosSignalState.update {
+                                SosSignalState.SosSignalError(sosSignal = sosSignal)
+                            }
+                            trySendSosSignal(sosSignal = sosSignal)
+                        }
+                    }
+            }
+        }
+    }
+
+    private fun updateSosSignal(sosSignal: SosSignal) {
+        serviceScope.launch {
+            updateSosSignalUseCase(sosSignal = sosSignal)
+                .onStart {
+                    _sosSignalState.update { SosSignalState.SosSignalUpdating }
+                }
+                .collect { result ->
+                    when (result) {
+                        is BusinessResult.Success -> {
+                            _sosSignalState.update {
+                                SosSignalState.SosSignalSuccess(sosSignal = sosSignal)
+                            }
+                        }
+                        is BusinessResult.Error -> {
+                            _sosSignalState.update {
+                                SosSignalState.SosSignalError(sosSignal = sosSignal)
+                            }
+                            trySendSosSignal(sosSignal = sosSignal)
+                        }
+                        is BusinessResult.Exception -> {
+                            _sosSignalState.update {
+                                SosSignalState.SosSignalError(sosSignal = sosSignal)
+                            }
+                            trySendSosSignal(sosSignal = sosSignal)
+                        }
+                    }
                 }
         }
     }
 
-    fun startSosSignal(sosSignal: SosSignal) {
-        sendSosSignal(sosSignal = sosSignal)
+    private fun disableSosSignal() {
+        serviceScope.launch {
+            disableSosSignalUseCase()
+                .onStart {
+                    _sosSignalState.update { SosSignalState.SosSignalDisabling }
+                }
+                .collect { result ->
+                    when (result) {
+                        is BusinessResult.Success -> {
+                            _sosSignalState.update { SosSignalState.SosSignalDisabled }
+                            stopForeground(true)
+                            stopSelf()
+                        }
+                        is BusinessResult.Error -> {}
+                        is BusinessResult.Exception -> {}
+                    }
+                }
+        }
     }
 
-    fun stopSosSignal() {
+    // TODO method for waiting server connection if sos signal
+    private fun trySendSosSignal(sosSignal: SosSignal) {
+
+    }
+
+    // TODO method for waiting connection for disabling sos signal
+    private fun tryDisableSosSignal() {
 
     }
 

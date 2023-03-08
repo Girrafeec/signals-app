@@ -5,8 +5,15 @@ import com.girrafeecstud.society_safety_app.core_network.data.di.CoreNetworkComp
 import com.girrafeecstud.society_safety_app.feature_auth.di.AuthComponent
 import com.girrafeecstud.society_safety_app.feature_auth.di.DaggerAuthComponent
 import com.girrafeecstud.society_safety_app.feature_auth.di.DaggerAuthComponent_AuthDependenciesComponent
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
-class AuthComponentViewModel : BaseViewModel() {
+class AuthComponentViewModel : BaseViewModel<Any>() {
+    override var _state: MutableStateFlow<Any>
+        get() = TODO("Not yet implemented")
+        set(value) {}
+    override val state: StateFlow<Any>
+        get() = TODO("Not yet implemented")
 
 
     //TODO решить нужна ли эта вьюмодель

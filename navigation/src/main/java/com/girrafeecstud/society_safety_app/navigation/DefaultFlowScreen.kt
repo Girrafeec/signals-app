@@ -1,3 +1,3 @@
 package com.girrafeecstud.society_safety_app.navigation
 
-interface DefaultFlowScreen
+interface DefaultFlowScreen : java.io.Serializable

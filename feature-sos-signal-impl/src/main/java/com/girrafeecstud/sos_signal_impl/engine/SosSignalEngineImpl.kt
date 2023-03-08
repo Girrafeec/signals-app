@@ -8,60 +8,59 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.os.Build
 import android.os.IBinder
+import android.util.Log
 import com.girrafeecstud.sos_signal_api.domain.entity.SosSignal
 import com.girrafeecstud.sos_signal_api.engine.SosSignalEngine
+import com.girrafeecstud.sos_signal_api.engine.SosSignalState
 import com.girrafeecstud.sos_signal_impl.service.SosSignalService
+import com.girrafeecstud.sos_signal_impl.utils.SosSignalUtils
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 class SosSignalEngineImpl @Inject constructor(
-
 ) : SosSignalEngine {
 
-    private var _sosSignal: SosSignal? = null
-
-    private val sosSignal get() = _sosSignal!!
-
-    private var _sosSignalService: SosSignalService? = null
-
-    private val sosSignalService get() = _sosSignalService!!
-
-    private val serviceConnection = object : ServiceConnection {
-        override fun onServiceConnected(p0: ComponentName?, iBinder: IBinder?) {
-            val binder: SosSignalService.SosSignalServiceBinder = iBinder as SosSignalService.SosSignalServiceBinder
-            _sosSignalService = binder.getService()
-            sosSignalService.startSosSignal(sosSignal = sosSignal)
-        }
-
-        override fun onServiceDisconnected(p0: ComponentName?) {
-            _sosSignalService = null
-        }
+    override fun enableSosSignal(context: Context, sosSignal: SosSignal) {
+        // TODO?
+//        if (isSosSignalServiceRunning(context = context))
+//            return
+        sendCommandToService(context = context, sosSignal = sosSignal, action = SosSignalUtils.ACTION_SEND_SOS_SIGNAL)
     }
 
-    override fun startSosSignal(context: Context, sosSignal: SosSignal) {
-        if (isSosSignalServiceRunning(context = context))
-            return
-        this._sosSignal = sosSignal
-        val sosSignalServiceIntent = Intent(context, SosSignalService::class.java)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            context.bindService(sosSignalServiceIntent, serviceConnection, BIND_AUTO_CREATE)
-            context.startForegroundService(sosSignalServiceIntent)
-            return
-        }
-        context.bindService(sosSignalServiceIntent, serviceConnection, BIND_AUTO_CREATE)
-        context.startService(sosSignalServiceIntent)
+    override fun updateSosSignal(context: Context, sosSignal: SosSignal) =
+        sendCommandToService(context = context, sosSignal = sosSignal, action = SosSignalUtils.ACTION_UPDATE_SOS_SIGNAL)
 
-    }
+    override fun disableSosSignal(context: Context) =
+        sendCommandToService(context = context, action = SosSignalUtils.ACTION_DISABLE_SOS_SIGNAL)
 
-    override fun disableSosSignal(context: Context) {
-        sosSignalService.stopSosSignal()
-        context.unbindService(serviceConnection)
-        _sosSignalService = null
-    }
+    override suspend fun getSosSignalState(): Flow<SosSignalState> =
+        SosSignalService.sosSignalState
 
     private fun isSosSignalServiceRunning(context: Context): Boolean {
         val activityManager: ActivityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         return activityManager.getRunningServices(Integer.MAX_VALUE).any {
             it.service.className == SosSignalService::class.java.name
         }
+    }
+
+    private fun sendCommandToService(
+        context: Context,
+        sosSignal: SosSignal? = null,
+        action: String
+    ) {
+        val intent = Intent(context, SosSignalService::class.java).apply {
+            this.action = action
+            this.putExtra("sosSignal", sosSignal)
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(intent)
+            return
+        }
+        context.startService(intent)
     }
 }

@@ -10,6 +10,7 @@ import com.girrafeecstud.society_safety_app.core_preferences.di.dependencies.Cor
 import com.girrafeecstud.society_safety_app.di.AppComponent
 import com.girrafeecstud.society_safety_app.di.AppDependencies
 import com.girrafeecstud.society_safety_app.di.DaggerAppComponent
+import com.girrafeecstud.society_safety_app.event_bus.di.EventBusComponent
 import com.girrafeecstud.society_safety_app.feature_map.di.DaggerMainComponent_MainDependenciesComponent
 import com.girrafeecstud.society_safety_app.feature_map.di.MainComponent
 import com.girrafeecstud.society_safety_app.feature_signals.di.DaggerSignalsFeatureComponent_SignalsFeatureDependenciesComponent
@@ -17,6 +18,7 @@ import com.girrafeecstud.society_safety_app.feature_signals.di.SignalsFeatureCom
 import com.girrafeecstud.society_safety_app.location_tracker_impl.di.LocationTrackerFeatureComponent
 import com.girrafeecstud.society_safety_app.location_tracker_impl.di.dependencies.LocationTrackerDependencies
 import com.girrafeecstud.sos_signal_api.di.SosSignalFeatureApi
+import com.girrafeecstud.sos_signal_impl.di.DaggerSosSignalFeatureComponent_SosSignalFeatureDependenciesComponent
 import com.girrafeecstud.sos_signal_impl.di.SosSignalFeatureComponent
 import com.girrafeecstud.sos_signal_impl.di.dependencies.SosSignalDependencies
 
@@ -38,20 +40,28 @@ class SocietySafetyApp : Application() {
         CoreNetworkComponent.init(networkDependencies = NetworkDependenciesImpl())
         CorePreferencesComponent.init(preferencesDependencies = CorePreferencesDependenciesImpl())
         CoreBaseComponent.init()
+        EventBusComponent.init()
         LocationTrackerFeatureComponent.init(LocationTrackerDependenciesImpl())
         // TODO how to reset class?
-        SosSignalFeatureComponent.init(dependencies = SosSignalPedendenciesImpl())
+        SosSignalFeatureComponent.init(
+            dependencies = DaggerSosSignalFeatureComponent_SosSignalFeatureDependenciesComponent
+                .builder()
+                .eventBusApi(EventBusComponent.eventBusComponent)
+                .build()
+        )
         MainComponent.init(dependencies = DaggerMainComponent_MainDependenciesComponent
             .builder()
             .corePreferencesApi(CorePreferencesComponent.corePreferencesComponent)
             .locationTrackerFeatureApi(LocationTrackerFeatureComponent.locationTrackerFeatureComponent)
             .sosSignalFeatureApi(SosSignalFeatureComponent.sosSignalFeatureComponent)
+            .eventBusApi(EventBusComponent.eventBusComponent)
             .build()
         )
         // TODO how to reset class?
         SignalsFeatureComponent.init(dependencies = DaggerSignalsFeatureComponent_SignalsFeatureDependenciesComponent
             .builder()
             .sosSignalFeatureApi(SosSignalFeatureComponent.sosSignalFeatureComponent)
+            .eventBusApi(EventBusComponent.eventBusComponent)
             .build()
         )
     }
@@ -73,9 +83,9 @@ class SocietySafetyApp : Application() {
         override val applicationContext: Context = this@SocietySafetyApp
     }
 
-    private inner class SosSignalPedendenciesImpl: SosSignalDependencies {
-        override val applicationContext: Context = this@SocietySafetyApp
-    }
+//    private inner class SosSignalPedendenciesImpl: SosSignalDependencies {
+//        override val applicationContext: Context = this@SocietySafetyApp
+//    }
 
     // TODO what to do with whese components when application is destroyed?
 }

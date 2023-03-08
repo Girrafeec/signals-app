@@ -55,5 +55,4 @@ class SignalsFlowFragment : BaseFlowFragment(
             )
     }
 
-
 }

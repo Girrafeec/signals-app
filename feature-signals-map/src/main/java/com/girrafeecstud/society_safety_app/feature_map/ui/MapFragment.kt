@@ -47,7 +47,7 @@ class MapFragment : BaseFragment() {
     private var isFirstLocationOverlay = true
 
     override fun onAttach(context: Context) {
-        MainComponent.mainComponent.injectMap(this)
+        MainComponent.mainComponent.signalsMapComponent().build().inject(this)
         super.onAttach(context)
     }
 
@@ -126,7 +126,7 @@ class MapFragment : BaseFragment() {
 
     override fun registerObservers() {
         // TODO do something with result because it may become too complicated to process result here
-        lifecycleScope.launchWhenStarted {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             signalsMapViewModel.location
                 .onEach { result ->
                     when (result) {
@@ -139,7 +139,7 @@ class MapFragment : BaseFragment() {
                         }
                     }
                 }
-                .launchIn(lifecycleScope)
+                .launchIn(viewLifecycleOwner.lifecycleScope)
         }
     }
 

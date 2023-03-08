@@ -4,6 +4,8 @@ import com.girrafeecstud.society_safety_app.core_base.presentation.base.MainView
 import com.girrafeecstud.society_safety_app.core_network.data.di.module.NetworkModule
 import com.girrafeecstud.society_safety_app.feature_auth.di.provider.AuthComponentProvider
 import com.girrafeecstud.society_safety_app.core_base.presentation.base.di.BaseViewModelFactoryModule
+import com.girrafeecstud.sos_signal_api.engine.SosSignalEngine
+import com.girrafeecstud.sos_signal_impl.engine.SosSignalEngineImpl
 import dagger.Component
 
 @ApplicationScope
@@ -19,6 +21,8 @@ import dagger.Component
 interface AppComponent {
 
     fun mainViewModelFactody(): MainViewModelFactory
+
+    fun sosSignalEngine(): SosSignalEngineImpl
 
     @Component.Builder
     interface Builder {

@@ -71,6 +71,7 @@ dependencies {
     implementation(project(":core-network"))
     implementation(project(":core-base"))
     implementation(project(":core-preferences"))
+    implementation(project(":event-bus"))
     implementation(project(":navigation"))
     implementation(project(":feature-auth"))
     implementation(project(":feature-signals-map"))

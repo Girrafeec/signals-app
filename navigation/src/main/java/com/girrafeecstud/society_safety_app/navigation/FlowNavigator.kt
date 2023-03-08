@@ -1,5 +1,6 @@
 package com.girrafeecstud.society_safety_app.navigation
 
+import android.util.Log
 import androidx.navigation.NavController
 import com.girrafeecstud.society_safety_app.navigation.destination.FlowDestination
 import com.girrafeecstud.society_safety_app.navigation.extensions.setStartDestination
@@ -35,12 +36,18 @@ class FlowNavigator : Navigator<FlowDestination> {
                 )
             }
         }
+        Log.i("navigation", "backstack")
+        for (entry in navController?.backQueue!!)
+            Log.i("navigation entry", entry.destination.toString())
     }
 
     override fun setStartDestination(destination: FlowDestination) {
         navController?.setStartDestination(
             destination = destination, graphId = R.navigation.main_nav_flow
         )
+        Log.i("navigation", "backstack")
+        for (entry in navController?.backQueue!!)
+            Log.i("navigation entry", entry.destination.toString())
     }
 
 }

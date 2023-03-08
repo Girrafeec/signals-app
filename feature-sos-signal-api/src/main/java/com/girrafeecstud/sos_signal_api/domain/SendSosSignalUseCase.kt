@@ -6,7 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface SendSosSignalUseCase {
 
-    val result: Flow<BusinessResult<Nothing>>
-
     operator fun invoke(sosSignal: SosSignal): Flow<BusinessResult<Nothing>>
 }

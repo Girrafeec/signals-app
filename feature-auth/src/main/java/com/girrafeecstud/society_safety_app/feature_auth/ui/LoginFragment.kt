@@ -8,13 +8,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
-import com.girrafeecstud.society_safety_app.core_base.presentation.base.MainState
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.girrafeecstud.society_safety_app.core_base.presentation.base.UiState
 import com.girrafeecstud.society_safety_app.core_base.presentation.base.MainViewModelFactory
 import com.girrafeecstud.society_safety_app.core_base.ui.base.BaseFragment
 import com.girrafeecstud.society_safety_app.feature_auth.databinding.FragmentLoginBinding
 import com.girrafeecstud.society_safety_app.feature_auth.presentation.LoginComponentViewModel
 import com.girrafeecstud.society_safety_app.feature_auth.presentation.LoginViewModel
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class LoginFragment : BaseFragment() {
@@ -72,13 +79,19 @@ class LoginFragment : BaseFragment() {
 
     override fun registerObservers() {
 
-        loginViewModel.getState().observe(viewLifecycleOwner) { state ->
-            when (state) {
-                is MainState.IsLoading -> handleLoading(isLoading = state.isLoading)
-                is MainState.ErrorResult -> handleError(null)
-                is MainState.SuccessResult -> handleSuccess(null)
-            }
-        }
+//        lifecycleScope.launch {
+//            repeatOnLifecycle(Lifecycle.State.STARTED) {
+//                loginViewModel.state
+//                    .onEach { state ->
+//                        when (state) {
+//                            is UiState.Loading -> handleLoading(isLoading = true)
+//                            is UiState.Error -> handleError(null)
+//                            is UiState.Success -> handleSuccess(null)
+//                        }
+//                    }
+//                    .launchIn(lifecycleScope)
+//            }
+//        }
 
     }
 

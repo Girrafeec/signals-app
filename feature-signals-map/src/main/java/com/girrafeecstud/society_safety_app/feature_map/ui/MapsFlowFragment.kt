@@ -2,14 +2,22 @@ package com.girrafeecstud.society_safety_app.feature_map.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.girrafeecstud.society_safety_app.core_base.presentation.base.MainViewModelFactory
 import com.girrafeecstud.society_safety_app.core_base.ui.base.BaseFlowFragment
+import com.girrafeecstud.society_safety_app.event_bus.AppEvent
+import com.girrafeecstud.society_safety_app.event_bus.EventBus
 import com.girrafeecstud.society_safety_app.feature_map.MapsFlowArgs
 import com.girrafeecstud.society_safety_app.feature_map.R
 import com.girrafeecstud.society_safety_app.feature_map.databinding.FragmentMapsFlowBinding
@@ -21,6 +29,13 @@ import com.girrafeecstud.society_safety_app.feature_map.presentation.SettingsVie
 import com.girrafeecstud.society_safety_app.navigation.DefaultMapsFlowScreen
 import com.girrafeecstud.society_safety_app.navigation.ToFlowNavigable
 import com.girrafeecstud.society_safety_app.navigation.destination.FlowDestination
+import com.girrafeecstud.sos_signal_api.engine.SosSignalEngine
+import com.girrafeecstud.sos_signal_api.engine.SosSignalState
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class MapsFlowFragment: BaseFlowFragment(
@@ -34,6 +49,9 @@ class MapsFlowFragment: BaseFlowFragment(
     private var _binding: FragmentMapsFlowBinding? = null
 
     private val binding get() = _binding!!
+
+    @Inject
+    lateinit var sosSignalEngine: SosSignalEngine
 
     @Inject
     lateinit var mainViewModelFactory: MainViewModelFactory
@@ -58,11 +76,13 @@ class MapsFlowFragment: BaseFlowFragment(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.i("mapsFlow", "create view")
         _binding = FragmentMapsFlowBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onDestroyView() {
+        Log.i("mapsFlow", "destroy view")
         super.onDestroyView()
         _binding = null
     }
@@ -70,12 +90,11 @@ class MapsFlowFragment: BaseFlowFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.mainActionBar.logOutImgBtn.setOnClickListener { logOut() }
-        setListeners()
     }
 
     // TODO добавить что-то?
     override fun setUpNavigation() {
+        Log.i("mapsFlow", "setUpNavigation")
         navigator.setNavController(navController)
         mapFlowArgs.defaultScreen.let { screen ->
             when(screen) {
@@ -83,16 +102,40 @@ class MapsFlowFragment: BaseFlowFragment(
                     navigator.setStartDestination(
                         destination = MapsFlowDestination.MapsFragment()
                     )
-                DefaultMapsFlowScreen.SOS_SIGNAL_MAP_SCREEN ->
+                DefaultMapsFlowScreen.SOS_SIGNAL_MAP_SCREEN -> {
                     navigator.setStartDestination(
                         destination = MapsFlowDestination.SosSignalMapsFragment()
                     )
+                }
             }
         }
     }
 
     override fun setListeners() {
+        binding.mainActionBar.logOutImgBtn.setOnClickListener { logOut() }
         binding.sosBtn.setOnClickListener { openSosFragment() }
+    }
+
+    override fun registerObservers() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                sosSignalEngine.getSosSignalState()
+                    .filter { state ->
+                        state is SosSignalState.SosSignalDisabled ||
+                                state is SosSignalState.SosSignalSuccess ||
+                                state is SosSignalState.SosSignalError
+                    }
+                    .onEach { state ->
+                        if (state is SosSignalState.SosSignalDisabled) {
+                            showSignalButtons()
+                        }
+                        if (state is SosSignalState.SosSignalSuccess ||
+                                state is SosSignalState.SosSignalError)
+                            hideSignalButtons()
+                    }
+                    .launchIn(viewLifecycleOwner.lifecycleScope)
+            }
+        }
     }
 
     override fun navigateToScreen(destination: MapsFlowDestination) {
@@ -116,6 +159,16 @@ class MapsFlowFragment: BaseFlowFragment(
     private fun openWatchOverMeScreen() {
         (requireActivity() as ToFlowNavigable)
             .navigateToScreen(destination = FlowDestination.SignalsFlow())
+    }
+
+    private fun hideSignalButtons() {
+        binding.sosBtn.visibility = View.GONE
+        binding.watchOverMeBtn.visibility = View.GONE
+    }
+
+    private fun showSignalButtons() {
+        binding.sosBtn.visibility = View.VISIBLE
+        binding.watchOverMeBtn.visibility = View.VISIBLE
     }
 
 }

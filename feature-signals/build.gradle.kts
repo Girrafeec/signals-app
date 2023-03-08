@@ -45,12 +45,7 @@ dependencies {
 
     // Core
     implementation(Dependencies.AndroidX.Core.coreKtx)
-    implementation("androidx.appcompat:appcompat:1.5.1")
-    implementation("com.google.android.material:material:1.4.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
 
     // Unit-tests
     testImplementation(Dependencies.jUnit.jUnit)
@@ -97,6 +92,7 @@ dependencies {
     implementation(project(":core-network"))
     implementation(project(":core-preferences"))
     implementation(project(":core-base"))
+    implementation(project(":event-bus"))
     implementation(project(":navigation"))
     implementation(project(":feature-sos-signal-api"))
 }

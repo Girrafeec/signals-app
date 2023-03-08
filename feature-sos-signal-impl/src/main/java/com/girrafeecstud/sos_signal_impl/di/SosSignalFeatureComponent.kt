@@ -1,5 +1,7 @@
 package com.girrafeecstud.sos_signal_impl.di
 
+import android.content.Context
+import com.girrafeecstud.society_safety_app.event_bus.di.EventBusApi
 import com.girrafeecstud.sos_signal_api.di.SosSignalFeatureApi
 import com.girrafeecstud.sos_signal_impl.di.annotation.SosSignalScope
 import com.girrafeecstud.sos_signal_impl.di.dependencies.SosSignalDependencies
@@ -43,4 +45,11 @@ interface SosSignalFeatureComponent : SosSignalFeatureApi {
         }
     }
 
+    @SosSignalScope
+    @Component(
+        dependencies = [
+            EventBusApi::class
+        ]
+    )
+    interface SosSignalFeatureDependenciesComponent : SosSignalDependencies
 }

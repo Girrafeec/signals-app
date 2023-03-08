@@ -3,6 +3,9 @@ package com.girrafeecstud.society_safety_app.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.girrafeecstud.society_safety_app.R
@@ -13,6 +16,10 @@ import com.girrafeecstud.society_safety_app.navigation.destination.FlowDestinati
 import com.girrafeecstud.society_safety_app.navigation.ToFlowNavigable
 import com.girrafeecstud.society_safety_app.presentation.MainViewModel
 import com.girrafeecstud.society_safety_app.navigation.FlowNavigator
+import com.girrafeecstud.sos_signal_api.engine.SosSignalState
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 class MainActivity : AppCompatActivity(), ToFlowNavigable {
 
@@ -46,12 +53,6 @@ class MainActivity : AppCompatActivity(), ToFlowNavigable {
 
         flowNavigator.setNavController(navController)
 
-        flowNavigator.setStartDestination(
-            destination = FlowDestination.MapsFlow(
-                _defaultScreen = DefaultMapsFlowScreen.SIGNALS_MAP_SCREEN
-            )
-        )
-
         // Choose start destination
         mainViewModel.requestUserAuthorizedStatus()
 //        mainViewModel.getUserAuthorizedStatus().observe(this) { isUserAuthorized ->
@@ -66,6 +67,31 @@ class MainActivity : AppCompatActivity(), ToFlowNavigable {
 //                }
 //            }
 //        }
+
+        // TODO to it after checking for auth status
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.CREATED) {
+                val temporaryNavigationScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+                (applicationContext as SocietySafetyApp).appComponent.sosSignalEngine().getSosSignalState()
+                    .onEach { state ->
+                        if (!(state is SosSignalState.SosSignalDisabled)) {
+                            flowNavigator.setStartDestination(
+                                destination = FlowDestination.MapsFlow(
+                                    _defaultScreen = DefaultMapsFlowScreen.SOS_SIGNAL_MAP_SCREEN
+                                )
+                            )
+                        }
+                        else
+                            flowNavigator.setStartDestination(
+                                destination = FlowDestination.MapsFlow(
+                                    _defaultScreen = DefaultMapsFlowScreen.SIGNALS_MAP_SCREEN
+                                )
+                            )
+                        temporaryNavigationScope.cancel()
+                    }
+                    .launchIn(temporaryNavigationScope)
+            }
+        }
 
     }
 

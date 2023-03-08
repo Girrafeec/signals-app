@@ -23,9 +23,13 @@ abstract class BaseFlowFragment constructor(
         navController = navHostFragment.navController
 
         setUpNavigation()
+        setListeners()
+        registerObservers()
     }
 
     protected open fun setUpNavigation() {}
 
     protected open fun setListeners() {}
+
+    protected open fun registerObservers() {}
 }

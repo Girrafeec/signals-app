@@ -1,5 +1,6 @@
 package com.girrafeecstud.society_safety_app.feature_signals.di
 
+import com.girrafeecstud.society_safety_app.event_bus.di.EventBusApi
 import com.girrafeecstud.society_safety_app.feature_signals.di.annotation.SignalsFeatureScope
 import com.girrafeecstud.society_safety_app.feature_signals.di.dependencies.SignalsFeatureDependencies
 import com.girrafeecstud.society_safety_app.feature_signals.ui.SignalsFlowFragment
@@ -9,14 +10,14 @@ import dagger.Component
 
 @SignalsFeatureScope
 @Component(
-    modules = [],
+    modules = [SignalsFeatureModule::class],
     dependencies = [SignalsFeatureDependencies::class]
 )
 interface SignalsFeatureComponent {
 
     fun inject(fragment: SignalsFlowFragment)
 
-    fun injectSos(fragment: SosSignalFragment)
+    fun sosSignalComponent(): SosSignalComponent.Builder
 
     @Component.Builder
     interface Builder {
@@ -49,7 +50,8 @@ interface SignalsFeatureComponent {
     @SignalsFeatureScope
     @Component(
         dependencies = [
-            SosSignalFeatureApi::class
+            SosSignalFeatureApi::class,
+            EventBusApi::class
         ]
     )
     interface SignalsFeatureDependenciesComponent : SignalsFeatureDependencies

@@ -12,12 +12,15 @@
 
     <action
         android:id="@+id/action_map_fragment"
-        app:destination="@id/map_fragment" />
+        app:destination="@id/map_fragment"
+        app:popUpTo="@id/map_fragment"
+        app:popUpToInclusive="true"/>
 
-<!--    <action-->
-<!--        android:id="@+id/action_global_sos_signal_map_fragment"-->
-<!--        app:destination="@id/sos_signal_map_fragment"-->
-<!--        />-->
+    <action
+        android:id="@+id/action_sos_map_fragment"
+        app:destination="@id/sos_signal_map_fragment"
+        app:popUpTo="@id/sos_signal_map_fragment"
+        app:popUpToInclusive="true"/>
 
     <fragment
         android:id="@+id/map_fragment"
@@ -28,10 +31,7 @@
     <fragment
         android:id="@+id/sos_signal_map_fragment"
         android:name="com.girrafeecstud.society_safety_app.feature_map.ui.SosSignalMapFragment"
-        android:label="fragment_sos_signal_map"
-        tools:layout="@layout/fragment_sos_signal_map">
-        <deepLink
-            app:uri="android-app://com.girrafeecstud.society_safety_app/sos_signal_fragment"/>
-    </fragment>
+        android:label="FragmentSosMap"
+        tools:layout="@layout/fragment_sos_signal_map"/>
 
 </navigation>

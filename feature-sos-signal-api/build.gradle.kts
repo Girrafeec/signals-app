@@ -2,6 +2,7 @@ plugins {
     id(Plugins.androidLibrary)
     id(Plugins.kotlinAndroid)
     id(Plugins.kotlinKapt)
+    id(Plugins.kotlinParcelize)
 }
 
 android {
@@ -49,7 +50,7 @@ dependencies {
 
     // Dagger
     implementation(Dependencies.Dagger.dagger)
-    implementation(Dependencies.Dagger.daggerCompiler)
+    kapt(Dependencies.Dagger.daggerCompiler)
 
     implementation(project(":core-base"))
 }
