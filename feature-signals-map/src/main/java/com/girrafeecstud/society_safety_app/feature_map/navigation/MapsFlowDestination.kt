@@ -10,10 +10,10 @@ sealed class MapsFlowDestination(
     override val destinationId: Int
         get() = _destinationId
 
-    class MapsFragment(
-    ) : MapsFlowDestination(_destinationId = R.id.map_fragment)
+    class SignalsMapFragment(
+    ) : MapsFlowDestination(_destinationId = R.id.signals_map_fragment)
 
-    class SosSignalMapsFragment(
-    ) : MapsFlowDestination(_destinationId = R.id.sos_signal_map_fragment)
+    class SosMapFragment(
+    ) : MapsFlowDestination(_destinationId = R.id.sos_map_fragment)
 
 }

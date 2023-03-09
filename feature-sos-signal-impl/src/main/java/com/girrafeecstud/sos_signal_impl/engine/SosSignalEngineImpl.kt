@@ -38,7 +38,7 @@ class SosSignalEngineImpl @Inject constructor(
     override fun disableSosSignal(context: Context) =
         sendCommandToService(context = context, action = SosSignalUtils.ACTION_DISABLE_SOS_SIGNAL)
 
-    override suspend fun getSosSignalState(): Flow<SosSignalState> =
+    override fun getSosSignalState(): Flow<SosSignalState> =
         SosSignalService.sosSignalState
 
     private fun isSosSignalServiceRunning(context: Context): Boolean {

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/maps_flow"
-    app:startDestination="@id/map_fragment">
+    app:startDestination="@id/signals_map_fragment">
 
     <argument
         android:name="defaultScreen"
@@ -12,26 +12,25 @@
 
     <action
         android:id="@+id/action_map_fragment"
-        app:destination="@id/map_fragment"
-        app:popUpTo="@id/map_fragment"
+        app:destination="@id/signals_map_fragment"
+        app:popUpTo="@id/signals_map_fragment"
         app:popUpToInclusive="true"/>
 
     <action
         android:id="@+id/action_sos_map_fragment"
-        app:destination="@id/sos_signal_map_fragment"
-        app:popUpTo="@id/sos_signal_map_fragment"
+        app:destination="@id/sos_map_fragment"
         app:popUpToInclusive="true"/>
 
     <fragment
-        android:id="@+id/map_fragment"
-        android:name="com.girrafeecstud.society_safety_app.feature_map.ui.MapFragment"
+        android:id="@+id/signals_map_fragment"
+        android:name="com.girrafeecstud.society_safety_app.feature_map.ui.SignalsMapFragment"
         android:label="FragmentMap"
-        tools:layout="@layout/fragment_map" />
+        tools:layout="@layout/fragment_signals_map" />
 
     <fragment
-        android:id="@+id/sos_signal_map_fragment"
-        android:name="com.girrafeecstud.society_safety_app.feature_map.ui.SosSignalMapFragment"
+        android:id="@+id/sos_map_fragment"
+        android:name="com.girrafeecstud.society_safety_app.feature_map.ui.SosMapFragment"
         android:label="FragmentSosMap"
-        tools:layout="@layout/fragment_sos_signal_map"/>
+        tools:layout="@layout/fragment_sos_map"/>
 
 </navigation>

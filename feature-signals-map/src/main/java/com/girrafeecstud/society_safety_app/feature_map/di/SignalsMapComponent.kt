@@ -1,14 +1,14 @@
 package com.girrafeecstud.society_safety_app.feature_map.di
 
 import com.girrafeecstud.society_safety_app.feature_map.di.annotation.SignalsMapScope
-import com.girrafeecstud.society_safety_app.feature_map.ui.MapFragment
+import com.girrafeecstud.society_safety_app.feature_map.ui.SignalsMapFragment
 import dagger.Subcomponent
 
 @SignalsMapScope
 @Subcomponent(modules = [SignalsMapModule::class])
 interface SignalsMapComponent {
 
-    fun inject(fragment: MapFragment)
+    fun inject(fragment: SignalsMapFragment)
 
     @Subcomponent.Builder
     interface Builder {

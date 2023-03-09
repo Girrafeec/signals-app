@@ -2,6 +2,8 @@ package com.girrafeecstud.society_safety_app.app
 
 import android.app.Application
 import android.content.Context
+import com.girrafeecstud.signals.rescuers_impl.di.DaggerRescuersFeatureComponent_RescuersFeatureDependenciesComponent
+import com.girrafeecstud.signals.rescuers_impl.di.RescuersFeatureComponent
 import com.girrafeecstud.society_safety_app.core_base.di.CoreBaseComponent
 import com.girrafeecstud.society_safety_app.core_network.data.di.CoreNetworkComponent
 import com.girrafeecstud.society_safety_app.core_network.data.di.NetworkDependencies
@@ -49,11 +51,18 @@ class SocietySafetyApp : Application() {
                 .eventBusApi(EventBusComponent.eventBusComponent)
                 .build()
         )
+        RescuersFeatureComponent.init(
+            dependencies = DaggerRescuersFeatureComponent_RescuersFeatureDependenciesComponent
+                .builder()
+                .coreNetworkApi(CoreNetworkComponent.coreNetworkComponent)
+                .build()
+        )
         MainComponent.init(dependencies = DaggerMainComponent_MainDependenciesComponent
             .builder()
             .corePreferencesApi(CorePreferencesComponent.corePreferencesComponent)
             .locationTrackerFeatureApi(LocationTrackerFeatureComponent.locationTrackerFeatureComponent)
             .sosSignalFeatureApi(SosSignalFeatureComponent.sosSignalFeatureComponent)
+            .rescuersFeatureApi(RescuersFeatureComponent.rescuersFeatureComponent)
             .eventBusApi(EventBusComponent.eventBusComponent)
             .build()
         )

@@ -1,6 +1,5 @@
 package com.girrafeecstud.society_safety_app.feature_map.navigation
 
-import android.util.Log
 import androidx.navigation.NavController
 import com.girrafeecstud.society_safety_app.feature_map.R
 import com.girrafeecstud.society_safety_app.navigation.Navigator
@@ -16,10 +15,10 @@ class MapsFlowNavigator : Navigator<MapsFlowDestination> {
 
     override fun navigateToDestination(destination: MapsFlowDestination) {
         when (destination) {
-            is MapsFlowDestination.MapsFragment -> {
+            is MapsFlowDestination.SignalsMapFragment -> {
                 navController?.navigate(R.id.action_map_fragment)
             }
-            is MapsFlowDestination.SosSignalMapsFragment -> {
+            is MapsFlowDestination.SosMapFragment -> {
                 navController?.navigate(R.id.action_sos_map_fragment)
             }
         }

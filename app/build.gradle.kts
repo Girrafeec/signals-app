@@ -80,4 +80,6 @@ dependencies {
     implementation(project(":feature-signals"))
     implementation(project(":feature-sos-signal-api"))
     implementation(project(":feature-sos-signal-impl"))
+    implementation(project(":feature-rescuers-api"))
+    implementation(project(":feature-rescuers-impl"))
 }

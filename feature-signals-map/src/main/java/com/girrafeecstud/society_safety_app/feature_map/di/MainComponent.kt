@@ -1,14 +1,14 @@
 package com.girrafeecstud.society_safety_app.feature_map.di
 
 import com.girrafeecstud.location_tracker_api.di.LocationTrackerFeatureApi
+import com.girrafeecstud.signals.rescuers_api.di.RescuersFeatureApi
 import com.girrafeecstud.society_safety_app.core_base.presentation.base.di.BaseViewModelFactoryModule
 import com.girrafeecstud.society_safety_app.core_preferences.di.CorePreferencesApi
 import com.girrafeecstud.society_safety_app.event_bus.di.EventBusApi
 import com.girrafeecstud.society_safety_app.feature_map.di.annotation.MapsFeatureScope
 import com.girrafeecstud.society_safety_app.feature_map.di.dependencies.MainDependencies
-import com.girrafeecstud.society_safety_app.feature_map.ui.MapsFlowFragment
 import com.girrafeecstud.society_safety_app.feature_map.ui.MapFragment
-import com.girrafeecstud.society_safety_app.feature_map.ui.SosSignalMapFragment
+import com.girrafeecstud.society_safety_app.feature_map.ui.MapsFlowFragment
 import com.girrafeecstud.sos_signal_api.di.SosSignalFeatureApi
 import dagger.Component
 
@@ -27,6 +27,8 @@ import dagger.Component
 interface MainComponent {
 
     fun inject(fragment: MapsFlowFragment)
+
+    fun mapComponent(): MapComponent.Builder
 
     fun signalsMapComponent(): SignalsMapComponent.Builder
 
@@ -66,6 +68,7 @@ interface MainComponent {
             CorePreferencesApi::class,
             LocationTrackerFeatureApi::class,
             SosSignalFeatureApi::class,
+            RescuersFeatureApi::class,
             EventBusApi::class
         ]
     )

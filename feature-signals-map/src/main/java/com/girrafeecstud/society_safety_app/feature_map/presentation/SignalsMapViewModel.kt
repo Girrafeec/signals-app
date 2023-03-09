@@ -9,11 +9,6 @@ import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 class SignalsMapViewModel @Inject constructor(
-    private val getLastKnownLocationUseCase: GetLastKnownLocationUseCase
 ) : ViewModel() {
-
-    val location: Flow<BusinessResult<UserLocation>> =
-        getLastKnownLocationUseCase().shareIn(viewModelScope, started = SharingStarted.Lazily, replay = 1)
-
 
 }

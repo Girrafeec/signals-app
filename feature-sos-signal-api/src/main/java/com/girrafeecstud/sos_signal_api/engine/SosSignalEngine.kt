@@ -15,6 +15,6 @@ interface SosSignalEngine {
 
     fun disableSosSignal(context: Context)
 
-    suspend fun getSosSignalState(): Flow<SosSignalState>
+    fun getSosSignalState(): Flow<SosSignalState>
 
 }

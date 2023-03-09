@@ -104,5 +104,5 @@ dependencies {
     implementation(project(":navigation"))
     implementation(project(":feature-location-tracker-api"))
     implementation(project(":feature-sos-signal-api"))
-
+    implementation(project(":feature-rescuers-api"))
 }

@@ -4,7 +4,13 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.SosSignalMapFragment">
+    tools:context=".ui.SosMapFragment">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fragment_map_container"
+        android:name="com.girrafeecstud.society_safety_app.feature_map.ui.MapFragment"/>
 
     <Button
         android:layout_width="match_parent"

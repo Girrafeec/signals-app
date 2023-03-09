@@ -4,8 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import androidx.activity.OnBackPressedCallback
-import androidx.activity.addCallback
 import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -16,8 +14,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.girrafeecstud.society_safety_app.core_base.presentation.base.MainViewModelFactory
 import com.girrafeecstud.society_safety_app.core_base.ui.base.BaseFlowFragment
-import com.girrafeecstud.society_safety_app.event_bus.AppEvent
-import com.girrafeecstud.society_safety_app.event_bus.EventBus
 import com.girrafeecstud.society_safety_app.feature_map.MapsFlowArgs
 import com.girrafeecstud.society_safety_app.feature_map.R
 import com.girrafeecstud.society_safety_app.feature_map.databinding.FragmentMapsFlowBinding
@@ -31,7 +27,6 @@ import com.girrafeecstud.society_safety_app.navigation.ToFlowNavigable
 import com.girrafeecstud.society_safety_app.navigation.destination.FlowDestination
 import com.girrafeecstud.sos_signal_api.engine.SosSignalEngine
 import com.girrafeecstud.sos_signal_api.engine.SosSignalState
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -100,11 +95,11 @@ class MapsFlowFragment: BaseFlowFragment(
             when(screen) {
                 DefaultMapsFlowScreen.SIGNALS_MAP_SCREEN ->
                     navigator.setStartDestination(
-                        destination = MapsFlowDestination.MapsFragment()
+                        destination = MapsFlowDestination.SignalsMapFragment()
                     )
                 DefaultMapsFlowScreen.SOS_SIGNAL_MAP_SCREEN -> {
                     navigator.setStartDestination(
-                        destination = MapsFlowDestination.SosSignalMapsFragment()
+                        destination = MapsFlowDestination.SosMapFragment()
                     )
                 }
             }

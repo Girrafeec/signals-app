@@ -6,8 +6,9 @@ import com.girrafeecstud.location_tracker_api.domain.entity.UserLocation
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.Projection
 import org.osmdroid.views.overlay.Overlay
+import javax.inject.Inject
 
-class CurrentLocationOverlay : Overlay() {
+class CurrentLocationOverlay @Inject constructor() : Overlay() {
 
     private var _location: UserLocation? = null
 

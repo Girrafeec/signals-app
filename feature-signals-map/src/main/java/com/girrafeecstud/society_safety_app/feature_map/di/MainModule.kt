@@ -1,22 +1,17 @@
 package com.girrafeecstud.society_safety_app.feature_map.di
 
-import android.app.Activity
-import android.content.Context
 import androidx.lifecycle.ViewModel
-import androidx.navigation.NavController
 import com.girrafeecstud.society_safety_app.core_base.di.base.ViewModelKey
 import com.girrafeecstud.society_safety_app.feature_map.di.annotation.MapsFeatureScope
+import com.girrafeecstud.society_safety_app.feature_map.presentation.shared_map.MapSharedViewModel
 import com.girrafeecstud.society_safety_app.feature_map.presentation.SettingsViewModel
-import com.girrafeecstud.society_safety_app.feature_map.presentation.SignalsMapViewModel
-import com.girrafeecstud.society_safety_app.feature_map.presentation.SosSignalMapViewModel
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.multibindings.IntoMap
 
 @Module(
     includes = [MainModule.MapsFeatureBindModule::class],
-    subcomponents = [SignalsMapComponent::class, SosMapComponent::class]
+    subcomponents = [MapComponent::class, SignalsMapComponent::class, SosMapComponent::class]
 )
 class MainModule {
 
@@ -32,7 +27,20 @@ class MainModule {
         @IntoMap
         @MapsFeatureScope
         @ViewModelKey(SettingsViewModel::class)
-        abstract fun bindSettingsViewModel(impl: SettingsViewModel): ViewModel
+        fun bindSettingsViewModel(impl: SettingsViewModel): ViewModel
+
+        @Binds
+        @IntoMap
+        @MapsFeatureScope
+        @ViewModelKey(MapSharedViewModel::class)
+        fun bindMapSharedViewModel(impl: MapSharedViewModel): ViewModel
+
+        // It is here because both SosMap and SignalsMap needs this view model
+//        @Binds
+//        @IntoMap
+//        @MapsFeatureScope
+//        @ViewModelKey(MapViewModel::class)
+//        fun bindMapViewModel(impl: MapViewModel): ViewModel
     }
 
 }
