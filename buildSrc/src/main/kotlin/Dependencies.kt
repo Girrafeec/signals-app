@@ -108,6 +108,8 @@ class Dependencies {
         const val firebaseBom = "com.google.firebase:firebase-bom:${Versions.firebaseBom}"
 
         const val firebaseMessaging = "com.google.firebase:firebase-messaging"
+
+        const val firebaseAnalytics = "com.google.firebase:firebase-analytics"
     }
 
 }

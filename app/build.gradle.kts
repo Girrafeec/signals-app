@@ -3,6 +3,7 @@ plugins {
     id(Plugins.kotlinAndroid)
     id(Plugins.kotlinKapt)
     id(Plugins.safeArgs)
+    id(Plugins.googleServices)
 }
 
 android {
@@ -70,6 +71,7 @@ dependencies {
     // Firebase
     implementation(platform(Dependencies.Firebase.firebaseBom))
     implementation(Dependencies.Firebase.firebaseMessaging)
+    implementation(Dependencies.Firebase.firebaseAnalytics)
 
     implementation(project(":core-network"))
     implementation(project(":core-base"))
