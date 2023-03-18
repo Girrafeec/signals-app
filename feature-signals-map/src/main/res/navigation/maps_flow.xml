@@ -7,7 +7,7 @@
 
     <argument
         android:name="defaultScreen"
-        app:argType="com.girrafeecstud.society_safety_app.navigation.DefaultMapsFlowScreen"
+        app:argType="com.girrafeecstud.signals.navigation.DefaultMapsFlowScreen"
         android:defaultValue="SIGNALS_MAP_SCREEN"/>
 
     <action
@@ -23,13 +23,13 @@
 
     <fragment
         android:id="@+id/signals_map_fragment"
-        android:name="com.girrafeecstud.society_safety_app.feature_map.ui.SignalsMapFragment"
+        android:name="com.girrafeecstud.signals.feature_map.ui.SignalsMapFragment"
         android:label="FragmentMap"
         tools:layout="@layout/fragment_signals_map" />
 
     <fragment
         android:id="@+id/sos_map_fragment"
-        android:name="com.girrafeecstud.society_safety_app.feature_map.ui.SosMapFragment"
+        android:name="com.girrafeecstud.signals.feature_map.ui.SosMapFragment"
         android:label="FragmentSosMap"
         tools:layout="@layout/fragment_sos_map"/>
 

@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/sos_signal_fragment"
-        android:name="com.girrafeecstud.society_safety_app.feature_signals.ui.SosSignalFragment"
+        android:name="com.girrafeecstud.signals.feature_signals.ui.SosSignalFragment"
         android:label="SosSignalFragment"
         tools:layout="@layout/fragment_sos_signal"/>
 

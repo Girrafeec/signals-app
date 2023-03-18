@@ -27,7 +27,7 @@
 
         <argument
             android:name="defaultScreen"
-            app:argType="com.girrafeecstud.society_safety_app.navigation.DefaultMapsFlowScreen"
+            app:argType="com.girrafeecstud.signals.navigation.DefaultMapsFlowScreen"
             android:defaultValue="SIGNALS_MAP_SCREEN"/>
 
     </action>
@@ -38,33 +38,33 @@
 
         <argument
             android:name="defaultScreen"
-            app:argType="com.girrafeecstud.society_safety_app.navigation.DefaultSignalsFlowScreen"
+            app:argType="com.girrafeecstud.signals.navigation.DefaultSignalsFlowScreen"
             android:defaultValue="SOS_SIGNAL_SCREEN"/>
 
     </action>
 
     <fragment
         android:id="@+id/auth_flow_fragment"
-        android:name="com.girrafeecstud.society_safety_app.feature_auth.ui.AuthFlowFragment"/>
+        android:name="com.girrafeecstud.signals.feature_auth.ui.AuthFlowFragment"/>
 
     <fragment
         android:id="@+id/maps_flow_fragment"
-        android:name="com.girrafeecstud.society_safety_app.feature_map.ui.MapsFlowFragment">
+        android:name="com.girrafeecstud.signals.feature_map.ui.MapsFlowFragment">
 
         <argument
             android:name="defaultScreen"
-            app:argType="com.girrafeecstud.society_safety_app.navigation.DefaultMapsFlowScreen"
+            app:argType="com.girrafeecstud.signals.navigation.DefaultMapsFlowScreen"
             android:defaultValue="SIGNALS_MAP_SCREEN"/>
 
     </fragment>
 
     <fragment
         android:id="@+id/signals_flow_fragment"
-        android:name="com.girrafeecstud.society_safety_app.feature_signals.ui.SignalsFlowFragment">
+        android:name="com.girrafeecstud.signals.feature_signals.ui.SignalsFlowFragment">
 
         <argument
             android:name="defaultScreen"
-            app:argType="com.girrafeecstud.society_safety_app.navigation.DefaultSignalsFlowScreen"
+            app:argType="com.girrafeecstud.signals.navigation.DefaultSignalsFlowScreen"
             android:defaultValue="SOS_SIGNAL_SCREEN"/>
 
     </fragment>

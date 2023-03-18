@@ -9,11 +9,8 @@ android {
     compileSdk = 32
 
     defaultConfig {
-        //applicationId = "com.girrafeecstud.sosciety_safety_app.navigation"
         minSdk = 21
         targetSdk = 32
-        //versionCode = 1
-        //versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

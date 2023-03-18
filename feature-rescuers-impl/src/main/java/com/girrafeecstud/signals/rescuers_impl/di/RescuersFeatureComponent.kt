@@ -1,10 +1,11 @@
 package com.girrafeecstud.signals.rescuers_impl.di
 
+import com.girrafeecstud.location_tracker_api.di.LocationTrackerFeatureApi
+import com.girrafeecstud.route_builder_api.di.RouteBuilderFeatureApi
 import com.girrafeecstud.signals.rescuers_api.di.RescuersFeatureApi
 import com.girrafeecstud.signals.rescuers_impl.di.annotation.RescuersFeatureScope
-import com.girrafeecstud.society_safety_app.core_network.data.di.CoreNetworkApi
+import com.girrafeecstud.signals.core_network.data.di.CoreNetworkApi
 import dagger.Component
-import dagger.Component.Builder
 
 @RescuersFeatureScope
 @Component(
@@ -45,7 +46,9 @@ interface RescuersFeatureComponent : RescuersFeatureApi {
     @RescuersFeatureScope
     @Component(
         dependencies = [
-            CoreNetworkApi::class
+            CoreNetworkApi::class,
+            LocationTrackerFeatureApi::class,
+            RouteBuilderFeatureApi::class
         ]
     )
     interface RescuersFeatureDependenciesComponent : RescuersFeatureDependencies

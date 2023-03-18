@@ -2,7 +2,6 @@ plugins {
     id(Plugins.androidApplication)
     id(Plugins.kotlinAndroid)
     id(Plugins.kotlinKapt)
-    id("kotlin-android-extensions")
     id(Plugins.safeArgs)
 }
 
@@ -10,7 +9,7 @@ android {
     compileSdk = 32
 
     defaultConfig {
-        applicationId  ="com.girrafeecstud.society_safety_app"
+        applicationId  ="com.girrafeecstud.signals"
         minSdk = 21
         targetSdk = 32
         versionCode = 1
@@ -68,6 +67,10 @@ dependencies {
     implementation(Dependencies.Jetpack.Navigation.navigationFragmentKtx)
     implementation(Dependencies.Jetpack.Navigation.navigationUiKtx)
 
+    // Firebase
+    implementation(platform(Dependencies.Firebase.firebaseBom))
+    implementation(Dependencies.Firebase.firebaseMessaging)
+
     implementation(project(":core-network"))
     implementation(project(":core-base"))
     implementation(project(":core-preferences"))
@@ -82,4 +85,10 @@ dependencies {
     implementation(project(":feature-sos-signal-impl"))
     implementation(project(":feature-rescuers-api"))
     implementation(project(":feature-rescuers-impl"))
+    implementation(project(":feature-rescuers-list-api"))
+    implementation(project(":feature-rescuers-list-impl"))
+    implementation(project(":feature-rescuer-details-api"))
+    implementation(project(":feature-rescuer-details-impl"))
+    implementation(project(":feature-route-builder-api"))
+    implementation(project(":feature-route-builder-impl"))
 }

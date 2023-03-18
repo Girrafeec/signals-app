@@ -6,6 +6,8 @@ object Versions {
     // Navigation safe args
     const val navigationSafeArgsPluginVersion = "2.3.2"
 
+
+    const val googleServicesPluginVersion = "4.3.15"
     // Kotlin
     const val kotlinVersion = "1.7.10"
 
@@ -53,4 +55,10 @@ object Versions {
     const val gmsLocation = "21.0.1"
 
     const val osmDroid = "6.1.13"
+
+    const val osmDroidBonuspack = "6.8.0"
+
+    const val picasso = "2.8"
+
+    const val firebaseBom = "31.2.3"
 }

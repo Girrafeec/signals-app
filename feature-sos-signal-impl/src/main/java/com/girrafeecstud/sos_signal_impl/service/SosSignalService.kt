@@ -9,7 +9,7 @@ import android.os.Binder
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
-import com.girrafeecstud.society_safety_app.core_base.domain.base.BusinessResult
+import com.girrafeecstud.signals.core_base.domain.base.BusinessResult
 import com.girrafeecstud.sos_signal_api.domain.DisableSosSignalUseCase
 import com.girrafeecstud.sos_signal_api.domain.SendSosSignalUseCase
 import com.girrafeecstud.sos_signal_api.domain.UpdateSosSignalUseCase

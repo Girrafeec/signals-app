@@ -15,5 +15,9 @@ object Plugins {
 
     const val navigationSafeArgsPlugin = "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navigationSafeArgsPluginVersion}"
 
+    const val googleServicesPlugin = "com.google.gms:google-services:${Versions.googleServicesPluginVersion}"
+
     const val kotlinParcelize = "kotlin-parcelize"
+
+    const val googleServices = "com.google.gms.google-services"
 }

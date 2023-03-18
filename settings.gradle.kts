@@ -10,9 +10,12 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url = uri("https://jitpack.io")
+        }
     }
 }
-rootProject.name = "society-safety-app"
+rootProject.name = "signals"
 include (":app")
 include(":core-base")
 include(":core-network")
@@ -28,3 +31,9 @@ include(":navigation")
 include(":event-bus")
 include(":feature-rescuers-api")
 include(":feature-rescuers-impl")
+include(":feature-rescuers-list-api")
+include(":feature-rescuers-list-impl")
+include(":feature-rescuer-details-api")
+include(":feature-rescuer-details-impl")
+include(":feature-route-builder-api")
+include(":feature-route-builder-impl")

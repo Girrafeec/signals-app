@@ -97,6 +97,17 @@ class Dependencies {
 
     object OSMDroid {
         const val osmDroid = "org.osmdroid:osmdroid-android:${Versions.osmDroid}"
+        const val osmDroidBonuspack = "com.github.MKergall:osmbonuspack:${Versions.osmDroidBonuspack}"
+    }
+
+    object Picasso {
+        const val picasso = "com.squareup.picasso:picasso:${Versions.picasso}"
+    }
+
+    object Firebase {
+        const val firebaseBom = "com.google.firebase:firebase-bom:${Versions.firebaseBom}"
+
+        const val firebaseMessaging = "com.google.firebase:firebase-messaging"
     }
 
 }

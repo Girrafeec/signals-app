@@ -73,5 +73,7 @@ dependencies {
     implementation(project(":core-preferences"))
     implementation(project(":core-base"))
     implementation(project(":event-bus"))
+    implementation(project(":feature-location-tracker-api"))
+    implementation(project(":feature-route-builder-api"))
     implementation(project(":feature-rescuers-api"))
 }

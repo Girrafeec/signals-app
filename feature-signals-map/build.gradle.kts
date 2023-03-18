@@ -9,11 +9,8 @@ android {
     compileSdk = 32
 
     defaultConfig {
-        //applicationId = "com.girrafeecstud.society_safety_app.feature_map"
         minSdk = 21
         targetSdk = 32
-        //versionCode = 1
-        //versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -96,13 +93,17 @@ dependencies {
 
     // OSMDroid
     implementation(Dependencies.OSMDroid.osmDroid)
+    implementation(Dependencies.OSMDroid.osmDroidBonuspack)
 
     implementation(project(":core-network"))
     implementation(project(":core-preferences"))
     implementation(project(":core-base"))
     implementation(project(":event-bus"))
     implementation(project(":navigation"))
+    implementation(project(":feature-route-builder-api"))
     implementation(project(":feature-location-tracker-api"))
     implementation(project(":feature-sos-signal-api"))
     implementation(project(":feature-rescuers-api"))
+    implementation(project(":feature-rescuers-list-api"))
+    implementation(project(":feature-rescuer-details-api"))
 }

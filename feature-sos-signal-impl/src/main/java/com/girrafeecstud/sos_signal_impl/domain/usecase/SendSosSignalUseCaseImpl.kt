@@ -1,6 +1,6 @@
 package com.girrafeecstud.sos_signal_impl.domain.usecase
 
-import com.girrafeecstud.society_safety_app.core_base.domain.base.BusinessResult
+import com.girrafeecstud.signals.core_base.domain.base.BusinessResult
 import com.girrafeecstud.sos_signal_api.domain.SendSosSignalUseCase
 import com.girrafeecstud.sos_signal_api.domain.entity.SosSignal
 import com.girrafeecstud.sos_signal_impl.domain.repository.SosSignalRepository

@@ -8,11 +8,8 @@ android {
     compileSdk = 32
 
     defaultConfig {
-//        applicationId = "com.girrafeecstud.feature_location_tracker_api"
         minSdk = 21
         targetSdk = 32
-//        versionCode = 1
-//        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

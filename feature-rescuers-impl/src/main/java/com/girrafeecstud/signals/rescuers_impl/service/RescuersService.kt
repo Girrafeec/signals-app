@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Binder
 import android.os.IBinder
 import com.girrafeecstud.signals.rescuers_api.domain.GetRescuersListUseCase
-import com.girrafeecstud.society_safety_app.core_base.domain.base.BusinessResult
+import com.girrafeecstud.signals.core_base.domain.base.BusinessResult
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -38,6 +38,7 @@ class RescuersService : Service() {
         return binder
     }
 
+    //TODO create notification here with info about rescuers!!
     private fun getRescuers() {
         getRescuersListUseCase()
             .onEach { result ->

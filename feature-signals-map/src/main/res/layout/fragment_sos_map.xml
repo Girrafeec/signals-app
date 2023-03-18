@@ -9,13 +9,27 @@
     <androidx.fragment.app.FragmentContainerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/fragment_map_container"
-        android:name="com.girrafeecstud.society_safety_app.feature_map.ui.MapFragment"/>
+        android:id="@+id/fragment_sos_map_container"
+        android:name="com.girrafeecstud.signals.feature_map.ui.MapFragment"
+        tools:layout="@layout/fragment_map"/>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/fragment_rescuers_list_container"
+        app:layout_constraintBottom_toTopOf="@id/emergency_call_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:name="androidx.fragment.app.Fragment"
+        tools:layout="@layout/fragment_rescuers_list"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/emergence_call_btn"
+        android:id="@+id/emergency_call_btn"
         android:text="911"
         android:layout_marginBottom="10dp"
         android:layout_marginStart="10dp"

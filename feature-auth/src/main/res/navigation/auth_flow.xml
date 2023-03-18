@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/login_fragment"
-        android:name="com.girrafeecstud.society_safety_app.feature_auth.ui.LoginFragment"
+        android:name="com.girrafeecstud.signals.feature_auth.ui.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login"/>
 
     <fragment
         android:id="@+id/registration_fragment"
-        android:name="com.girrafeecstud.society_safety_app.feature_auth.ui.RegistrationFragment"
+        android:name="com.girrafeecstud.signals.feature_auth.ui.RegistrationFragment"
         android:label="RegistrationFragment"
         tools:layout="@layout/fragment_registration"/>
     <action

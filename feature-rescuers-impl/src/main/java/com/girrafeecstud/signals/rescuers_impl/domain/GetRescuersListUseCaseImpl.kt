@@ -2,7 +2,7 @@ package com.girrafeecstud.signals.rescuers_impl.domain
 
 import com.girrafeecstud.signals.rescuers_api.domain.GetRescuersListUseCase
 import com.girrafeecstud.signals.rescuers_api.domain.Rescuer
-import com.girrafeecstud.society_safety_app.core_base.domain.base.BusinessResult
+import com.girrafeecstud.signals.core_base.domain.base.BusinessResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn

@@ -1,7 +1,7 @@
 package com.girrafeecstud.sos_signal_impl.data.datasource
 
 import android.util.Log
-import com.girrafeecstud.society_safety_app.core_base.domain.base.BusinessResult
+import com.girrafeecstud.signals.core_base.domain.base.BusinessResult
 import com.girrafeecstud.sos_signal_api.domain.entity.SosSignal
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.girrafeecstud.society_safety_app.feature_signals">
+    package="com.girrafeecstud.signals.feature_signals">
 
     <application
         android:allowBackup="true"

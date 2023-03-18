@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/fragment_map_container"
-        android:name="com.girrafeecstud.society_safety_app.feature_map.ui.MapFragment"/>
+        android:name="com.girrafeecstud.signals.feature_map.ui.MapFragment"
+        tools:layout="@layout/fragment_map"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

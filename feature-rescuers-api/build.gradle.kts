@@ -2,6 +2,7 @@ plugins {
     id(Plugins.androidLibrary)
     id(Plugins.kotlinAndroid)
     id(Plugins.kotlinKapt)
+    id(Plugins.kotlinParcelize)
 }
 
 android {
@@ -49,4 +50,5 @@ dependencies {
     kapt(Dependencies.Dagger.daggerCompiler)
 
     implementation(project(":core-base"))
+    implementation(project(":feature-route-builder-api"))
 }
