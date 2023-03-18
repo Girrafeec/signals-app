@@ -5,6 +5,7 @@ import com.girrafeecstud.route_builder_api.di.RouteBuilderFeatureApi
 import com.girrafeecstud.signals.rescuers_api.di.RescuersFeatureApi
 import com.girrafeecstud.signals.rescuers_impl.di.annotation.RescuersFeatureScope
 import com.girrafeecstud.signals.core_network.data.di.CoreNetworkApi
+import com.girrafeecstud.signals.rescuers_impl.service.RescuersService
 import dagger.Component
 
 @RescuersFeatureScope
@@ -13,6 +14,10 @@ import dagger.Component
     dependencies = [RescuersFeatureDependencies::class]
 )
 interface RescuersFeatureComponent : RescuersFeatureApi {
+
+    fun inject(service: RescuersService)
+
+    fun receiverComponent(): RescuersFeatureReceiverComponent.Builder
 
     @Component.Builder
     interface Builder {

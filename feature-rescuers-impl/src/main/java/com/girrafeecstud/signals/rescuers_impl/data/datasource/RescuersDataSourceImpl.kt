@@ -1,5 +1,6 @@
 package com.girrafeecstud.signals.rescuers_impl.data.datasource
 
+import android.util.Log
 import com.girrafeecstud.signals.rescuers_api.domain.Rescuer
 import com.girrafeecstud.signals.core_base.domain.base.BusinessResult
 import kotlinx.coroutines.Dispatchers
@@ -45,6 +46,7 @@ class RescuersDataSourceImpl @Inject constructor(
 
     override fun getRescuersList(token: String): Flow<BusinessResult<List<Rescuer>>> =
         flow {
+            Log.i("tag", "ask rescuers")
             delay(3000)
             emit(BusinessResult.Success(_data = rescuersTempList))
         }.flowOn(Dispatchers.IO)

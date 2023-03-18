@@ -1,4 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.girrafeecstud.signals.rescuers_impl">
+
+    <application
+        android:allowBackup="true"
+        android:supportsRtl="true">
+
+        <service
+            android:name="com.girrafeecstud.signals.rescuers_impl.service.RescuersService"/>
+
+        <receiver
+            android:name="com.girrafeecstud.signals.rescuers_impl.engine.RescuersFeatureReceiver"
+            android:exported="false"
+            android:enabled="true">
+            <intent-filter>
+                <action
+                    android:name="ACTION_START_RESCUERS_ENGINE"/>
+                <category
+                    android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+    </application>
+
 </manifest>

@@ -12,7 +12,10 @@ import com.girrafeecstud.signals.rescuers_impl.engine.RescuersEngineImpl
 import dagger.Binds
 import dagger.Module
 
-@Module(includes = [RescuersFeatureModule.RescuersFeatureBindModule::class])
+@Module(
+    includes = [RescuersFeatureModule.RescuersFeatureBindModule::class],
+    subcomponents = [RescuersFeatureReceiverComponent::class]
+)
 class RescuersFeatureModule {
 
     @Module

@@ -2,6 +2,7 @@ package com.girrafeecstud.signals.app
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import com.girrafeecstud.route_builder_impl.di.RouteBuilderFeatureComponent
 import com.girrafeecstud.route_builder_impl.di.RouteBuilderFeatureDependencies
 import com.girrafeecstud.signals.rescuer_details_impl.di.RescuerDetailsFeatureComponent
@@ -26,6 +27,8 @@ import com.girrafeecstud.signals.location_tracker_impl.di.LocationTrackerFeature
 import com.girrafeecstud.signals.location_tracker_impl.di.dependencies.LocationTrackerDependencies
 import com.girrafeecstud.sos_signal_impl.di.DaggerSosSignalFeatureComponent_SosSignalFeatureDependenciesComponent
 import com.girrafeecstud.sos_signal_impl.di.SosSignalFeatureComponent
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.FirebaseMessagingService
 
 class SignalsApp : Application() {
 
@@ -88,6 +91,14 @@ class SignalsApp : Application() {
             .eventBusApi(EventBusComponent.eventBusComponent)
             .build()
         )
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            Log.i("tag", "task ${task.isSuccessful}")
+            if (!task.isSuccessful)
+                return@addOnCompleteListener
+            val token = task.result
+            Log.i("tag", "token $token")
+        }
     }
 
     private inner class AppDependenciesImpl: AppDependencies {
