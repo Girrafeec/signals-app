@@ -90,5 +90,6 @@ dependencies {
     implementation(project(":core-network"))
     implementation(project(":core-preferences"))
     implementation(project(":core-base"))
+    implementation(project(":core-ui"))
     implementation(project(":navigation"))
 }

@@ -48,5 +48,6 @@ dependencies {
     kapt(Dependencies.Dagger.daggerCompiler)
 
     implementation(project(":core-base"))
+    implementation(project(":core-ui"))
     implementation(project(":feature-rescuers-api"))
 }

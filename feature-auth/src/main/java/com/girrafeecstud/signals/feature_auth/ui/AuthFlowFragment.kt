@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.core.net.toUri
 import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.fragment.findNavController
-import com.girrafeecstud.signals.core_base.ui.base.BaseFlowFragment
+import com.girrafeecstud.core_ui.ui.BaseFlowFragment
 import com.girrafeecstud.signals.core_network.data.di.CoreNetworkComponent
 import com.girrafeecstud.signals.core_preferences.di.CorePreferencesComponent
 import com.girrafeecstud.signals.feature_auth.R
@@ -17,7 +17,7 @@ import com.girrafeecstud.signals.feature_auth.databinding.FragmentAuthFlowBindin
 import com.girrafeecstud.signals.feature_auth.di.AuthComponent
 import com.girrafeecstud.signals.feature_auth.di.DaggerAuthComponent_AuthDependenciesComponent
 
-class AuthFlowFragment : BaseFlowFragment(
+class AuthFlowFragment : com.girrafeecstud.core_ui.ui.BaseFlowFragment(
     R.id.nav_host_fragment_auth_container
 ) {
 

@@ -6,10 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.MapsFlowFragment">
 
-    <include
-        layout="@layout/main_action_bar"
-        android:id="@+id/mainActionBar"/>
-
     <androidx.fragment.app.FragmentContainerView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -17,7 +13,7 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         app:defaultNavHost="false"
         app:navGraph="@navigation/maps_flow"
-        app:layout_constraintTop_toBottomOf="@id/mainActionBar"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -29,27 +25,55 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/watchOverMeBtn"
-            android:layout_margin="10dp"
-            android:text="WATCH OVER ME"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/sosBtn"/>
+<!--        <Button-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/sosBtn"-->
+<!--            android:background="@drawable/red_rectangle_selector"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:text="SOS"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"/>-->
 
-        <Button
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/sosBtn"
-            android:layout_margin="10dp"
-            android:text="SOS"
+            android:background="@drawable/red_rectangle_selector"
+            android:layout_margin="20dp"
+            android:gravity="center"
+            android:elevation="2dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/watchOverMeBtn"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:clickable="true">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sosBtnBellImage"
+                android:src="@drawable/ic_bell"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SOS"
+                android:fontFamily="@font/work_sans_bold"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:layout_toEndOf="@+id/sosBtnBellImage"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"/>
+
+        </RelativeLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -2,6 +2,7 @@ package com.girrafeecstud.signals.rescuer_details_impl.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,7 @@ import com.girrafeecstud.signals.rescuer_details_impl.R
 import com.girrafeecstud.signals.rescuer_details_impl.databinding.FragmentDialogImplRescuerDetailsBinding
 import com.girrafeecstud.signals.rescuer_details_impl.di.RescuerDetailsFeatureComponent
 import com.girrafeecstud.signals.rescuers_api.domain.Rescuer
-import com.girrafeecstud.signals.core_base.ui.extension.loadAndSetImage
+import com.girrafeecstud.core_ui.extension.loadAndSetImage
 import javax.inject.Inject
 
 class RescuerDetailsFragmentDialogImpl @Inject constructor(
@@ -48,6 +49,16 @@ class RescuerDetailsFragmentDialogImpl @Inject constructor(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setRescuerDetails(rescuer = arguments?.getParcelable<Rescuer>("rescuerDetails"))
+        setListeners()
+    }
+
+    private fun setListeners() {
+//        binding.showRescuerLocationBtn.setOnClickListener {
+//            Log.i("tag", "show rescuer on map")
+//        }
+//        binding.callRescuerBtn.setOnClickListener {
+//            Log.i("tag", "call rescuer")
+//        }
     }
 
     private fun setRescuerDetails(rescuer: Rescuer?) {

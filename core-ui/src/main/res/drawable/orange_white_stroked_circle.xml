@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Orange circle outer shadow -->
+    <item>
+        <shape
+            android:shape="oval">
+            <gradient
+                android:type="radial"
+                android:centerX="50%"
+                android:centerY="50%"
+                android:startColor="#44000000"
+                android:endColor="#00000000"
+                android:gradientRadius="18dp"/>
+        </shape>
+    </item>
+
+    <!-- Orange circle -->
+    <item
+        android:top="2dp"
+        android:bottom="2dp"
+        android:left="2dp"
+        android:right="2dp">
+        <shape
+            android:shape="oval">
+            <solid
+                android:color="@color/orange_500"/>
+            <size
+                android:height="20dp"
+                android:width="20dp"/>
+        </shape>
+    </item>
+
+    <!-- White ring inner shadow -->
+    <item
+        android:top="4dp"
+        android:bottom="4dp"
+        android:left="4dp"
+        android:right="4dp">
+        <shape
+            android:shape="ring"
+            android:useLevel="false">
+            <gradient
+                android:type="radial"
+                android:centerX="50%"
+                android:centerY="50%"
+                android:startColor="#44000000"
+                android:endColor="#00000000"
+                android:gradientRadius="20dp"/>
+        </shape>
+    </item>
+
+    <!-- White ring -->
+    <item>
+        <shape
+            android:shape="ring"
+            android:useLevel="false">
+            <solid
+                android:color="@color/white"/>
+            <size
+                android:width="30dp"
+                android:height="30dp"/>
+            <stroke
+                android:color="@color/white"
+                android:width="2dp"/>
+        </shape>
+    </item>
+
+</layer-list>

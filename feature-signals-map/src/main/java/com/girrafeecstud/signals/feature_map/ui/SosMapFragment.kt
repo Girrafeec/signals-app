@@ -18,7 +18,7 @@ import com.girrafeecstud.signals.rescuers_list_api.presenation.RescuersListShare
 import com.girrafeecstud.signals.rescuers_list_api.presenation.RescuersListSharedStateEngine
 import com.girrafeecstud.signals.rescuers_list_api.ui.RescuersListFragment
 import com.girrafeecstud.signals.core_base.presentation.base.MainViewModelFactory
-import com.girrafeecstud.signals.core_base.ui.base.BaseFragment
+import com.girrafeecstud.core_ui.ui.BaseFragment
 import com.girrafeecstud.signals.feature_map.R
 import com.girrafeecstud.signals.feature_map.databinding.FragmentSosMapBinding
 import com.girrafeecstud.signals.feature_map.di.MainComponent
@@ -87,6 +87,9 @@ class SosMapFragment : BaseFragment() {
     override fun setListeners() {
         binding.disableSosBtn.setOnClickListener {
             sosMapViewModel.disableSosSignal(requireActivity().applicationContext)
+        }
+        binding.emergencyCallBtn.setOnClickListener {
+            Log.i("tag", "clicked on emergency call")
         }
     }
 

@@ -1,7 +1,7 @@
 package com.girrafeecstud.signals.feature_map.presentation.shared_map
 
 import com.girrafeecstud.signals.rescuers_api.domain.Rescuer
-import com.girrafeecstud.signals.core_base.presentation.base.UiState
+import com.girrafeecstud.core_ui.presentation.UiState
 
 sealed class MapSharedUiState : UiState {
     // TODO think about another default state

@@ -1,7 +1,7 @@
 package com.girrafeecstud.signals.feature_map.presentation.shared_map
 
 import com.girrafeecstud.signals.rescuers_api.domain.Rescuer
-import com.girrafeecstud.signals.core_base.presentation.base.BaseViewModel
+import com.girrafeecstud.core_ui.presentation.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

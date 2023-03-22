@@ -95,6 +95,11 @@ dependencies {
     implementation(Dependencies.OSMDroid.osmDroid)
     implementation(Dependencies.OSMDroid.osmDroidBonuspack)
 
+    // Glide
+    implementation(Dependencies.Glide.glide)
+    kapt(Dependencies.Glide.glideCompiler)
+
+    implementation(project(":core-ui"))
     implementation(project(":core-network"))
     implementation(project(":core-preferences"))
     implementation(project(":core-base"))

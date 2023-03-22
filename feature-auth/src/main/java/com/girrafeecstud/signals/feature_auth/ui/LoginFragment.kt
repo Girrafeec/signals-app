@@ -10,13 +10,13 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.girrafeecstud.signals.core_base.presentation.base.MainViewModelFactory
-import com.girrafeecstud.signals.core_base.ui.base.BaseFragment
+import com.girrafeecstud.core_ui.ui.BaseFragment
 import com.girrafeecstud.signals.feature_auth.databinding.FragmentLoginBinding
 import com.girrafeecstud.signals.feature_auth.presentation.LoginComponentViewModel
 import com.girrafeecstud.signals.feature_auth.presentation.LoginViewModel
 import javax.inject.Inject
 
-class LoginFragment : BaseFragment() {
+class LoginFragment : com.girrafeecstud.core_ui.ui.BaseFragment() {
 
     private var _binding: FragmentLoginBinding? = null
 

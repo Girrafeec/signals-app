@@ -60,5 +60,7 @@ object Versions {
 
     const val picasso = "2.8"
 
+    const val glide = "4.12.0"
+
     const val firebaseBom = "31.2.3"
 }

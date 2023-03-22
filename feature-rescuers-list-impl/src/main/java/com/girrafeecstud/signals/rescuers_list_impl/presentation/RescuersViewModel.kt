@@ -3,7 +3,7 @@ package com.girrafeecstud.signals.rescuers_list_impl.presentation
 import androidx.lifecycle.viewModelScope
 import com.girrafeecstud.signals.rescuers_api.domain.GetRescuersListUseCase
 import com.girrafeecstud.signals.core_base.domain.base.BusinessResult
-import com.girrafeecstud.signals.core_base.presentation.base.BaseViewModel
+import com.girrafeecstud.core_ui.presentation.BaseViewModel
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 

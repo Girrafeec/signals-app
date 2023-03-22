@@ -104,6 +104,11 @@ class Dependencies {
         const val picasso = "com.squareup.picasso:picasso:${Versions.picasso}"
     }
 
+    object Glide {
+        const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
+        const val glideCompiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
+    }
+
     object Firebase {
         const val firebaseBom = "com.google.firebase:firebase-bom:${Versions.firebaseBom}"
 

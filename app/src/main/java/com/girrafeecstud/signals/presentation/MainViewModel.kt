@@ -3,7 +3,7 @@ package com.girrafeecstud.signals.presentation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.girrafeecstud.signals.core_base.presentation.base.BaseViewModel
+import com.girrafeecstud.core_ui.presentation.BaseViewModel
 import com.girrafeecstud.signals.core_preferences.data.repository.AuthSharedPreferencesRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

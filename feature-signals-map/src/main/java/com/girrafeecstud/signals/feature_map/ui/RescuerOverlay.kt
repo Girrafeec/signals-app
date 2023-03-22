@@ -1,16 +1,21 @@
 package com.girrafeecstud.signals.feature_map.ui
 
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Point
+import android.content.Context
+import android.graphics.*
+import android.graphics.drawable.Drawable
 import android.util.Log
+import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.girrafeecstud.signals.rescuers_api.domain.Rescuer
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.Projection
 import org.osmdroid.views.overlay.Overlay
 
-class RescuerOverlay : Overlay() {
+class RescuerOverlay(
+    private val context: Context
+) : Overlay() {
 
     private var _rescuer: Rescuer? = null
 
@@ -36,5 +41,6 @@ class RescuerOverlay : Overlay() {
 //        projection.save(canvas,true, false)
         canvas?.drawCircle(point.x.toFloat(), point.y.toFloat(), 25.0.toFloat(), paint)
     }
+
 
 }

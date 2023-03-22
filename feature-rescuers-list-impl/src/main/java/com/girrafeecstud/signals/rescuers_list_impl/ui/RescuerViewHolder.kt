@@ -3,7 +3,7 @@ package com.girrafeecstud.signals.rescuers_list_impl.ui
 import androidx.recyclerview.widget.RecyclerView
 import com.girrafeecstud.signals.rescuers_api.domain.Rescuer
 import com.girrafeecstud.signals.rescuers_list_impl.databinding.RescuerItemBinding
-import com.girrafeecstud.signals.core_base.ui.extension.loadAndSetImage
+import com.girrafeecstud.core_ui.extension.loadAndSetImage
 
 class RescuerViewHolder(
     private val binding: RescuerItemBinding

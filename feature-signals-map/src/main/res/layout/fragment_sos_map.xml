@@ -16,8 +16,8 @@
     <androidx.fragment.app.FragmentContainerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginStart="20dp"
         android:layout_marginEnd="10dp"
         android:id="@+id/fragment_rescuers_list_container"
         app:layout_constraintBottom_toTopOf="@id/emergency_call_btn"
@@ -26,28 +26,70 @@
         android:name="androidx.fragment.app.Fragment"
         tools:layout="@layout/fragment_rescuers_list"/>
 
-    <Button
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/emergency_call_btn"
-        android:text="911"
+        android:background="@drawable/white_rectangle_selector"
+        android:layout_marginTop="30dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintBottom_toTopOf="@id/disable_sos_btn"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="center"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/disable_sos_btn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:clickable="true">
 
-    <Button
-        android:layout_width="match_parent"
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sosBtnBellImage"
+            android:src="@drawable/ic_call_red_small"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="911/112"
+            android:fontFamily="@font/work_sans_bold"
+            android:textSize="20sp"
+            android:textColor="@color/sos_red"
+            android:layout_toEndOf="@+id/sosBtnBellImage"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/disable_sos_btn"
-        android:text="disable sos"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:elevation="2dp"
+        android:background="@drawable/orange_rectangle_selector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:clickable="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DISABLE SOS"
+            android:fontFamily="@font/work_sans_bold"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"/>
+
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,6 @@
 package com.girrafeecstud.signals.feature_auth.presentation
 
-import com.girrafeecstud.signals.core_base.presentation.base.BaseViewModel
+import com.girrafeecstud.core_ui.presentation.BaseViewModel
 import com.girrafeecstud.signals.feature_auth.domain.usecase.UserLoginUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(
     private val loginUseCase: UserLoginUseCase
-) : BaseViewModel<Any>() {
+) : com.girrafeecstud.core_ui.presentation.BaseViewModel<Any>() {
 
     override var _state: MutableStateFlow<Any>
         get() = TODO("Not yet implemented")

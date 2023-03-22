@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import com.girrafeecstud.location_tracker_api.engine.LocationTrackerEngine
 import com.girrafeecstud.signals.core_base.presentation.base.MainViewModelFactory
 import com.girrafeecstud.location_tracker_api.utils.TrackerPermissionsUtility
-import com.girrafeecstud.signals.core_base.ui.base.BaseFragment
+import com.girrafeecstud.core_ui.ui.BaseFragment
 import com.girrafeecstud.signals.feature_map.databinding.FragmentSignalsMapBinding
 import com.girrafeecstud.signals.feature_map.di.MainComponent
 import com.girrafeecstud.signals.feature_map.presentation.SignalsMapViewModel

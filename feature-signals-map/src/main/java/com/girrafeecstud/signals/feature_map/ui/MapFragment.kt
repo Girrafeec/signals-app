@@ -1,13 +1,13 @@
 package com.girrafeecstud.signals.feature_map.ui
 
 import android.content.Context
-import android.graphics.Color
-import android.graphics.Paint
+import android.graphics.*
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -15,7 +15,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.girrafeecstud.location_tracker_api.domain.entity.UserLocation
 import com.girrafeecstud.signals.rescuers_api.domain.Rescuer
 import com.girrafeecstud.signals.core_base.presentation.base.MainViewModelFactory
-import com.girrafeecstud.signals.core_base.ui.base.BaseFragment
+import com.girrafeecstud.core_ui.ui.BaseFragment
 import com.girrafeecstud.signals.feature_map.databinding.FragmentMapBinding
 import com.girrafeecstud.signals.feature_map.di.MainComponent
 import com.girrafeecstud.signals.feature_map.presentation.MapUiState
@@ -41,7 +41,7 @@ class MapFragment : BaseFragment() {
     private val binding get() = _binding!!
 
     // TODO make something with it!
-    private val currentLocationOverlay = CurrentLocationOverlay()
+    private lateinit var currentLocationOverlay: CurrentLocationOverlay
 
     private var isFirstLocationOverlay = true
     
@@ -58,6 +58,7 @@ class MapFragment : BaseFragment() {
 
     override fun onAttach(context: Context) {
         MainComponent.mainComponent.mapComponent().build().inject(this)
+        currentLocationOverlay = CurrentLocationOverlay(context.applicationContext)
         super.onAttach(context)
     }
 
@@ -105,12 +106,12 @@ class MapFragment : BaseFragment() {
                         when (state) {
                             MapSharedUiState.Default -> {}
                             MapSharedUiState.ClearRescuersLocation -> {
-                                clearRescuersLocation()
                                 clearRescuersPaths()
+                                clearRescuersLocation()
                             }
                             is MapSharedUiState.DrawRescuersLocations -> {
-                                drawRescuersLocation(rescuers = state.rescuers)
                                 drawRescuersPaths(rescuers = state.rescuers)
+                                drawRescuersLocation(rescuers = state.rescuers)
                             }
                         }
                     }
@@ -190,7 +191,7 @@ class MapFragment : BaseFragment() {
         Log.i("tag resc", "draw")
             for (rescuer in rescuers) {
                 Log.i("tag resc", rescuer.rescuerFirstName)
-                val rescuerOverlay = RescuerOverlay()
+                val rescuerOverlay = RescuerOverlay(requireActivity().applicationContext)
                 rescuerOverlay.setRescuer(rescuer = rescuer)
                 binding.mapView.overlays.add(rescuerOverlay)
             }
@@ -224,8 +225,9 @@ class MapFragment : BaseFragment() {
             val line = Polyline(binding.mapView)
             line.setPoints(waypoints)
             val paint: Paint = line.outlinePaint
-            paint.color = Color.GREEN
-            paint.strokeWidth = 5f
+            paint.color = ContextCompat.getColor(requireActivity().applicationContext, com.girrafeecstud.core_ui.R.color.orange_700)
+            paint.strokeWidth = 20f
+            paint.strokeJoin = Paint.Join.ROUND
 
             binding.mapView.overlayManager.add(line)
             Log.i("tag", "resc polylines ${binding.mapView.overlays}")

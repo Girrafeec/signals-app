@@ -17,31 +17,31 @@ class RescuersDataSourceImpl @Inject constructor(
     private val rescuersTempList = listOf(
         Rescuer(
             rescuerId = "ce0c4cf7-9968-4155-bea2-e310b1248b08",
-            rescuerFirstName = "Mike",
-            rescuerLastName = "Wazowski",
+            rescuerFirstName = "Alex",
+            rescuerLastName = "Born",
             rescuerPhoneNumber = "+79234556985",
-            rescuerProfileImageUrl = "https://static.wikia.nocookie.net/pixar/images/3/38/Mike1.png/revision/latest?cb=20210509121400",
-            rescuerLocationLatitude = 60.030479,
-            rescuerLocationLongitude = 30.633914
-        ),
-        Rescuer(
-            rescuerId = "16866392-53b1-4398-8a11-5cadfb559e7d",
-            rescuerFirstName = "Randall",
-            rescuerLastName = "Boggs",
-            rescuerPhoneNumber = "+79999999999",
-            rescuerProfileImageUrl = "https://static.wikia.nocookie.net/pixar/images/8/86/Randall.png/revision/latest/scale-to-width-down/1000?cb=20160404023111",
-            rescuerLocationLatitude = 60.029972,
-            rescuerLocationLongitude = 30.631602
-        ),
-        Rescuer(
-            rescuerId = "843c7665-5171-4e0c-b976-d6220e1dfbd3",
-            rescuerFirstName = "Celia",
-            rescuerLastName = "Mae",
-            rescuerPhoneNumber = "+79435586985",
-            rescuerProfileImageUrl = "https://static.wikia.nocookie.net/disney/images/9/96/Profile_-_Celia.png/revision/latest?cb=20190313100849",
-            rescuerLocationLatitude = 60.029731,
-            rescuerLocationLongitude = 30.634857
+            rescuerProfileImageUrl = "https://i0.wp.com/xn--tomo-o83cuf7jj61w54ryvgb31m.com/wp-content/uploads/2022/04/pexels-photo-7562313.jpeg?w=867&ssl=1",
+            rescuerLocationLatitude = 59.9003,
+            rescuerLocationLongitude = 30.4891
         )
+//        Rescuer(
+//            rescuerId = "16866392-53b1-4398-8a11-5cadfb559e7d",
+//            rescuerFirstName = "Randall",
+//            rescuerLastName = "Boggs",
+//            rescuerPhoneNumber = "+79999999999",
+//            rescuerProfileImageUrl = "https://static.wikia.nocookie.net/pixar/images/8/86/Randall.png/revision/latest/scale-to-width-down/1000?cb=20160404023111",
+//            rescuerLocationLatitude = 60.029972,
+//            rescuerLocationLongitude = 30.631602
+//        ),
+//        Rescuer(
+//            rescuerId = "843c7665-5171-4e0c-b976-d6220e1dfbd3",
+//            rescuerFirstName = "Celia",
+//            rescuerLastName = "Mae",
+//            rescuerPhoneNumber = "+79435586985",
+//            rescuerProfileImageUrl = "https://static.wikia.nocookie.net/disney/images/9/96/Profile_-_Celia.png/revision/latest?cb=20190313100849",
+//            rescuerLocationLatitude = 60.029731,
+//            rescuerLocationLongitude = 30.634857
+//        )
     )
 
     override fun getRescuersList(token: String): Flow<BusinessResult<List<Rescuer>>> =

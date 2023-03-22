@@ -1,14 +1,19 @@
 package com.girrafeecstud.signals.feature_map.ui
 
+import android.content.Context
 import android.graphics.*
 import android.util.Log
+import androidx.core.content.ContextCompat
 import com.girrafeecstud.location_tracker_api.domain.entity.UserLocation
+import com.girrafeecstud.signals.feature_map.R
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.Projection
 import org.osmdroid.views.overlay.Overlay
 import javax.inject.Inject
 
-class CurrentLocationOverlay @Inject constructor() : Overlay() {
+class CurrentLocationOverlay(
+    private val context: Context
+) : Overlay() {
 
     private var _location: UserLocation? = null
 
@@ -28,11 +33,20 @@ class CurrentLocationOverlay @Inject constructor() : Overlay() {
     private fun drawMyLocation(canvas: Canvas?, projection: Projection?) {
         val point = Point()
         projection?.toPixels(_geoPoint, point)
-        val paint = Paint()
-        paint.style = Paint.Style.FILL
-        paint.color = Color.BLUE
-//        projection.save(canvas,true, false)
-        canvas?.drawCircle(point.x.toFloat(), point.y.toFloat(), 25.0.toFloat(), paint)
+        val drawable = ContextCompat.getDrawable(context, com.girrafeecstud.core_ui.R.drawable.orange_white_stroked_circle)
+        val size = dpToPx(30f).toInt() // convert dp to pixels
+        drawable?.setBounds(
+            point.x - size / 2,
+            point.y - size / 2,
+            point.x + size / 2,
+            point.y + size / 2
+        )
+        drawable?.draw(canvas!!)
+    }
+
+    // function to convert dp to pixels
+    private fun dpToPx(dp: Float): Float {
+        return dp * context.resources.displayMetrics.density
     }
 
 }

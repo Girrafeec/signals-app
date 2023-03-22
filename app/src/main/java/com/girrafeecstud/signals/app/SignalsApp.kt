@@ -21,14 +21,13 @@ import com.girrafeecstud.signals.di.DaggerAppComponent
 import com.girrafeecstud.signals.event_bus.di.EventBusComponent
 import com.girrafeecstud.signals.feature_map.di.DaggerMainComponent_MainDependenciesComponent
 import com.girrafeecstud.signals.feature_map.di.MainComponent
-import com.girrafeecstud.signals.feature_signals.di.DaggerSignalsFeatureComponent_SignalsFeatureDependenciesComponent
-import com.girrafeecstud.signals.feature_signals.di.SignalsFeatureComponent
+import com.girrafeecstud.signals.feature_signals_screens.di.SignalsScreensFeatureComponent
+import com.girrafeecstud.signals.feature_signals_screens.di.DaggerSignalsScreensFeatureComponent_SignalsScreensFeatureDependenciesComponent
 import com.girrafeecstud.signals.location_tracker_impl.di.LocationTrackerFeatureComponent
 import com.girrafeecstud.signals.location_tracker_impl.di.dependencies.LocationTrackerDependencies
 import com.girrafeecstud.sos_signal_impl.di.DaggerSosSignalFeatureComponent_SosSignalFeatureDependenciesComponent
 import com.girrafeecstud.sos_signal_impl.di.SosSignalFeatureComponent
 import com.google.firebase.messaging.FirebaseMessaging
-import com.google.firebase.messaging.FirebaseMessagingService
 
 class SignalsApp : Application() {
 
@@ -85,7 +84,7 @@ class SignalsApp : Application() {
             .build()
         )
         // TODO how to reset class?
-        SignalsFeatureComponent.init(dependencies = DaggerSignalsFeatureComponent_SignalsFeatureDependenciesComponent
+        SignalsScreensFeatureComponent.init(dependencies = DaggerSignalsScreensFeatureComponent_SignalsScreensFeatureDependenciesComponent
             .builder()
             .sosSignalFeatureApi(SosSignalFeatureComponent.sosSignalFeatureComponent)
             .eventBusApi(EventBusComponent.eventBusComponent)

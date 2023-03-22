@@ -13,4 +13,15 @@
         android:name="com.girrafeecstud.signals.feature_map.ui.MapFragment"
         tools:layout="@layout/fragment_map"/>
 
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/profile_btn"
+        android:src="@drawable/ic_profile"
+        android:padding="7dp"
+        android:layout_margin="25dp"
+        android:background="@drawable/white_transparent_rectangle_selector"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

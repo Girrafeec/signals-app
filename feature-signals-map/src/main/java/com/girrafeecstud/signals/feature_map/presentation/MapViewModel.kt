@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.girrafeecstud.location_tracker_api.domain.GetLastKnownLocationUseCase
 import com.girrafeecstud.signals.core_base.domain.base.BusinessResult
-import com.girrafeecstud.signals.core_base.presentation.base.BaseViewModel
+import com.girrafeecstud.core_ui.presentation.BaseViewModel
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 

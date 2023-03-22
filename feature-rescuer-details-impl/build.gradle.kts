@@ -80,6 +80,7 @@ dependencies {
     implementation(Dependencies.Jetpack.Navigation.navigationFragmentKtx)
     implementation(Dependencies.Jetpack.Navigation.navigationUiKtx)
 
+    implementation(project(":core-ui"))
     implementation(project(":core-base"))
     implementation(project(":event-bus"))
     implementation(project(":navigation"))

@@ -13,7 +13,7 @@ import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.girrafeecstud.signals.core_base.presentation.base.MainViewModelFactory
-import com.girrafeecstud.signals.core_base.ui.base.BaseFlowFragment
+import com.girrafeecstud.core_ui.ui.BaseFlowFragment
 import com.girrafeecstud.signals.feature_map.MapsFlowArgs
 import com.girrafeecstud.signals.feature_map.R
 import com.girrafeecstud.signals.feature_map.databinding.FragmentMapsFlowBinding
@@ -107,7 +107,6 @@ class MapsFlowFragment: BaseFlowFragment(
     }
 
     override fun setListeners() {
-        binding.mainActionBar.logOutImgBtn.setOnClickListener { logOut() }
         binding.sosBtn.setOnClickListener { openSosFragment() }
     }
 
@@ -158,12 +157,12 @@ class MapsFlowFragment: BaseFlowFragment(
 
     private fun hideSignalButtons() {
         binding.sosBtn.visibility = View.GONE
-        binding.watchOverMeBtn.visibility = View.GONE
+//        binding.watchOverMeBtn.visibility = View.GONE
     }
 
     private fun showSignalButtons() {
         binding.sosBtn.visibility = View.VISIBLE
-        binding.watchOverMeBtn.visibility = View.VISIBLE
+//        binding.watchOverMeBtn.visibility = View.VISIBLE
     }
 
 }

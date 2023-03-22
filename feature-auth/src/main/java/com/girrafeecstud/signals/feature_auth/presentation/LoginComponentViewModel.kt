@@ -1,12 +1,12 @@
 package com.girrafeecstud.signals.feature_auth.presentation
 
-import com.girrafeecstud.signals.core_base.presentation.base.BaseViewModel
+import com.girrafeecstud.core_ui.presentation.BaseViewModel
 import com.girrafeecstud.signals.feature_auth.di.AuthComponent
 import com.girrafeecstud.signals.feature_auth.di.LoginComponent
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-class LoginComponentViewModel: BaseViewModel<Any>() {
+class LoginComponentViewModel: com.girrafeecstud.core_ui.presentation.BaseViewModel<Any>() {
 
     override var _state: MutableStateFlow<Any>
         get() = TODO("Not yet implemented")

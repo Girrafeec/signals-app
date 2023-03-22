@@ -10,13 +10,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.girrafeecstud.signals.core_base.presentation.base.MainViewModelFactory
-import com.girrafeecstud.signals.core_base.ui.base.BaseFragment
+import com.girrafeecstud.core_ui.ui.BaseFragment
 import com.girrafeecstud.signals.feature_auth.databinding.FragmentRegistrationBinding
 import com.girrafeecstud.signals.feature_auth.presentation.RegistrationComponentViewModel
 import com.girrafeecstud.signals.feature_auth.presentation.RegistrationViewModel
 import javax.inject.Inject
 
-class RegistrationFragment : BaseFragment() {
+class RegistrationFragment : com.girrafeecstud.core_ui.ui.BaseFragment() {
 
     private var _binding: FragmentRegistrationBinding? = null
 
