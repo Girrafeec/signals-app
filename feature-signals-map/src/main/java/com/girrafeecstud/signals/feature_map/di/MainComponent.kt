@@ -10,6 +10,8 @@ import com.girrafeecstud.signals.event_bus.di.EventBusApi
 import com.girrafeecstud.signals.feature_map.di.annotation.MapsFeatureScope
 import com.girrafeecstud.signals.feature_map.di.dependencies.MainDependencies
 import com.girrafeecstud.signals.feature_map.ui.MapsFlowFragment
+import com.girrafeecstud.signals.signal_details_api.di.SignalDetailsFeatureApi
+import com.girrafeecstud.signals.signals_api.di.SignalsFeatureApi
 import com.girrafeecstud.sos_signal_api.di.SosSignalFeatureApi
 import dagger.Component
 
@@ -72,6 +74,8 @@ interface MainComponent {
             RescuersFeatureApi::class,
             RescuersListFeatureApi::class,
             RescuerDetailsFeatureApi::class,
+            SignalsFeatureApi::class,
+            SignalDetailsFeatureApi::class,
             EventBusApi::class
         ]
     )

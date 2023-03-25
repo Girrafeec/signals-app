@@ -2,7 +2,7 @@ package com.girrafeecstud.signals.rescuer_details_impl.di
 
 import com.girrafeecstud.signals.rescuer_details_api.di.RescuerDetailsFeatureApi
 import com.girrafeecstud.signals.rescuer_details_impl.di.annotation.RescuerDetailsFeatureScope
-import com.girrafeecstud.signals.rescuer_details_impl.ui.RescuerDetailsFragmentDialogImpl
+import com.girrafeecstud.signals.rescuer_details_impl.ui.RescuerDetailsFragmentImpl
 import dagger.Component
 
 @RescuerDetailsFeatureScope
@@ -11,7 +11,7 @@ import dagger.Component
 )
 interface RescuerDetailsFeatureComponent : RescuerDetailsFeatureApi {
 
-    fun inject(fragment: RescuerDetailsFragmentDialogImpl)
+    fun inject(fragment: RescuerDetailsFragmentImpl)
 
     @Component.Builder
     interface Builder {

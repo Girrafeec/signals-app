@@ -20,8 +20,10 @@ import com.girrafeecstud.signals.feature_map.databinding.FragmentMapBinding
 import com.girrafeecstud.signals.feature_map.di.MainComponent
 import com.girrafeecstud.signals.feature_map.presentation.MapUiState
 import com.girrafeecstud.signals.feature_map.presentation.MapViewModel
+import com.girrafeecstud.signals.feature_map.presentation.SignalsMapSharedViewModel
 import com.girrafeecstud.signals.feature_map.presentation.shared_map.MapSharedUiState
 import com.girrafeecstud.signals.feature_map.presentation.shared_map.MapSharedViewModel
+import com.girrafeecstud.signals.signals_api.domain.entity.EmergencySignal
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -34,7 +36,7 @@ import org.osmdroid.views.overlay.Polyline
 import javax.inject.Inject
 
 
-class MapFragment : BaseFragment() {
+class MapFragment : BaseFragment(), SignalsClickEvent {
 
     private var _binding: FragmentMapBinding? = null
 
@@ -53,6 +55,10 @@ class MapFragment : BaseFragment() {
     }
 
     private val mapViewModel: MapViewModel by viewModels {
+        mainViewModelFactory
+    }
+
+    private val signalsMapSharedViewModel: SignalsMapSharedViewModel by viewModels {
         mainViewModelFactory
     }
 
@@ -104,14 +110,18 @@ class MapFragment : BaseFragment() {
                 mapSharedViewModel.state
                     .onEach { state ->
                         when (state) {
-                            MapSharedUiState.Default -> {}
-                            MapSharedUiState.ClearRescuersLocation -> {
-                                clearRescuersPaths()
-                                clearRescuersLocation()
+                            MapSharedUiState.NoExternalOverlays -> {}
+                            MapSharedUiState.ClearRescuers -> {
+                                clearRescuers()
                             }
-                            is MapSharedUiState.DrawRescuersLocations -> {
-                                drawRescuersPaths(rescuers = state.rescuers)
-                                drawRescuersLocation(rescuers = state.rescuers)
+                            is MapSharedUiState.DrawRescuers -> {
+                                drawRescuers(rescuers = state.rescuers)
+                            }
+                            MapSharedUiState.ClearSignals -> {
+                                clearSignals()
+                            }
+                            is MapSharedUiState.DrawSignals -> {
+                                drawSignalsLocation(signals = state.signals)
                             }
                         }
                     }
@@ -133,6 +143,13 @@ class MapFragment : BaseFragment() {
                         .launchIn(viewLifecycleOwner.lifecycleScope)
                 }
             }
+    }
+
+    override fun onSignalClick(signal: EmergencySignal?) {
+        signal?.let {
+            Log.i("tag", "clicked on ${it.signalId}")
+            signalsMapSharedViewModel.showSignalDetails(signal = it)
+        }
     }
 
     private fun initMap() {
@@ -184,6 +201,11 @@ class MapFragment : BaseFragment() {
         }
     }
 
+    private fun drawRescuers(rescuers: List<Rescuer>?) {
+        drawRescuersPaths(rescuers = rescuers)
+        drawRescuersLocation(rescuers = rescuers)
+    }
+
     private fun drawRescuersLocation(rescuers: List<Rescuer>?) {
         if (rescuers == null)
             return
@@ -195,14 +217,6 @@ class MapFragment : BaseFragment() {
                 rescuerOverlay.setRescuer(rescuer = rescuer)
                 binding.mapView.overlays.add(rescuerOverlay)
             }
-        binding.mapView.invalidate()
-    }
-
-    private fun clearRescuersLocation() {
-        for (overlay in binding.mapView.overlays) {
-            if (overlay is RescuerOverlay)
-                binding.mapView.overlays.remove(overlay)
-        }
         binding.mapView.invalidate()
     }
 
@@ -229,8 +243,22 @@ class MapFragment : BaseFragment() {
             paint.strokeWidth = 20f
             paint.strokeJoin = Paint.Join.ROUND
 
-            binding.mapView.overlayManager.add(line)
+            // Adding paths down to all overlays
+            binding.mapView.overlayManager.add(0, line)
             Log.i("tag", "resc polylines ${binding.mapView.overlays}")
+        }
+        binding.mapView.invalidate()
+    }
+
+    private fun clearRescuers() {
+        clearRescuersPaths()
+        clearRescuersLocation()
+    }
+
+    private fun clearRescuersLocation() {
+        for (overlay in binding.mapView.overlays) {
+            if (overlay is RescuerOverlay)
+                binding.mapView.overlays.remove(overlay)
         }
         binding.mapView.invalidate()
     }
@@ -238,6 +266,28 @@ class MapFragment : BaseFragment() {
     private fun clearRescuersPaths() {
         for (overlay in binding.mapView.overlays) {
             if (overlay is Polyline)
+                binding.mapView.overlays.remove(overlay)
+        }
+        binding.mapView.invalidate()
+    }
+
+    private fun drawSignalsLocation(signals: List<EmergencySignal>?) {
+        if (signals == null)
+            return
+        clearSignals()
+        Log.i("tag sign", "draw")
+        for (signal in signals) {
+            Log.i("tag sign", signal.signalId)
+            val signalOverlay = EmergencySignalOverlay(requireActivity().applicationContext, this)
+            signalOverlay.setSignal(signal = signal)
+            binding.mapView.overlays.add(signalOverlay)
+        }
+        binding.mapView.invalidate()
+    }
+
+    private fun clearSignals() {
+        for (overlay in binding.mapView.overlays) {
+            if (overlay is EmergencySignalOverlay)
                 binding.mapView.overlays.remove(overlay)
         }
         binding.mapView.invalidate()

@@ -1,5 +1,7 @@
 package com.girrafeecstud.signals.rescuers_impl.di.annotation
 
-@RescuersFeatureScope
+import javax.inject.Scope
+
+@Scope
 @Retention(AnnotationRetention.RUNTIME)
 annotation class RescuersFeatureScope

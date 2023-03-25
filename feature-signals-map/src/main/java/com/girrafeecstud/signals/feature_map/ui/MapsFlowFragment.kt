@@ -107,29 +107,9 @@ class MapsFlowFragment: BaseFlowFragment(
     }
 
     override fun setListeners() {
-        binding.sosBtn.setOnClickListener { openSosFragment() }
     }
 
     override fun registerObservers() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                sosSignalEngine.getSosSignalState()
-                    .filter { state ->
-                        state is SosSignalState.SosSignalDisabled ||
-                                state is SosSignalState.SosSignalSuccess ||
-                                state is SosSignalState.SosSignalError
-                    }
-                    .onEach { state ->
-                        if (state is SosSignalState.SosSignalDisabled) {
-                            showSignalButtons()
-                        }
-                        if (state is SosSignalState.SosSignalSuccess ||
-                                state is SosSignalState.SosSignalError)
-                            hideSignalButtons()
-                    }
-                    .launchIn(viewLifecycleOwner.lifecycleScope)
-            }
-        }
     }
 
     override fun navigateToScreen(destination: MapsFlowDestination) {
@@ -143,26 +123,6 @@ class MapsFlowFragment: BaseFlowFragment(
             .build()
         //navController.navigate(request)
         findNavController().navigate(request)
-    }
-
-    private fun openSosFragment() {
-        (requireActivity() as ToFlowNavigable)
-            .navigateToScreen(destination = FlowDestination.SignalsFlow())
-    }
-
-    private fun openWatchOverMeScreen() {
-        (requireActivity() as ToFlowNavigable)
-            .navigateToScreen(destination = FlowDestination.SignalsFlow())
-    }
-
-    private fun hideSignalButtons() {
-        binding.sosBtn.visibility = View.GONE
-//        binding.watchOverMeBtn.visibility = View.GONE
-    }
-
-    private fun showSignalButtons() {
-        binding.sosBtn.visibility = View.VISIBLE
-//        binding.watchOverMeBtn.visibility = View.VISIBLE
     }
 
 }

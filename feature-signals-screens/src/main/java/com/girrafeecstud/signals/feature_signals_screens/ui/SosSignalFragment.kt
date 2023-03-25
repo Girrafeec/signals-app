@@ -108,7 +108,7 @@ class SosSignalFragment : com.girrafeecstud.core_ui.ui.BaseFragment() {
                 sosSignalType = SosSignalType.DEFAULT_SOS_SIGNAL
             }
             binding.heartAttackRadio.id -> {
-                sosSignalType = SosSignalType.HEARD_ATTACK_SIGNAL
+                sosSignalType = SosSignalType.HEART_ATTACK_SIGNAL
             }
         }
 

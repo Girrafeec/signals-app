@@ -5,6 +5,7 @@ import com.girrafeecstud.signals.core_base.di.base.ViewModelKey
 import com.girrafeecstud.signals.feature_map.di.annotation.MapsFeatureScope
 import com.girrafeecstud.signals.feature_map.presentation.shared_map.MapSharedViewModel
 import com.girrafeecstud.signals.feature_map.presentation.SettingsViewModel
+import com.girrafeecstud.signals.feature_map.presentation.SignalsMapSharedViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -34,6 +35,12 @@ class MainModule {
         @MapsFeatureScope
         @ViewModelKey(MapSharedViewModel::class)
         fun bindMapSharedViewModel(impl: MapSharedViewModel): ViewModel
+
+        @Binds
+        @IntoMap
+        @MapsFeatureScope
+        @ViewModelKey(SignalsMapSharedViewModel::class)
+        fun bindSignalsMapSharedViewModel(impl: SignalsMapSharedViewModel): ViewModel
 
         // It is here because both SosMap and SignalsMap needs this view model
 //        @Binds

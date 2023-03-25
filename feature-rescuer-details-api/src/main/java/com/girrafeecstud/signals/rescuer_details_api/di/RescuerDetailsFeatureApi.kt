@@ -1,9 +1,9 @@
 package com.girrafeecstud.signals.rescuer_details_api.di
 
-import com.girrafeecstud.signals.rescuer_details_api.ui.RescuerDetailsFragmentDialog
+import com.girrafeecstud.signals.rescuer_details_api.ui.RescuerDetailsFragment
 
 interface RescuerDetailsFeatureApi {
 
-    fun getRescuerDetailsFragmentDialog(): RescuerDetailsFragmentDialog
+    fun getRescuerDetailsFragment(): RescuerDetailsFragment
 
 }

@@ -4,6 +4,9 @@ import android.content.Intent
 import android.util.Log
 import com.girrafeecstud.signals.rescuers_api.utils.RescuersFeatureUtils
 import com.girrafeecstud.signals.rescuers_impl.engine.RescuersFeatureReceiver
+import com.girrafeecstud.signals.signal_details_impl.engine.SignalDetailsFeatureReceiver
+import com.girrafeecstud.signals.signals_api.utils.SignalsFeatureUtils
+import com.girrafeecstud.signals.signals_impl.engine.SignalsFeatureReceiver
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
@@ -28,24 +31,49 @@ class SignalsPushService : FirebaseMessagingService() {
         if (message.data != null) {
 
             Log.i("tag", "new message action ${message.data.get("action")}")
-            val intent = prepareBroadcastIntent(action = message.data.get("action"))
-            sendBroadcast(intent)
+            val intents = prepareBroadcastIntents(action = message.data.get("action"))
+            for (intent in intents) {
+                if (intent.action == null)
+                    continue
+                else
+                    sendBroadcast(intent)
+            }
         }
 
     }
 
-    private fun prepareBroadcastIntent(action: String?): Intent =
+    private fun prepareBroadcastIntents(
+        action: String?
+    ): List<Intent> =
         when (action) {
             RescuersFeatureUtils.ACTION_START_RESCUERS_ENGINE -> {
-                Intent(
-                    applicationContext,
-                    RescuersFeatureReceiver::class.java
-                ).apply {
-                    this.action = action
-                }
+                listOf(
+                    Intent(
+                        applicationContext,
+                        RescuersFeatureReceiver::class.java
+                    ).apply {
+                        this.action = action
+                    }
+                )
+            }
+            SignalsFeatureUtils.ACTION_START_SIGNALS_ENGINE -> {
+                listOf(
+                    Intent(
+                        applicationContext,
+                        SignalsFeatureReceiver::class.java
+                    ).apply {
+                        this.action = action
+                    },
+                    Intent(
+                        applicationContext,
+                        SignalDetailsFeatureReceiver::class.java
+                    ).apply {
+                        this.action = action
+                    }
+                )
             }
             else -> {
-                Intent()
+                listOf(Intent())
             }
         }
 }

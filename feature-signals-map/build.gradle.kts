@@ -111,4 +111,6 @@ dependencies {
     implementation(project(":feature-rescuers-api"))
     implementation(project(":feature-rescuers-list-api"))
     implementation(project(":feature-rescuer-details-api"))
+    implementation(project(":feature-signals-api"))
+    implementation(project(":feature-signal-details-api"))
 }

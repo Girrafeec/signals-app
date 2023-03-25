@@ -12,7 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.girrafeecstud.signals.rescuer_details_api.ui.RescuerDetailsFragmentDialog
+import com.girrafeecstud.signals.rescuer_details_api.ui.RescuerDetailsFragment
 import com.girrafeecstud.signals.rescuers_api.domain.Rescuer
 import com.girrafeecstud.signals.rescuers_list_api.presenation.RescuersListSharedState
 import com.girrafeecstud.signals.rescuers_list_api.presenation.RescuersListSharedStateEngine
@@ -27,6 +27,8 @@ import com.girrafeecstud.signals.feature_map.navigation.ToMapScreenNavigable
 import com.girrafeecstud.signals.feature_map.presentation.SosMapUIState
 import com.girrafeecstud.signals.feature_map.presentation.SosMapViewModel
 import com.girrafeecstud.signals.feature_map.presentation.shared_map.MapSharedViewModel
+import com.girrafeecstud.signals.rescuer_details_api.utils.RescuerDetailsFeatureUtils
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -38,7 +40,7 @@ class SosMapFragment : BaseFragment() {
     lateinit var rescuersListFragment: RescuersListFragment
 
     @Inject
-    lateinit var rescuerescuerDetailsFragmentDialog: RescuerDetailsFragmentDialog
+    lateinit var rescuerDetailsFragment: RescuerDetailsFragment
 
     @Inject
     lateinit var mainViewModelFactory: MainViewModelFactory
@@ -73,6 +75,7 @@ class SosMapFragment : BaseFragment() {
     }
 
     override fun onDestroyView() {
+        rescuersListSharedStateEngine.closeRescuerDetails()
         _binding = null
         super.onDestroyView()
     }
@@ -120,7 +123,7 @@ class SosMapFragment : BaseFragment() {
                         when (state) {
                             RescuersListSharedState.CloseRescuerDetails -> {}
                             is RescuersListSharedState.ShowRescuerDetails -> {
-                                showRescuerDetailsDialog(rescuer = state.rescuer)
+                                showRescuerDetails(rescuer = state.rescuer)
                             }
                         }
                     }
@@ -146,13 +149,39 @@ class SosMapFragment : BaseFragment() {
         Toast.makeText(requireActivity(), "Sos error sent", Toast.LENGTH_SHORT).show()
     }
 
-    private fun showRescuerDetailsDialog(rescuer: Rescuer) {
+    private fun showRescuerDetails(rescuer: Rescuer) {
+        if (childFragmentManager.findFragmentByTag(RescuerDetailsFeatureUtils.FRAGMENT_RESCUER_DETAILS_TAG) != null)
+            return
         Log.i("sosMap", "show ${rescuer.rescuerFirstName} details")
         // TODO change tag
-        rescuerescuerDetailsFragmentDialog.arguments = Bundle().apply {
+        rescuerDetailsFragment.arguments = Bundle().apply {
             this.putParcelable("rescuerDetails", rescuer)
         }
-        rescuerescuerDetailsFragmentDialog.show(childFragmentManager, "rrr")
+        childFragmentManager.commit {
+            add(
+                R.id.rescuer_details_fragment_container,
+                rescuerDetailsFragment,
+                RescuerDetailsFeatureUtils.FRAGMENT_RESCUER_DETAILS_TAG
+            )
+        }
+        val bottomSheetBehavior = BottomSheetBehavior.from(requireView().findViewById(R.id.rescuer_details_fragment_container))
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        bottomSheetBehavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                // Handle the slide offset, if needed
+            }
+
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                Log.i("tag", "bottom state $newState")
+                // Hide the bottom sheet when it is expanded
+                if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
+                    childFragmentManager.commit {
+                        remove(rescuerDetailsFragment)
+                    }
+                    rescuersListSharedStateEngine.closeRescuerDetails()
+                }
+            }
+        })
     }
 
 }

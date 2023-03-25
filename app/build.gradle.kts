@@ -94,4 +94,8 @@ dependencies {
     implementation(project(":feature-rescuer-details-impl"))
     implementation(project(":feature-route-builder-api"))
     implementation(project(":feature-route-builder-impl"))
+    implementation(project(":feature-signals-api"))
+    implementation(project(":feature-signals-impl"))
+    implementation(project(":feature-signal-details-api"))
+    implementation(project(":feature-signal-details-impl"))
 }

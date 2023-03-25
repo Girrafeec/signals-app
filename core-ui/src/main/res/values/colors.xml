@@ -16,4 +16,5 @@
     <color name="orange_500">#FF9800</color>
     <color name="orange_700">#F57C00</color>
     <color name="orange_500_pressed">#DF8500</color>
+    <color name="light_gray_text">#9E9E9E</color>
 </resources>

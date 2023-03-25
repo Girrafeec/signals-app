@@ -5,7 +5,6 @@ import android.content.Context
 import android.util.Log
 import com.girrafeecstud.route_builder_impl.di.RouteBuilderFeatureComponent
 import com.girrafeecstud.route_builder_impl.di.RouteBuilderFeatureDependencies
-import com.girrafeecstud.signals.rescuer_details_impl.di.RescuerDetailsFeatureComponent
 import com.girrafeecstud.signals.rescuers_impl.di.DaggerRescuersFeatureComponent_RescuersFeatureDependenciesComponent
 import com.girrafeecstud.signals.rescuers_impl.di.RescuersFeatureComponent
 import com.girrafeecstud.signals.rescuers_list_impl.di.DaggerRescuersListFeatureComponent_RescuersListFeatureDependenciesComponent
@@ -25,6 +24,11 @@ import com.girrafeecstud.signals.feature_signals_screens.di.SignalsScreensFeatur
 import com.girrafeecstud.signals.feature_signals_screens.di.DaggerSignalsScreensFeatureComponent_SignalsScreensFeatureDependenciesComponent
 import com.girrafeecstud.signals.location_tracker_impl.di.LocationTrackerFeatureComponent
 import com.girrafeecstud.signals.location_tracker_impl.di.dependencies.LocationTrackerDependencies
+import com.girrafeecstud.signals.rescuer_details_impl.di.RescuerDetailsFeatureComponent
+import com.girrafeecstud.signals.signal_details_impl.di.DaggerSignalDetailsFeatureComponent_SignalDetailsFeatureDependenciesComponent
+import com.girrafeecstud.signals.signal_details_impl.di.SignalDetailsFeatureComponent
+import com.girrafeecstud.signals.signals_impl.di.DaggerSignalsFeatureComponent_SignalsFeatureDependenciesComponent
+import com.girrafeecstud.signals.signals_impl.di.SignalsFeatureComponent
 import com.girrafeecstud.sos_signal_impl.di.DaggerSosSignalFeatureComponent_SosSignalFeatureDependenciesComponent
 import com.girrafeecstud.sos_signal_impl.di.SosSignalFeatureComponent
 import com.google.firebase.messaging.FirebaseMessaging
@@ -72,6 +76,17 @@ class SignalsApp : Application() {
                 .build()
         )
         RescuerDetailsFeatureComponent.init()
+        SignalsFeatureComponent.init(
+            dependencies = DaggerSignalsFeatureComponent_SignalsFeatureDependenciesComponent
+                .builder()
+                .coreNetworkApi(CoreNetworkComponent.coreNetworkComponent)
+                .build()
+        )
+        SignalDetailsFeatureComponent.init(dependencies = DaggerSignalDetailsFeatureComponent_SignalDetailsFeatureDependenciesComponent
+            .builder()
+            .signalsFeatureApi(SignalsFeatureComponent.signalsFeatureComponent)
+            .build()
+        )
         MainComponent.init(dependencies = DaggerMainComponent_MainDependenciesComponent
             .builder()
             .corePreferencesApi(CorePreferencesComponent.corePreferencesComponent)
@@ -80,6 +95,8 @@ class SignalsApp : Application() {
             .rescuersFeatureApi(RescuersFeatureComponent.rescuersFeatureComponent)
             .rescuersListFeatureApi(RescuersListFeatureComponent.rescuersListFeatureComponent)
             .rescuerDetailsFeatureApi(RescuerDetailsFeatureComponent.rescuerDetailsFeatureComponent)
+            .signalsFeatureApi(SignalsFeatureComponent.signalsFeatureComponent)
+            .signalDetailsFeatureApi(SignalDetailsFeatureComponent.signalDetailsFeatureComponent)
             .eventBusApi(EventBusComponent.eventBusComponent)
             .build()
         )
