@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.commit
-import com.girrafeecstud.signals.core_base.ui.base.BaseFragment
 import com.girrafeecstud.signals.signal_details_api.ui.ISignalDetailsFragment
 import com.girrafeecstud.signals.signal_details_impl.R
 import com.girrafeecstud.signals.signal_details_impl.databinding.FragmentParentSignalDetailsBinding
