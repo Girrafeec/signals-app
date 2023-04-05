@@ -23,6 +23,9 @@ import com.girrafeecstud.signals.feature_map.presentation.MapViewModel
 import com.girrafeecstud.signals.feature_map.presentation.SignalsMapSharedViewModel
 import com.girrafeecstud.signals.feature_map.presentation.shared_map.MapSharedUiState
 import com.girrafeecstud.signals.feature_map.presentation.shared_map.MapSharedViewModel
+import com.girrafeecstud.signals.feature_map.ui.overlay.CurrentLocationOverlay
+import com.girrafeecstud.signals.feature_map.ui.overlay.SosSignalOverlay
+import com.girrafeecstud.signals.feature_map.ui.overlay.RescuerOverlay
 import com.girrafeecstud.signals.signals_api.domain.entity.EmergencySignal
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.launchIn
@@ -146,8 +149,12 @@ class MapFragment : BaseFragment(), SignalsClickEvent {
     }
 
     override fun onSignalClick(signal: EmergencySignal?) {
+
         signal?.let {
             Log.i("tag", "clicked on ${it.signalId}")
+            // Animate to signal when clicked on signal overlay
+            binding.mapView.controller.animateTo(GeoPoint(signal.signalLatitude, signal.signalLongitude))
+            binding.mapView.controller.setZoom(17.5)
             signalsMapSharedViewModel.showSignalDetails(signal = it)
         }
     }
@@ -278,7 +285,7 @@ class MapFragment : BaseFragment(), SignalsClickEvent {
         Log.i("tag sign", "draw")
         for (signal in signals) {
             Log.i("tag sign", signal.signalId)
-            val signalOverlay = EmergencySignalOverlay(requireActivity().applicationContext, this)
+            val signalOverlay = SosSignalOverlay(requireActivity().applicationContext, this)
             signalOverlay.setSignal(signal = signal)
             binding.mapView.overlays.add(signalOverlay)
         }
@@ -287,7 +294,7 @@ class MapFragment : BaseFragment(), SignalsClickEvent {
 
     private fun clearSignals() {
         for (overlay in binding.mapView.overlays) {
-            if (overlay is EmergencySignalOverlay)
+            if (overlay is SosSignalOverlay)
                 binding.mapView.overlays.remove(overlay)
         }
         binding.mapView.invalidate()

@@ -1,13 +1,8 @@
-package com.girrafeecstud.signals.feature_map.ui
+package com.girrafeecstud.signals.feature_map.ui.overlay
 
 import android.content.Context
 import android.graphics.*
-import android.graphics.drawable.Drawable
 import android.util.Log
-import androidx.core.content.ContextCompat
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.transition.Transition
 import com.girrafeecstud.signals.rescuers_api.domain.Rescuer
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.Projection

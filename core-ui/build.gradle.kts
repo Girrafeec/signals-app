@@ -65,5 +65,9 @@ dependencies {
     // Picasso
     implementation(Dependencies.Picasso.picasso)
 
+    // OSMDroid
+    implementation(Dependencies.OSMDroid.osmDroid)
+    implementation(Dependencies.OSMDroid.osmDroidBonuspack)
+
     implementation(project(":core-base"))
 }

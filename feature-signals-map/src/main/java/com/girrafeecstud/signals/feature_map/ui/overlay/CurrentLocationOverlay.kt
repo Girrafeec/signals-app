@@ -1,15 +1,13 @@
-package com.girrafeecstud.signals.feature_map.ui
+package com.girrafeecstud.signals.feature_map.ui.overlay
 
 import android.content.Context
 import android.graphics.*
 import android.util.Log
 import androidx.core.content.ContextCompat
 import com.girrafeecstud.location_tracker_api.domain.entity.UserLocation
-import com.girrafeecstud.signals.feature_map.R
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.Projection
 import org.osmdroid.views.overlay.Overlay
-import javax.inject.Inject
 
 class CurrentLocationOverlay(
     private val context: Context

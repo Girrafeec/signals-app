@@ -47,6 +47,10 @@ dependencies {
     implementation(Dependencies.Jetpack.ViewModel.viewModel)
     implementation(Dependencies.Jetpack.LiveData.liveData)
 
+    // OSMDroid
+    implementation(Dependencies.OSMDroid.osmDroid)
+    implementation(Dependencies.OSMDroid.osmDroidBonuspack)
+
     // Picasso
     implementation(Dependencies.Picasso.picasso)
 }
