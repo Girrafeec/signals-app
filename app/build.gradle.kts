@@ -98,4 +98,6 @@ dependencies {
     implementation(project(":feature-signals-impl"))
     implementation(project(":feature-signal-details-api"))
     implementation(project(":feature-signal-details-impl"))
+    implementation(project(":feature-countdown-timer-api"))
+    implementation(project(":feature-countdown-timer-impl"))
 }

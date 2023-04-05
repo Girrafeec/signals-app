@@ -3,6 +3,7 @@ package com.girrafeecstud.signals.app
 import android.app.Application
 import android.content.Context
 import android.util.Log
+import com.girrafeecstud.countdown_timer_impl.di.CountDownTimerFeatureComponent
 import com.girrafeecstud.route_builder_impl.di.RouteBuilderFeatureComponent
 import com.girrafeecstud.route_builder_impl.di.RouteBuilderFeatureDependencies
 import com.girrafeecstud.signals.rescuers_impl.di.DaggerRescuersFeatureComponent_RescuersFeatureDependenciesComponent
@@ -52,6 +53,7 @@ class SignalsApp : Application() {
         CorePreferencesComponent.init(preferencesDependencies = CorePreferencesDependenciesImpl())
         CoreBaseComponent.init()
         EventBusComponent.init()
+        CountDownTimerFeatureComponent.init()
         LocationTrackerFeatureComponent.init(LocationTrackerDependenciesImpl())
         RouteBuilderFeatureComponent.init(RouteBuilderDependenciesImpl())
         // TODO how to reset class?
@@ -59,6 +61,7 @@ class SignalsApp : Application() {
             dependencies = DaggerSosSignalFeatureComponent_SosSignalFeatureDependenciesComponent
                 .builder()
                 .eventBusApi(EventBusComponent.eventBusComponent)
+                .countDownTimerFeatureApi(CountDownTimerFeatureComponent.countDownTimerFeatureComponent)
                 .build()
         )
         RescuersFeatureComponent.init(

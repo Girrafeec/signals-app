@@ -15,7 +15,7 @@ object Versions {
     const val materialVersion = "1.6.1"
 
     // AppCompat
-    const val appCompatVersion = "1.4.2"
+    const val appCompatVersion = "1.5.1"
 
     // Core
     const val coreKtxVersion = "1.8.0"

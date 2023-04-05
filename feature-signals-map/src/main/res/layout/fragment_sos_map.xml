@@ -17,7 +17,7 @@
             android:name="com.girrafeecstud.signals.feature_map.ui.MapFragment"
             tools:layout="@layout/fragment_map"/>
 
-        <androidx.fragment.app.FragmentContainerView
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
@@ -26,9 +26,7 @@
             android:id="@+id/fragment_rescuers_list_container"
             app:layout_constraintBottom_toTopOf="@id/emergency_call_btn"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:name="androidx.fragment.app.Fragment"
-            tools:layout="@layout/fragment_rescuers_list"/>
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <RelativeLayout
             android:layout_width="0dp"

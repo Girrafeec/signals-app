@@ -82,12 +82,6 @@ class SosSignalOverlay(
             return true
         }
 
-        // Check if the touch coordinates are within the bounds of the image container view
-        if (hitRect.contains(e?.x?.toInt() ?: 0, e?.y?.toInt() ?: 0)) {
-            listener.onSignalClick(signal = _signal)
-            return true
-        }
-
         // Check if the distance is less than circle radius
 //        _geoPoint?.let {
 ////            Log.i("tag", "distance ${it.distanceToAsDouble(touchedGeoPoint).toFloat()}")

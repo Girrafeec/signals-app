@@ -39,7 +39,7 @@ import org.osmdroid.views.overlay.Polyline
 import javax.inject.Inject
 
 
-class MapFragment : BaseFragment(), SignalsClickEvent {
+class MapFragment : BaseFragment(), SignalsClickEvent, RescuersClickEvent {
 
     private var _binding: FragmentMapBinding? = null
 
@@ -159,6 +159,16 @@ class MapFragment : BaseFragment(), SignalsClickEvent {
         }
     }
 
+    override fun onRescuerClick(rescuer: Rescuer?) {
+        rescuer?.let {
+            Log.i("tag", "clicked on ${it.rescuerId}")
+            // Animate to signal when clicked on signal overlay
+            binding.mapView.controller.animateTo(GeoPoint(rescuer.rescuerLocationLatitude, rescuer.rescuerLocationLongitude))
+            binding.mapView.controller.setZoom(17.5)
+            //TODO show it on sos map!
+        }
+    }
+
     private fun initMap() {
         //TODO читать больше про настройку карт
         Configuration.getInstance().load(requireActivity().applicationContext, requireActivity().applicationContext.getSharedPreferences("society-safety-app",
@@ -220,7 +230,7 @@ class MapFragment : BaseFragment(), SignalsClickEvent {
         Log.i("tag resc", "draw")
             for (rescuer in rescuers) {
                 Log.i("tag resc", rescuer.rescuerFirstName)
-                val rescuerOverlay = RescuerOverlay(requireActivity().applicationContext)
+                val rescuerOverlay = RescuerOverlay(requireActivity().applicationContext, listener = this)
                 rescuerOverlay.setRescuer(rescuer = rescuer)
                 binding.mapView.overlays.add(rescuerOverlay)
             }
