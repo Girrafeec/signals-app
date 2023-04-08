@@ -16,13 +16,14 @@ class SosSignalViewModel @Inject constructor(
 ) : BaseViewModel<SosSignalUiState>() {
 
     override var _state: MutableStateFlow<SosSignalUiState> = MutableStateFlow(SosSignalUiState.ChooseSignalData)
-
     override val state: StateFlow<SosSignalUiState> = _state.asStateFlow()
 
     init {
+        Log.i("tag sos vm", "init")
         viewModelScope.launch {
             sosSignalEngine.getSosSignalState()
                 .onEach { state ->
+                    Log.i("tag sos vm state", state.toString())
                     when (state) {
                         is SosSignalState.SosSignalPreparing -> {
                             _state.update { SosSignalUiState.SignalCountDownDialog }
@@ -44,12 +45,16 @@ class SosSignalViewModel @Inject constructor(
                         }
                     }
                 }
-                .stateIn(viewModelScope)
+                .launchIn(viewModelScope)
         }
     }
 
     fun sendSosSignal(context: Context, sosSignal: SosSignal) {
         sosSignalEngine.enableSosSignal(context = context, sosSignal = sosSignal)
+    }
+
+    fun disableSos(context: Context) {
+        sosSignalEngine.disableSosSignal(context = context)
     }
 
 }

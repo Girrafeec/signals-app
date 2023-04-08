@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 abstract class BaseCountDownTimerEngine {
 
     abstract fun startCountDownTimer(
-        durationMillies: Long = CountDownTimerUtils.DEFAULT_COUNTDOWN_MILLISECONDS,
+        durationMillis: Long = CountDownTimerUtils.DEFAULT_COUNTDOWN_MILLISECONDS,
         tickInterval: Long = CountDownTimerUtils.DEFAULT_COUNTDOWN_TICK_INTERVAL
     )
 

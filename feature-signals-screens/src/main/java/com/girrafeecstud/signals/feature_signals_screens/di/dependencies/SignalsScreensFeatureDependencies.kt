@@ -1,5 +1,6 @@
 package com.girrafeecstud.signals.feature_signals_screens.di.dependencies
 
+import com.girrafeecstud.countdown_timer_api.engine.BaseCountDownTimerEngine
 import com.girrafeecstud.signals.event_bus.EventBus
 import com.girrafeecstud.sos_signal_api.domain.SendSosSignalUseCase
 import com.girrafeecstud.sos_signal_api.engine.SosSignalEngine
@@ -11,4 +12,6 @@ interface SignalsScreensFeatureDependencies {
     fun getSosSignalEngine(): SosSignalEngine
 
     fun getEventBus(): EventBus
+
+    fun getCountDownTimerEngine(): BaseCountDownTimerEngine
 }

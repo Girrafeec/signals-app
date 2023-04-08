@@ -1,5 +1,6 @@
 package com.girrafeecstud.signals.feature_signals_screens.di
 
+import com.girrafeecstud.countdown_timer_api.di.CountDownTimerFeatureApi
 import com.girrafeecstud.signals.event_bus.di.EventBusApi
 import com.girrafeecstud.signals.feature_signals_screens.di.annotation.SignalsFeatureScope
 import com.girrafeecstud.signals.feature_signals_screens.di.dependencies.SignalsScreensFeatureDependencies
@@ -17,6 +18,8 @@ interface SignalsScreensFeatureComponent {
     fun inject(fragment: SignalsFlowFragment)
 
     fun sosSignalComponent(): SosSignalComponent.Builder
+
+    fun sosCountDownComponent(): SosCountDownComponent.Builder
 
     @Component.Builder
     interface Builder {
@@ -50,7 +53,8 @@ interface SignalsScreensFeatureComponent {
     @Component(
         dependencies = [
             SosSignalFeatureApi::class,
-            EventBusApi::class
+            EventBusApi::class,
+            CountDownTimerFeatureApi::class
         ]
     )
     interface SignalsScreensFeatureDependenciesComponent : SignalsScreensFeatureDependencies

@@ -15,6 +15,18 @@
         android:id="@+id/sos_signal_fragment"
         android:name="com.girrafeecstud.signals.feature_signals_screens.ui.SosSignalFragment"
         android:label="SosSignalFragment"
-        tools:layout="@layout/fragment_sos_signal"/>
+        tools:layout="@layout/fragment_sos_signal">
+
+        <action
+            android:id="@+id/action_global_countdown_dialog"
+            app:destination="@id/sos_сountdown_dialog" />
+
+    </fragment>
+
+    <dialog
+        android:id="@+id/sos_сountdown_dialog"
+        android:name="com.girrafeecstud.signals.feature_signals_screens.ui.SosCountDownDialog"
+        android:label="sos_countdown_dialog"
+        tools:layout="@layout/sos_countdown_dialog" />
 
 </navigation>

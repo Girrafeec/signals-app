@@ -17,7 +17,7 @@ import com.girrafeecstud.signals.feature_auth.databinding.FragmentAuthFlowBindin
 import com.girrafeecstud.signals.feature_auth.di.AuthComponent
 import com.girrafeecstud.signals.feature_auth.di.DaggerAuthComponent_AuthDependenciesComponent
 
-class AuthFlowFragment : com.girrafeecstud.core_ui.ui.BaseFlowFragment(
+class AuthFlowFragment : BaseFlowFragment(
     R.id.nav_host_fragment_auth_container
 ) {
 

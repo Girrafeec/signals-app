@@ -63,4 +63,6 @@ object Versions {
     const val glide = "4.12.0"
 
     const val firebaseBom = "31.2.3"
+
+    const val swipeButton = "0.8.3"
 }

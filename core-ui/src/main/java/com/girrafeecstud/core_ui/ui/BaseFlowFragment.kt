@@ -6,6 +6,7 @@ import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.girrafeecstud.core_ui.presentation.UiState
 
 abstract class BaseFlowFragment constructor(
     @IdRes private val navHostFragmentId: Int
@@ -32,4 +33,5 @@ abstract class BaseFlowFragment constructor(
     protected open fun setListeners() {}
 
     protected open fun registerObservers() {}
+
 }

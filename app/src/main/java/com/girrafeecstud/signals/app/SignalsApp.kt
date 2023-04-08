@@ -108,6 +108,7 @@ class SignalsApp : Application() {
             .builder()
             .sosSignalFeatureApi(SosSignalFeatureComponent.sosSignalFeatureComponent)
             .eventBusApi(EventBusComponent.eventBusComponent)
+            .countDownTimerFeatureApi(CountDownTimerFeatureComponent.countDownTimerFeatureComponent)
             .build()
         )
 

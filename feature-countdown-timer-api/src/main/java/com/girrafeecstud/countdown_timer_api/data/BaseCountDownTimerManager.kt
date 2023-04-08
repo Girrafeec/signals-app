@@ -13,7 +13,7 @@ abstract class BaseCountDownTimerManager {
      abstract val state: StateFlow<CountDownTimerState>
 
      abstract fun startCountDownTimer(
-          durationMillies: Long,
+          durationMillis: Long,
           tickInterval: Long
      )
 

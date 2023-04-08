@@ -93,4 +93,5 @@ dependencies {
     implementation(project(":event-bus"))
     implementation(project(":navigation"))
     implementation(project(":feature-sos-signal-api"))
+    implementation(project(":feature-countdown-timer-api"))
 }

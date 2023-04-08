@@ -26,6 +26,7 @@ class SosSignalEngineImpl @Inject constructor(
 ) : SosSignalEngine {
 
     override fun enableSosSignal(context: Context, sosSignal: SosSignal) {
+        Log.i("tag sos", "enable")
         // TODO?
 //        if (isSosSignalServiceRunning(context = context))
 //            return
@@ -53,6 +54,7 @@ class SosSignalEngineImpl @Inject constructor(
         sosSignal: SosSignal? = null,
         action: String
     ) {
+        Log.i("tag sos", "send command")
         val intent = Intent(context, SosSignalService::class.java).apply {
             this.action = action
             this.putExtra("sosSignal", sosSignal)

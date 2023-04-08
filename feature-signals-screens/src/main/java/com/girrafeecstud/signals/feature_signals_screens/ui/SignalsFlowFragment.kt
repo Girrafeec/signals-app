@@ -2,6 +2,7 @@ package com.girrafeecstud.signals.feature_signals_screens.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,17 +10,22 @@ import com.girrafeecstud.core_ui.ui.BaseFlowFragment
 import com.girrafeecstud.signals.feature_signals_screens.R
 import com.girrafeecstud.signals.feature_signals_screens.databinding.FragmentSignalsFlowBinding
 import com.girrafeecstud.signals.feature_signals_screens.di.SignalsScreensFeatureComponent
+import com.girrafeecstud.signals.feature_signals_screens.navigation.SignalsFlowDestination
+import com.girrafeecstud.signals.feature_signals_screens.navigation.SignalsFlowNavigator
+import com.girrafeecstud.signals.feature_signals_screens.navigation.ToSosScreenNavigable
 import com.girrafeecstud.signals.navigation.DefaultMapsFlowScreen
 import com.girrafeecstud.signals.navigation.ToFlowNavigable
 import com.girrafeecstud.signals.navigation.destination.FlowDestination
 
-class SignalsFlowFragment : com.girrafeecstud.core_ui.ui.BaseFlowFragment(
+class SignalsFlowFragment : BaseFlowFragment(
     R.id.nav_host_fragment_signals_container
-) {
+), ToSosScreenNavigable {
 
     private var _binding: FragmentSignalsFlowBinding? = null
 
     private val binding get() = _binding!!
+
+    private val navigator = SignalsFlowNavigator()
 
     override fun onAttach(context: Context) {
         SignalsScreensFeatureComponent.signalsFeatureComponent.inject(this)
@@ -44,7 +50,18 @@ class SignalsFlowFragment : com.girrafeecstud.core_ui.ui.BaseFlowFragment(
         super.onViewCreated(view, savedInstanceState)
     }
 
-    override fun setUpNavigation() {}
+    override fun setUpNavigation() {
+        navigator.setNavController(navController = navController)
+    }
+
+    override fun navigateToScreen(destination: SignalsFlowDestination) {
+        Log.i("tag sos", "navigate dialog")
+        navigator.navigateToDestination(destination = destination)
+    }
+
+    override fun popBack() {
+        navigator.popBackStack()
+    }
 
     fun openSosMapScreen() {
         (requireActivity() as ToFlowNavigable)

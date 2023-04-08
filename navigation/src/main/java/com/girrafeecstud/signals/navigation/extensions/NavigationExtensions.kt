@@ -2,6 +2,7 @@ package com.girrafeecstud.signals.navigation.extensions
 
 import android.os.Bundle
 import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import com.girrafeecstud.signals.navigation.destination.FlowDestination
 import com.girrafeecstud.signals.navigation.destination.NavigationDestination
 
@@ -18,4 +19,10 @@ fun NavController.setStartDestination(
         bundle.putSerializable("defaultScreen", destination.defaultScreen)
     }
     this.setGraph(graph = graph, startDestinationArgs = bundle)
+}
+
+fun NavController.safeNavigate(direction: NavDirections) {
+    currentDestination?.getAction(direction.actionId)?.run {
+        navigate(direction)
+    }
 }

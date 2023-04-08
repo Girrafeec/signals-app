@@ -117,4 +117,8 @@ class Dependencies {
         const val firebaseAnalytics = "com.google.firebase:firebase-analytics"
     }
 
+    object CustomViews {
+        const val swipeButton = "com.ebanx:swipe-button:${Versions.swipeButton}"
+    }
+
 }

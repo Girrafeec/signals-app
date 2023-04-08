@@ -14,7 +14,7 @@ class CountDownTimerEngine @Inject constructor(
 
     override fun startCountDownTimer(durationMillies: Long, tickInterval: Long) {
         countDownTimerManager.startCountDownTimer(
-            durationMillies = durationMillies,
+            durationMillis = durationMillies,
             tickInterval = tickInterval
         )
     }
