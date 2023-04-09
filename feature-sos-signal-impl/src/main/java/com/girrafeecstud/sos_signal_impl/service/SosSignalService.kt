@@ -151,14 +151,14 @@ class SosSignalService : Service() {
             Log.i("tag", "sos sisgnal ${state.millisLeft}")
             val mNotificationManager =
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            mNotificationManager.notify(999, getNotification(text = "SOS-сигнал будет отправлен через: ${state.millisLeft}"))
+//            mNotificationManager.notify(999, getNotification(text = "SOS-сигнал будет отправлен через: ${state.millisLeft}"))
         }
 
         if (state.isFinished == true && state.isEnabled && state.isCancelled == false) {
 
             val mNotificationManager =
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            mNotificationManager.notify(999, getNotification(text = "Отправка SOS-сигнала"))
+//            mNotificationManager.notify(999, getNotification(text = "Отправка SOS-сигнала"))
             sendSosSignal(sosSignal = sosSignal)
         }
 

@@ -27,7 +27,8 @@ import com.girrafeecstud.signals.feature_signals_screens.di.SignalsScreensFeatur
 import com.girrafeecstud.signals.feature_signals_screens.di.DaggerSignalsScreensFeatureComponent_SignalsScreensFeatureDependenciesComponent
 import com.girrafeecstud.signals.location_tracker_impl.di.LocationTrackerFeatureComponent
 import com.girrafeecstud.signals.location_tracker_impl.di.dependencies.LocationTrackerDependencies
-import com.girrafeecstud.signals.rescuer_details_impl.di.RescuerDetailsFeatureComponent
+import com.girrafeecstud.signals.rescuer_details_impl.di.component.DaggerRescuerDetailsFeatureComponent_RescuerDetailsFeatureDependenciesComponent
+import com.girrafeecstud.signals.rescuer_details_impl.di.component.RescuerDetailsFeatureComponent
 import com.girrafeecstud.signals.signal_details_impl.di.DaggerSignalDetailsFeatureComponent_SignalDetailsFeatureDependenciesComponent
 import com.girrafeecstud.signals.signal_details_impl.di.SignalDetailsFeatureComponent
 import com.girrafeecstud.signals.signals_impl.di.DaggerSignalsFeatureComponent_SignalsFeatureDependenciesComponent
@@ -81,11 +82,17 @@ class SignalsApp : Application() {
                 .rescuersFeatureApi(RescuersFeatureComponent.rescuersFeatureComponent)
                 .build()
         )
-        RescuerDetailsFeatureComponent.init()
+        RescuerDetailsFeatureComponent.init(
+            dependencies = DaggerRescuerDetailsFeatureComponent_RescuerDetailsFeatureDependenciesComponent
+                .builder()
+                .rescuersFeatureApi(RescuersFeatureComponent.rescuersFeatureComponent)
+                .build()
+        )
         SignalsFeatureComponent.init(
             dependencies = DaggerSignalsFeatureComponent_SignalsFeatureDependenciesComponent
                 .builder()
                 .coreNetworkApi(CoreNetworkComponent.coreNetworkComponent)
+                .locationTrackerFeatureApi(LocationTrackerFeatureComponent.locationTrackerFeatureComponent)
                 .build()
         )
         SignalDetailsFeatureComponent.init(dependencies = DaggerSignalDetailsFeatureComponent_SignalDetailsFeatureDependenciesComponent

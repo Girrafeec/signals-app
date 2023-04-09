@@ -8,4 +8,6 @@ interface RescuersRepository {
 
     fun getRescuersList(): Flow<BusinessResult<List<Rescuer>>>
 
+    fun getRescuerDetails(rescuerId: String): Flow<BusinessResult<Rescuer>>
+
 }

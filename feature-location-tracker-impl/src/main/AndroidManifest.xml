@@ -19,12 +19,12 @@
 
         <receiver
             android:name="com.girrafeecstud.signals.location_tracker_impl.engine.LocationTrackerReceiver"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action
                     android:name="android.intent.action.BOOT_COMPLETED"/>
                 <action
-                    android:name="android.location.PROVIDERS_CHANGED" />
+                    android:name="android.location.PROVIDERS_CHANGED"/>
             </intent-filter>
         </receiver>
     </application>

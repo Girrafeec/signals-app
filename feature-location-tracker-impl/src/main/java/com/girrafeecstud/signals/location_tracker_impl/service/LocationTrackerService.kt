@@ -15,6 +15,7 @@ import com.girrafeecstud.location_tracker_api.domain.GetLastKnownLocationUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -67,8 +68,9 @@ class LocationTrackerService : Service() {
     }
 
     override fun onDestroy() {
-        LocationTrackerFeatureComponent.reset()
+//        LocationTrackerFeatureComponent.reset()
         super.onDestroy()
+        locationTrackerServiceScope.cancel()
     }
 
     override fun onBind(p0: Intent?): IBinder {
@@ -84,8 +86,11 @@ class LocationTrackerService : Service() {
                     }
                     is BusinessResult.Exception-> {
                         Log.i("tag", "exception: ${result.exceptionType.name}")
+//                        stopSelf()
                     }
-                    is BusinessResult.Error -> {}
+                    is BusinessResult.Error -> {
+//                        stopSelf()
+                    }
                 }
             }
             .launchIn(locationTrackerServiceScope)

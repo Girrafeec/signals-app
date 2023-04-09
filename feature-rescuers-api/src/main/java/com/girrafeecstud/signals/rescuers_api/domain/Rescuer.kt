@@ -11,7 +11,7 @@ data class Rescuer(
     val rescuerLastName: String,
     val rescuerPhoneNumber: String,
     val rescuerProfileImageUrl: String,
-    val rescuerLocationLatitude: Double,
-    val rescuerLocationLongitude: Double,
+    var rescuerLocationLatitude: Double,
+    var rescuerLocationLongitude: Double,
     var route: Route? = null
 ) : Parcelable

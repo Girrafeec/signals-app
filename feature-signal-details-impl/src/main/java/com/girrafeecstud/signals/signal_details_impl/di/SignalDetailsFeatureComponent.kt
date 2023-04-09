@@ -17,11 +17,11 @@ interface SignalDetailsFeatureComponent : SignalDetailsFeatureApi {
 
     //TODO разобраться с проблемой жизненного цикла ViewModel
 
-//    fun inject(fragment: SignalDetailsParentFragment)
+    fun inject(fragment: SignalDetailsParentFragment)
 
-    fun injectSignalsDetailsFragment(fragment: SignalDetailsFragment)
+//    fun injectSignalsDetailsFragment(fragment: SignalDetailsFragment)
 
-//    fun signalDetailsComponent(): SignalDetailsComponent.Builder
+    fun signalDetailsComponent(): SignalDetailsComponent.Builder
 
     fun receiverComponent(): SignalDetailsFeatureReceiverComponent.Builder
 

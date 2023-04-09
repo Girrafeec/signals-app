@@ -36,6 +36,11 @@ fun View.addOnKeyboardVisibilityListener(onKeyboardVisibilityChanged: (Boolean) 
 }
 
 fun View.hideView() {
+    this.visibility = View.INVISIBLE
+}
+
+//TODO rename it!!
+fun View.removeView() {
     this.visibility = View.GONE
 }
 
@@ -45,10 +50,12 @@ fun View.showView() {
 
 fun View.enable() {
     this.isEnabled = true
+    this.isClickable = true
 }
 
 fun View.disable() {
     this.isEnabled = false
+    this.isClickable = false
 }
 
 fun View.setElevation(elevation: Float = DEFAULT_ELEVATION) {

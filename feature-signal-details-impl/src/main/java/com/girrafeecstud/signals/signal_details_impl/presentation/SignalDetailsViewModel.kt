@@ -16,7 +16,7 @@ class SignalDetailsViewModel @Inject constructor(
     override val state: StateFlow<SignalDetailsUiState> = _state.asStateFlow()
 
     init {
-        Log.i("tag", "vm init")
+        Log.i("tag sos det", "vm init")
 //        getSignalDetailsUseCase()
 //            .onEach {
 //
@@ -38,6 +38,7 @@ class SignalDetailsViewModel @Inject constructor(
                         // TODO error!!
                     }
                     is BusinessResult.Success -> {
+                        Log.i("tag sos det", "got success")
                         // TODO null safety
                         _state.update { SignalDetailsUiState.ShowSignalDetails(signal = result._data!!) }
                     }
@@ -48,6 +49,6 @@ class SignalDetailsViewModel @Inject constructor(
 
     override fun onCleared() {
         super.onCleared()
-        Log.i("tag", "vm cleared")
+        Log.i("tag sos det", "vm cleared")
     }
 }

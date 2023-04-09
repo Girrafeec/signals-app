@@ -22,6 +22,7 @@ import com.girrafeecstud.signals.feature_map.di.MainComponent
 import com.girrafeecstud.signals.feature_map.presentation.MapUiState
 import com.girrafeecstud.signals.feature_map.presentation.MapViewModel
 import com.girrafeecstud.signals.feature_map.presentation.SignalsMapSharedViewModel
+import com.girrafeecstud.signals.feature_map.presentation.SosMapSharedViewModel
 import com.girrafeecstud.signals.feature_map.presentation.shared_map.MapSharedUiState
 import com.girrafeecstud.signals.feature_map.presentation.shared_map.MapSharedViewModel
 import com.girrafeecstud.signals.feature_map.ui.overlay.CurrentLocationOverlay
@@ -64,6 +65,10 @@ class MapFragment : BaseFragment(), SignalsClickEvent, RescuersClickEvent {
     }
 
     private val signalsMapSharedViewModel: SignalsMapSharedViewModel by viewModels {
+        mainViewModelFactory
+    }
+
+    private val sosMapSharedViewModel: SosMapSharedViewModel by viewModels {
         mainViewModelFactory
     }
 
@@ -177,6 +182,7 @@ class MapFragment : BaseFragment(), SignalsClickEvent, RescuersClickEvent {
             // Animate to signal when clicked on signal overlay
             binding.mapView.controller.animateTo(GeoPoint(rescuer.rescuerLocationLatitude, rescuer.rescuerLocationLongitude))
             binding.mapView.controller.setZoom(17.5)
+            sosMapSharedViewModel.showRescuerDetails(rescuer = rescuer)
             //TODO show it on sos map!
         }
     }

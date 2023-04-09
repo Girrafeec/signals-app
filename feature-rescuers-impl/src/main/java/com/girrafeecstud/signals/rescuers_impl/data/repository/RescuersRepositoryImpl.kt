@@ -59,6 +59,9 @@ class RescuersRepositoryImpl @Inject constructor(
                 }
             }
 
+    override fun getRescuerDetails(rescuerId: String): Flow<BusinessResult<Rescuer>> =
+        rescuersDataSource.getRescuerDetails(token = "", rescuerId = rescuerId).flowOn(Dispatchers.IO)
+
     private fun createRoutes(
         location: UserLocation?,
         rescuers: List<Rescuer>?

@@ -91,11 +91,11 @@ class RescuersListFragmentImpl @Inject constructor() :
     }
 
     override fun onRescuerClick(rescuer: Rescuer) {
-        Toast.makeText(
-            requireActivity().applicationContext,
-            "Clicked on ${rescuer.rescuerFirstName}",
-            Toast.LENGTH_SHORT
-        ).show()
+//        Toast.makeText(
+//            requireActivity().applicationContext,
+//            "Clicked on ${rescuer.rescuerFirstName}",
+//            Toast.LENGTH_SHORT
+//        ).show()
         rescuersListSharedStateEngine.showRescuerDetails(rescuer = rescuer)
     }
 

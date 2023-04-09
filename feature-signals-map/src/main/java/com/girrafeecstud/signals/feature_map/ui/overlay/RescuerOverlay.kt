@@ -71,6 +71,14 @@ class RescuerOverlay(
         Log.i("tag", " motion event ${e?.x?.toInt()}, ${e?.y?.toInt()}")
 
         if (touchedGeoPoint.isInsidePolygon(getRectGeoPoints(rect = hitRect, projection = projection))) {
+            Log.i("tag resc det", "clicked")
+            listener.onRescuerClick(rescuer = _rescuer)
+            return true
+        }
+
+        //TODO why does it work and last way not?!
+        // Check if the touch coordinates are within the bounds of the image container view
+        if (hitRect.contains(e?.x?.toInt() ?: 0, e?.y?.toInt() ?: 0)) {
             listener.onRescuerClick(rescuer = _rescuer)
             return true
         }

@@ -1,5 +1,6 @@
 package com.girrafeecstud.signals.signals_impl.di
 
+import com.girrafeecstud.location_tracker_api.di.LocationTrackerFeatureApi
 import com.girrafeecstud.signals.core_network.data.di.CoreNetworkApi
 import com.girrafeecstud.signals.rescuers_impl.di.annotation.SignalsFeatureScope
 import com.girrafeecstud.signals.signals_api.di.SignalsFeatureApi
@@ -49,7 +50,8 @@ interface SignalsFeatureComponent : SignalsFeatureApi {
     @SignalsFeatureScope
     @Component(
         dependencies = [
-            CoreNetworkApi::class
+            CoreNetworkApi::class,
+            LocationTrackerFeatureApi::class
         ]
     )
     interface SignalsFeatureDependenciesComponent : SignalsFeatureDependencies

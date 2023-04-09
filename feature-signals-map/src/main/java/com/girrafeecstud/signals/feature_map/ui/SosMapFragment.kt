@@ -12,7 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.girrafeecstud.signals.rescuer_details_api.ui.RescuerDetailsFragment
+import com.girrafeecstud.signals.rescuer_details_api.ui.BaseRescuerDetailsFragment
 import com.girrafeecstud.signals.rescuers_api.domain.Rescuer
 import com.girrafeecstud.signals.rescuers_list_api.presenation.RescuersListSharedState
 import com.girrafeecstud.signals.rescuers_list_api.presenation.RescuersListSharedStateEngine
@@ -24,6 +24,8 @@ import com.girrafeecstud.signals.feature_map.databinding.FragmentSosMapBinding
 import com.girrafeecstud.signals.feature_map.di.MainComponent
 import com.girrafeecstud.signals.feature_map.navigation.MapsFlowDestination
 import com.girrafeecstud.signals.feature_map.navigation.ToMapScreenNavigable
+import com.girrafeecstud.signals.feature_map.presentation.SignalsMapSharedViewModel
+import com.girrafeecstud.signals.feature_map.presentation.SosMapSharedViewModel
 import com.girrafeecstud.signals.feature_map.presentation.SosMapUIState
 import com.girrafeecstud.signals.feature_map.presentation.SosMapViewModel
 import com.girrafeecstud.signals.feature_map.presentation.shared_map.MapSharedViewModel
@@ -40,7 +42,7 @@ class SosMapFragment : BaseFragment() {
     lateinit var rescuersListFragment: RescuersListFragment
 
     @Inject
-    lateinit var rescuerDetailsFragment: RescuerDetailsFragment
+    lateinit var rescuerDetailsFragment: BaseRescuerDetailsFragment
 
     @Inject
     lateinit var mainViewModelFactory: MainViewModelFactory
@@ -50,6 +52,10 @@ class SosMapFragment : BaseFragment() {
     }
 
     private val mapSharedViewModel: MapSharedViewModel by viewModels {
+        mainViewModelFactory
+    }
+
+    private val sosMapSharedViewModel: SosMapSharedViewModel by viewModels {
         mainViewModelFactory
     }
 
@@ -113,6 +119,13 @@ class SosMapFragment : BaseFragment() {
                         }
                     }
                     .launchIn(viewLifecycleOwner.lifecycleScope)
+
+                sosMapSharedViewModel.state
+                    .onEach { state ->
+                        if (state.rescuerDetails != null)
+                            showRescuerDetails(rescuer = state.rescuerDetails)
+                    }
+                    .launchIn(viewLifecycleOwner.lifecycleScope)
             }
         }
 
@@ -155,7 +168,7 @@ class SosMapFragment : BaseFragment() {
         Log.i("sosMap", "show ${rescuer.rescuerFirstName} details")
         // TODO change tag
         rescuerDetailsFragment.arguments = Bundle().apply {
-            this.putParcelable("rescuerDetails", rescuer)
+            this.putString("rescuerId", rescuer.rescuerId)
         }
         childFragmentManager.commit {
             add(
@@ -178,6 +191,7 @@ class SosMapFragment : BaseFragment() {
                     childFragmentManager.commit {
                         remove(rescuerDetailsFragment)
                     }
+                    sosMapSharedViewModel.closeRescuerDetails()
                     rescuersListSharedStateEngine.closeRescuerDetails()
                 }
             }

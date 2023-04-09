@@ -78,6 +78,14 @@ class SosSignalOverlay(
         Log.i("tag", " motion event ${e?.x?.toInt()}, ${e?.y?.toInt()}")
 
         if (touchedGeoPoint.isInsidePolygon(getRectGeoPoints(rect = hitRect, projection = projection))) {
+            Log.i("tag sos det", "clicked")
+            listener.onSignalClick(signal = _signal)
+            return true
+        }
+
+        //TODO why does it work and last way not?!
+        // Check if the touch coordinates are within the bounds of the image container view
+        if (hitRect.contains(e?.x?.toInt() ?: 0, e?.y?.toInt() ?: 0)) {
             listener.onSignalClick(signal = _signal)
             return true
         }

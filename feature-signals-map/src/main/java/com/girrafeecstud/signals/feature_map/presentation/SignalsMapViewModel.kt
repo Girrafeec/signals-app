@@ -1,5 +1,6 @@
 package com.girrafeecstud.signals.feature_map.presentation
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.girrafeecstud.core_ui.presentation.BaseViewModel
 import com.girrafeecstud.signals.core_base.domain.base.BusinessResult
@@ -17,10 +18,12 @@ class SignalsMapViewModel @Inject constructor(
     init {
         getSignalsListUseCase()
             .onEach { result ->
+                Log.i("tag signals list vm res", result.toString())
                 when (result) {
                     is BusinessResult.Error -> {}
                     is BusinessResult.Exception -> {}
                     is BusinessResult.Success -> {
+                        Log.i("tag signals list vm res", "success")
                         _state.update {
                             SignalsMapUiState.DrawSignalsLocations(signals = result._data)
                         }

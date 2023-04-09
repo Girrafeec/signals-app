@@ -3,7 +3,7 @@ package com.girrafeecstud.signals.feature_map.presentation
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.girrafeecstud.signals.rescuers_api.domain.GetRescuersListUseCase
+import com.girrafeecstud.signals.rescuers_api.domain.IGetRescuersListUseCase
 import com.girrafeecstud.signals.core_base.domain.base.BusinessResult
 import com.girrafeecstud.core_ui.presentation.BaseViewModel
 import com.girrafeecstud.sos_signal_api.domain.entity.SosSignal
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 class SosMapViewModel @Inject constructor(
     private val sosSignalEngine: SosSignalEngine,
-    private val getRescuersListUseCase: GetRescuersListUseCase
+    private val getRescuersListUseCase: IGetRescuersListUseCase
 ) : BaseViewModel<SosMapUIState>() {
 
     override var _state: MutableStateFlow<SosMapUIState> = MutableStateFlow(SosMapUIState.SosSuccessSentMessage)

@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Binder
 import android.os.IBinder
 import android.util.Log
-import com.girrafeecstud.signals.rescuers_api.domain.GetRescuersListUseCase
+import com.girrafeecstud.signals.rescuers_api.domain.IGetRescuersListUseCase
 import com.girrafeecstud.signals.core_base.domain.base.BusinessResult
 import com.girrafeecstud.signals.rescuers_impl.di.RescuersFeatureComponent
 import kotlinx.coroutines.*
@@ -16,7 +16,7 @@ import javax.inject.Inject
 class RescuersService : Service() {
 
     @Inject
-    lateinit var getRescuersListUseCase: GetRescuersListUseCase
+    lateinit var getRescuersListUseCase: IGetRescuersListUseCase
 
     private val binder = RescuersServiceBinder()
 

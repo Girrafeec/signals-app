@@ -11,10 +11,10 @@ import dagger.multibindings.IntoMap
 @Module
 interface SignalDetailsModule {
 
-//    @SignalDetailsScope
-//    @Binds
-//    @IntoMap
-//    @ViewModelKey(SignalDetailsViewModel::class)
-//    fun bindSignalDetailsViewModel(impl: SignalDetailsViewModel): ViewModel
+    @SignalDetailsScope
+    @Binds
+    @IntoMap
+    @ViewModelKey(SignalDetailsViewModel::class)
+    fun bindSignalDetailsViewModel(impl: SignalDetailsViewModel): ViewModel
 
 }

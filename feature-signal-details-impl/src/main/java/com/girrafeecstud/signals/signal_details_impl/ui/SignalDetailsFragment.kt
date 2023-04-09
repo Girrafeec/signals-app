@@ -6,13 +6,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.navArgs
 import com.girrafeecstud.core_ui.extension.loadAndSetImage
+import com.girrafeecstud.core_ui.ui.BaseFragment
 import com.girrafeecstud.signals.core_base.presentation.base.MainViewModelFactory
-import com.girrafeecstud.signals.signal_details_api.ui.ISignalDetailsFragment
+import com.girrafeecstud.signals.signal_details_api.ui.BaseSignalDetailsFragment
 import com.girrafeecstud.signals.signal_details_impl.databinding.FragmentSignalDetailsBinding
 import com.girrafeecstud.signals.signal_details_impl.di.SignalDetailsFeatureComponent
 import com.girrafeecstud.signals.signal_details_impl.presentation.SignalDetailsUiState
@@ -26,7 +29,7 @@ import javax.inject.Inject
 
 class SignalDetailsFragment @Inject constructor(
 
-) : ISignalDetailsFragment() {
+) : BaseFragment() {
 
     companion object {
         var isShown = false
@@ -47,18 +50,23 @@ class SignalDetailsFragment @Inject constructor(
         mainViewModelFactory
     }
 
+    private val args: SignalDetailsFragmentArgs by navArgs()
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        SignalDetailsFeatureComponent.signalDetailsFeatureComponent.injectSignalsDetailsFragment(this)
-//        SignalDetailsFeatureComponent.signalDetailsFeatureComponent.signalDetailsComponent().build().inject(this)
+        Log.i("tag sos det", "attached")
+//        SignalDetailsFeatureComponent.signalDetailsFeatureComponent.injectSignalsDetailsFragment(this)
+        SignalDetailsFeatureComponent.signalDetailsFeatureComponent.signalDetailsComponent().build().inject(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.i("tag sos det", "created")
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        Log.i("tag sos det", "destroyed")
     }
 
     override fun onCreateView(
@@ -66,6 +74,7 @@ class SignalDetailsFragment @Inject constructor(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.i("tag sos det", "create view")
         _binding = FragmentSignalDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -74,16 +83,23 @@ class SignalDetailsFragment @Inject constructor(
         super.onDestroyView()
         _binding = null
         isShown = false
+        Log.i("tag sos det", "destroy view")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.i("tag sos det", "view created")
         isShown = true
-        arguments?.getString("signalId")?.let { signalId ->
-            Log.i("tag", "signal id det $signalId")
+        args.signalId?.let { signalId->
+            Log.i("tag sos det", "signal id det $signalId")
             SignalDetailsFragment.signalId = signalId
             signalDetailsViewModel.fetchSignalDetails(signalId = signalId)
         }
+//        arguments?.getString("signalId")?.let { signalId ->
+//            Log.i("tag sos det", "signal id det $signalId")
+//            SignalDetailsFragment.signalId = signalId
+//            signalDetailsViewModel.fetchSignalDetails(signalId = signalId)
+//        }
     }
 
 

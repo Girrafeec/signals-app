@@ -25,9 +25,7 @@ import com.girrafeecstud.signals.feature_map.presentation.SignalsMapViewModel
 import com.girrafeecstud.signals.feature_map.presentation.shared_map.MapSharedViewModel
 import com.girrafeecstud.signals.navigation.ToFlowNavigable
 import com.girrafeecstud.signals.navigation.destination.FlowDestination
-import com.girrafeecstud.signals.rescuer_details_api.utils.RescuerDetailsFeatureUtils
-import com.girrafeecstud.signals.rescuers_api.domain.Rescuer
-import com.girrafeecstud.signals.signal_details_api.ui.ISignalDetailsFragment
+import com.girrafeecstud.signals.signal_details_api.ui.BaseSignalDetailsFragment
 import com.girrafeecstud.signals.signal_details_api.utils.SignalDetailsFeatureUtils
 import com.girrafeecstud.signals.signals_api.domain.entity.EmergencySignal
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -61,7 +59,7 @@ class SignalsMapFragment : BaseFragment() {
     }
 
     @Inject
-    lateinit var signalDetailsFragment: ISignalDetailsFragment
+    lateinit var signalDetailsFragment: BaseSignalDetailsFragment
 
     override fun onAttach(context: Context) {
         MainComponent.mainComponent.signalsMapComponent().build().inject(this)
@@ -153,12 +151,13 @@ class SignalsMapFragment : BaseFragment() {
     private fun showSignalDetails(signal: EmergencySignal) {
         if (childFragmentManager.findFragmentByTag(SignalDetailsFeatureUtils.FRAGMENT_SIGNAL_DETAILS_TAG) != null)
             return
-        Log.i("signalsMap", "show ${signal.signalId} details")
+        Log.i("tag sos det", "show ${signal.signalId} details")
         // TODO change tag
         signalDetailsFragment.arguments = Bundle().apply {
             this.putString("signalId", signal.signalId)
         }
         childFragmentManager.commit {
+            Log.i("tag sos det", "commit fragment")
             add(
                 R.id.signal_details_fragment_container,
                 signalDetailsFragment,
@@ -173,7 +172,7 @@ class SignalsMapFragment : BaseFragment() {
             }
 
             override fun onStateChanged(bottomSheet: View, newState: Int) {
-                Log.i("tag", "bottom state $newState")
+                Log.i("tag sos det", "bottom state $newState")
                 // Hide the bottom sheet when it is expanded
                 if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
                     childFragmentManager.commit {
