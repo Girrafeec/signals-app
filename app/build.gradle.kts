@@ -74,6 +74,7 @@ dependencies {
     implementation(Dependencies.Firebase.firebaseAnalytics)
 
     implementation(project(":core-base"))
+    implementation(project(":core-components"))
     implementation(project(":core-network"))
     implementation(project(":core-ui"))
     implementation(project(":core-preferences"))

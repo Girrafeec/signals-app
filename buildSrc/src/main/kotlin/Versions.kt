@@ -65,4 +65,6 @@ object Versions {
     const val firebaseBom = "31.2.3"
 
     const val swipeButton = "0.8.3"
+
+    const val roomVersion = "2.5.1"
 }

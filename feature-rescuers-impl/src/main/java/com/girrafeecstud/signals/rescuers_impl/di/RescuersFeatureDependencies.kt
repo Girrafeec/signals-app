@@ -1,14 +1,16 @@
 package com.girrafeecstud.signals.rescuers_impl.di
 
-import com.girrafeecstud.location_tracker_api.data.LocationTrackerDataSource
+import com.girrafeecstud.location_tracker_api.data.BaseLocationTrackerDataSource
 import com.girrafeecstud.route_builder_api.data.RoutesDataSource
 import retrofit2.Retrofit
+import javax.inject.Named
 
 interface RescuersFeatureDependencies {
 
     fun getRetrofit(): Retrofit
 
-    fun getLocationTrackerDataSource(): LocationTrackerDataSource
+    @Named("LOCATION_TRACKER_DATASOURCE")
+    fun getLocationTrackerDataSource(): BaseLocationTrackerDataSource
 
     fun getRoutesDataSource(): RoutesDataSource
 

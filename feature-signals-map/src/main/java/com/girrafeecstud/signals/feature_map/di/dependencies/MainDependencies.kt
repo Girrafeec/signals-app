@@ -1,5 +1,6 @@
 package com.girrafeecstud.signals.feature_map.di.dependencies
 
+import android.content.Context
 import com.girrafeecstud.location_tracker_api.domain.GetLastKnownLocationUseCase
 import com.girrafeecstud.location_tracker_api.engine.LocationTrackerEngine
 import com.girrafeecstud.signals.rescuer_details_api.ui.RescuerDetailsFragment
@@ -13,6 +14,8 @@ import com.girrafeecstud.signals.signals_api.domain.GetSignalsListUseCase
 import com.girrafeecstud.sos_signal_api.engine.SosSignalEngine
 
 interface MainDependencies {
+
+    fun getApplicationContext(): Context
 
     fun authSharedPreferencesRepository(): AuthSharedPreferencesRepository
 

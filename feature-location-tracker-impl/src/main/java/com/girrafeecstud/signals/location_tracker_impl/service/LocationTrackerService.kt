@@ -80,7 +80,7 @@ class LocationTrackerService : Service() {
             .onEach { result ->
                 when (result) {
                     is BusinessResult.Success -> {
-                        Log.i("tag", "latitude: ${result._data?.latitude} longitude: ${result._data?.longitude}")
+                        Log.i("tag location service", "latitude: ${result._data?.latitude} longitude: ${result._data?.longitude}")
                     }
                     is BusinessResult.Exception-> {
                         Log.i("tag", "exception: ${result.exceptionType.name}")

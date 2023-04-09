@@ -6,7 +6,7 @@ import android.location.Location
 import android.location.LocationManager
 import android.os.HandlerThread
 import android.os.Looper
-import com.girrafeecstud.location_tracker_api.data.LocationTrackerClient
+import com.girrafeecstud.location_tracker_api.data.ILocationTrackerClient
 import com.girrafeecstud.signals.core_base.base.GpsIsNotEnabledException
 import com.girrafeecstud.signals.core_base.base.LocationPermissionsNotGrantedException
 import com.girrafeecstud.location_tracker_api.utils.TrackerPermissionsUtility
@@ -25,7 +25,7 @@ import javax.inject.Inject
 class DefaultLocationTrackerClient @Inject constructor(
     private val context: Context,
     private val client: FusedLocationProviderClient
-) : LocationTrackerClient {
+) : ILocationTrackerClient {
 
     private var locationHandlerThread: HandlerThread? = null
     private var locationHandlerLooper: Looper? = null

@@ -25,6 +25,7 @@ class LocationTrackerReceiver : BroadcastReceiver() {
     lateinit var locationTrackerEngine: LocationTrackerEngine
 
     override fun onReceive(context: Context?, intent: Intent?) {
+        Log.i("tag location rec", intent?.action.toString())
         locationTrackerReceiverComponent.injectReceiver(receiver = this)
         if (intent?.action.equals(Intent.ACTION_BOOT_COMPLETED)) {
             Log.i("tag", "receiver triggered")

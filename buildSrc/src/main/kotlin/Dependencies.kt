@@ -19,6 +19,12 @@ class Dependencies {
             const val navigationUiKtx = "androidx.navigation:navigation-ui-ktx:${Versions.jetpackNavigationComponentVersion}"
         }
 
+        object Room {
+            const val room = "androidx.room:room-runtime:${Versions.roomVersion}"
+            const val roomCompiler = "androidx.room:room-compiler:${Versions.roomVersion}"
+            const val roomKtx = "androidx.room:room-ktx:${Versions.roomVersion}"
+        }
+
     }
 
     object Google {

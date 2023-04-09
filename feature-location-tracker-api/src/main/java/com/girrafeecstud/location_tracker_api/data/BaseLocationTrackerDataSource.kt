@@ -4,8 +4,10 @@ import com.girrafeecstud.location_tracker_api.domain.entity.UserLocation
 import com.girrafeecstud.signals.core_base.domain.base.BusinessResult
 import kotlinx.coroutines.flow.Flow
 
-interface LocationTrackerDataSource {
+abstract class BaseLocationTrackerDataSource {
 
-    fun getLastKnownLocation(): Flow<BusinessResult<UserLocation>>
+    abstract fun getLastKnownLocation(): Flow<BusinessResult<UserLocation>>
+
+    open fun saveLastKnownLocation(location: UserLocation) {}
 
 }

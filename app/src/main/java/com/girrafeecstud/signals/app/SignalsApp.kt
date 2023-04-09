@@ -3,6 +3,8 @@ package com.girrafeecstud.signals.app
 import android.app.Application
 import android.content.Context
 import android.util.Log
+import com.girrafeecstud.core_components.di.CoreComponentsComponent
+import com.girrafeecstud.core_components.di.ICoreComponentsDependencies
 import com.girrafeecstud.countdown_timer_impl.di.CountDownTimerFeatureComponent
 import com.girrafeecstud.route_builder_impl.di.RouteBuilderFeatureComponent
 import com.girrafeecstud.route_builder_impl.di.RouteBuilderFeatureDependencies
@@ -52,6 +54,7 @@ class SignalsApp : Application() {
         CoreNetworkComponent.init(networkDependencies = NetworkDependenciesImpl())
         CorePreferencesComponent.init(preferencesDependencies = CorePreferencesDependenciesImpl())
         CoreBaseComponent.init()
+        CoreComponentsComponent.init(dependencies = CoreComponentsDependencies())
         EventBusComponent.init()
         CountDownTimerFeatureComponent.init()
         LocationTrackerFeatureComponent.init(LocationTrackerDependenciesImpl())
@@ -93,6 +96,7 @@ class SignalsApp : Application() {
         MainComponent.init(dependencies = DaggerMainComponent_MainDependenciesComponent
             .builder()
             .corePreferencesApi(CorePreferencesComponent.corePreferencesComponent)
+            .coreComponentsApi(CoreComponentsComponent.coreComponentsComponent)
             .locationTrackerFeatureApi(LocationTrackerFeatureComponent.locationTrackerFeatureComponent)
             .sosSignalFeatureApi(SosSignalFeatureComponent.sosSignalFeatureComponent)
             .rescuersFeatureApi(RescuersFeatureComponent.rescuersFeatureComponent)
@@ -131,6 +135,10 @@ class SignalsApp : Application() {
     }
 
     private inner class CorePreferencesDependenciesImpl: CorePreferencesDependencies {
+        override val applicationContext: Context = this@SignalsApp
+    }
+
+    private inner class CoreComponentsDependencies : ICoreComponentsDependencies {
         override val applicationContext: Context = this@SignalsApp
     }
 

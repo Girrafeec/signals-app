@@ -16,6 +16,7 @@ import com.girrafeecstud.location_tracker_api.domain.entity.UserLocation
 import com.girrafeecstud.signals.rescuers_api.domain.Rescuer
 import com.girrafeecstud.signals.core_base.presentation.base.MainViewModelFactory
 import com.girrafeecstud.core_ui.ui.BaseFragment
+import com.girrafeecstud.signals.feature_map.BuildConfig
 import com.girrafeecstud.signals.feature_map.databinding.FragmentMapBinding
 import com.girrafeecstud.signals.feature_map.di.MainComponent
 import com.girrafeecstud.signals.feature_map.presentation.MapUiState
@@ -26,6 +27,7 @@ import com.girrafeecstud.signals.feature_map.presentation.shared_map.MapSharedVi
 import com.girrafeecstud.signals.feature_map.ui.overlay.CurrentLocationOverlay
 import com.girrafeecstud.signals.feature_map.ui.overlay.SosSignalOverlay
 import com.girrafeecstud.signals.feature_map.ui.overlay.RescuerOverlay
+import com.girrafeecstud.signals.feature_map.utils.MapUtils
 import com.girrafeecstud.signals.signals_api.domain.entity.EmergencySignal
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.launchIn
@@ -71,6 +73,10 @@ class MapFragment : BaseFragment(), SignalsClickEvent, RescuersClickEvent {
         super.onAttach(context)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
     override fun onPause() {
         binding.mapView.onPause()
         super.onPause()
@@ -91,6 +97,12 @@ class MapFragment : BaseFragment(), SignalsClickEvent, RescuersClickEvent {
     }
 
     override fun onDestroyView() {
+        Log.i("tag map destr cen", binding.mapView.mapCenter.toString())
+        Log.i("tag map destr zoom", binding.mapView.zoomLevelDouble.toString())
+        mapViewModel.saveLastMapUtils(
+            centerPoint = binding.mapView.getMapCenter(),
+            zoom = binding.mapView.zoomLevelDouble
+        )
         _binding = null
         super.onDestroyView()
     }
@@ -180,9 +192,18 @@ class MapFragment : BaseFragment(), SignalsClickEvent, RescuersClickEvent {
         // Setting zooming map with fingers
         binding.mapView.setMultiTouchControls(true)
         // Set default zoom levels
-        binding.mapView.maxZoomLevel = 20.0
-        binding.mapView.minZoomLevel = 4.0
-        binding.mapView.controller.setZoom(4.0)
+        binding.mapView.maxZoomLevel = MapUtils.DEFAULT_MAX_ZOOM_LEVEL
+        binding.mapView.minZoomLevel = MapUtils.DEFAULT_MIN_ZOOM_LEVEL
+        //Set default zoom according to last sessions
+        if (mapViewModel.mapZoom != null) {
+            Log.i("tag map zoom", mapViewModel.mapZoom.toString())
+            binding.mapView.controller.setZoom(mapViewModel.mapZoom!!)
+        }
+        //Set default center point according to last sessions
+        if (mapViewModel.mapCenterPoint != null) {
+            Log.i("tag map ce", mapViewModel.mapCenterPoint.toString())
+            binding.mapView.controller.setCenter(mapViewModel.mapCenterPoint)
+        }
         // Remove vertical repeating and allow horizontal repeating
         binding.mapView.isHorizontalMapRepetitionEnabled = true
         binding.mapView.isVerticalMapRepetitionEnabled = false

@@ -23,6 +23,8 @@
             <intent-filter>
                 <action
                     android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action
+                    android:name="android.location.PROVIDERS_CHANGED" />
             </intent-filter>
         </receiver>
     </application>

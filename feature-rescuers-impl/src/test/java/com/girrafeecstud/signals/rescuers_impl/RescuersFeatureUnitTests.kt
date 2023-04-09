@@ -1,7 +1,6 @@
 package com.girrafeecstud.signals.rescuers_impl
 
-import com.girrafeecstud.location_tracker_api.data.LocationTrackerDataSource
-import com.girrafeecstud.location_tracker_api.domain.entity.UserLocation
+import com.girrafeecstud.location_tracker_api.data.BaseLocationTrackerDataSource
 import com.girrafeecstud.route_builder_api.data.RoutesDataSource
 import com.girrafeecstud.signals.rescuers_impl.data.datasource.RescuersDataSource
 import com.girrafeecstud.signals.rescuers_impl.data.repository.RescuersRepositoryImpl
@@ -20,7 +19,7 @@ import org.mockito.kotlin.whenever
 
 class RescuersFeatureUnitTests {
 
-    private lateinit var locationTrackerDataSource: LocationTrackerDataSource
+    private lateinit var locationTrackerDataSource: BaseLocationTrackerDataSource
     private lateinit var rescuersDataSource: RescuersDataSource
     private lateinit var routesDataSource: RoutesDataSource
 

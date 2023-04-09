@@ -1,5 +1,6 @@
 package com.girrafeecstud.signals.feature_map.di
 
+import com.girrafeecstud.core_components.di.CoreComponentsApi
 import com.girrafeecstud.location_tracker_api.di.LocationTrackerFeatureApi
 import com.girrafeecstud.signals.rescuer_details_api.di.RescuerDetailsFeatureApi
 import com.girrafeecstud.signals.rescuers_api.di.RescuersFeatureApi
@@ -69,6 +70,7 @@ interface MainComponent {
     @Component(
         dependencies = [
             CorePreferencesApi::class,
+            CoreComponentsApi::class,
             LocationTrackerFeatureApi::class,
             SosSignalFeatureApi::class,
             RescuersFeatureApi::class,

@@ -1,7 +1,6 @@
 package com.girrafeecstud.signals.rescuers_impl.data.repository
 
-import android.util.Log
-import com.girrafeecstud.location_tracker_api.data.LocationTrackerDataSource
+import com.girrafeecstud.location_tracker_api.data.BaseLocationTrackerDataSource
 import com.girrafeecstud.location_tracker_api.domain.entity.UserLocation
 import com.girrafeecstud.route_builder_api.data.RoutesDataSource
 import com.girrafeecstud.route_builder_api.domain.Location
@@ -13,10 +12,12 @@ import com.girrafeecstud.signals.core_base.domain.base.BusinessResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
+import javax.inject.Named
 
 class RescuersRepositoryImpl @Inject constructor(
     private val rescuersDataSource: RescuersDataSource,
-    private val locationTrackerDataSource: LocationTrackerDataSource,
+    @Named("LOCATION_TRACKER_DATASOURCE")
+    private val locationTrackerDataSource: BaseLocationTrackerDataSource,
     private val routesDataSource: RoutesDataSource
 ) : RescuersRepository {
 

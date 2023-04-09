@@ -88,6 +88,11 @@ dependencies {
     implementation(Dependencies.Jetpack.Navigation.navigationFragmentKtx)
     implementation(Dependencies.Jetpack.Navigation.navigationUiKtx)
 
+    // Room
+//    implementation(Dependencies.Jetpack.Room.room)
+//    kapt(Dependencies.Jetpack.Room.roomCompiler)
+//    implementation(Dependencies.Jetpack.Room.roomKtx)
+
     // EasyPermissions
     implementation(Dependencies.EasyPermissions.easyPermissions)
 
@@ -101,6 +106,7 @@ dependencies {
 
     implementation(project(":core-ui"))
     implementation(project(":core-network"))
+    implementation(project(":core-components"))
     implementation(project(":core-preferences"))
     implementation(project(":core-base"))
     implementation(project(":event-bus"))

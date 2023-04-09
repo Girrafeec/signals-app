@@ -1,8 +1,8 @@
 package com.girrafeecstud.signals.location_tracker_impl.data.datasource
 
 import android.util.Log
-import com.girrafeecstud.location_tracker_api.data.LocationTrackerClient
-import com.girrafeecstud.location_tracker_api.data.LocationTrackerDataSource
+import com.girrafeecstud.location_tracker_api.data.ILocationTrackerClient
+import com.girrafeecstud.location_tracker_api.data.BaseLocationTrackerDataSource
 import com.girrafeecstud.location_tracker_api.domain.entity.UserLocation
 import com.girrafeecstud.signals.core_base.base.ExceptionType
 import com.girrafeecstud.signals.core_base.base.GpsIsNotEnabledException
@@ -14,9 +14,9 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
-class LocationTrackerDataSourceImpl @Inject constructor(
-    private val client: LocationTrackerClient
-) : LocationTrackerDataSource {
+class LocationTrackerDataSource @Inject constructor(
+    private val client: ILocationTrackerClient
+) : BaseLocationTrackerDataSource() {
 
 //    override fun getLastKnownLocation(): Flow<BusinessResult<UserLocation>> =
 //        client.getLocationUpdates()
@@ -33,10 +33,10 @@ class LocationTrackerDataSourceImpl @Inject constructor(
                     .catch { exception ->
                         when (exception) {
                             is LocationPermissionsNotGrantedException -> {
-                                send(BusinessResult.Exception(exceptionType = ExceptionType.GPS_NOT_ENABLED))
+                                send(BusinessResult.Exception(exceptionType = ExceptionType.LOCATION_PERMISSIONS_NOT_GRANTED))
                             }
                             is GpsIsNotEnabledException -> {
-                                send(BusinessResult.Exception(exceptionType = ExceptionType.LOCATION_PERMISSIONS_NOT_GRANTED))
+                                send(BusinessResult.Exception(exceptionType = ExceptionType.GPS_NOT_ENABLED))
                             }
                         }
                     }
@@ -49,4 +49,5 @@ class LocationTrackerDataSourceImpl @Inject constructor(
                     .launchIn(scope)
                 awaitClose()
             }
+
 }
