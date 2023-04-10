@@ -6,6 +6,7 @@ import com.girrafeecstud.signals.presentation.MainViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
+import javax.inject.Singleton
 
 @Module(includes = [AppModule.AppBindModule::class])
 class AppModule {
@@ -15,7 +16,7 @@ class AppModule {
 
         @Binds
         @IntoMap
-        @ApplicationScope
+        @Singleton
         @ViewModelKey(MainViewModel::class)
         fun bindMainViewModel(impl: MainViewModel): ViewModel
 

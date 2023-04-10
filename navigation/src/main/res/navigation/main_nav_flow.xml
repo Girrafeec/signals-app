@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_nav_flow"
-    app:startDestination="@id/maps_flow_fragment">
+    app:startDestination="@id/on_board_flow_fragment">
 
     <!--TODO start destination with loading screen?-->
 
@@ -14,6 +14,20 @@
 
     <include
         app:graph="@navigation/signals_flow"/>
+
+    <include
+        app:graph="@navigation/on_board_flow"/>
+
+    <action
+        android:id="@+id/action_global_on_board_flow"
+        app:destination="@+id/on_board_flow_fragment">
+
+        <argument
+            android:name="defaultScreen"
+            app:argType="com.girrafeecstud.signals.navigation.DefaultOnBoardFlowScreen"
+            android:defaultValue="SPLASH_SCREEN"/>
+
+    </action>
 
     <action
         android:id="@+id/action_global_auth_flow"
@@ -42,6 +56,17 @@
             android:defaultValue="SOS_SIGNAL_SCREEN"/>
 
     </action>
+
+    <fragment
+        android:id="@+id/on_board_flow_fragment"
+        android:name="com.girrafeecstud.on_board.ui.OnBoardFlowFragment">
+
+        <argument
+            android:name="defaultScreen"
+            app:argType="com.girrafeecstud.signals.navigation.DefaultOnBoardFlowScreen"
+            android:defaultValue="SPLASH_SCREEN"/>
+
+    </fragment>
 
     <fragment
         android:id="@+id/auth_flow_fragment"

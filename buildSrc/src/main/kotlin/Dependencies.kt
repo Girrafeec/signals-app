@@ -99,6 +99,8 @@ class Dependencies {
 
     object EasyPermissions {
         const val easyPermissions = "pub.devrel:easypermissions:${Versions.easyPermissionsVersion}"
+        const val eazyPermissionsCoroutine = "com.sagar:coroutinespermission:2.0.0"
+        const val eazyPermissions = "com.sagar:dslpermission:2.0.0"
     }
 
     object OSMDroid {
@@ -125,6 +127,7 @@ class Dependencies {
 
     object CustomViews {
         const val swipeButton = "com.ebanx:swipe-button:${Versions.swipeButton}"
+        const val circleIndicator = "me.relex:circleindicator:2.1.6"
     }
 
 }

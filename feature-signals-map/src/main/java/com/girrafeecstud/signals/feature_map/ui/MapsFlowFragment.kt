@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.activity.OnBackPressedCallback
 import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -107,6 +108,13 @@ class MapsFlowFragment: BaseFlowFragment(
     }
 
     override fun setListeners() {
+        // TODO fix it!
+        val backPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                requireActivity().finishAffinity()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, backPressedCallback)
     }
 
     override fun registerObservers() {

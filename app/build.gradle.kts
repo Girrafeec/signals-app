@@ -7,12 +7,12 @@ plugins {
 }
 
 android {
-    compileSdk = 32
+    compileSdk = 33
 
     defaultConfig {
         applicationId  ="com.girrafeecstud.signals"
         minSdk = 21
-        targetSdk = 32
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
 
@@ -73,6 +73,13 @@ dependencies {
     implementation(Dependencies.Firebase.firebaseMessaging)
     implementation(Dependencies.Firebase.firebaseAnalytics)
 
+    // Custom views
+    implementation(Dependencies.CustomViews.circleIndicator)
+
+    // Easy permissions
+    implementation(Dependencies.EasyPermissions.eazyPermissions)
+    implementation(Dependencies.EasyPermissions.eazyPermissionsCoroutine)
+
     implementation(project(":core-base"))
     implementation(project(":core-components"))
     implementation(project(":core-network"))
@@ -80,6 +87,7 @@ dependencies {
     implementation(project(":core-preferences"))
     implementation(project(":event-bus"))
     implementation(project(":navigation"))
+    implementation(project(":feature-on-board"))
     implementation(project(":feature-auth"))
     implementation(project(":feature-signals-map"))
     implementation(project(":feature-location-tracker-api"))

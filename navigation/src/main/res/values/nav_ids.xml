@@ -2,4 +2,5 @@
     <item name="auth_flow" type="id"/>
     <item name="maps_flow" type="id"/>
     <item name="signals_flow" type="id"/>
+    <item name="on_board_flow" type="id"/>
 </resources>

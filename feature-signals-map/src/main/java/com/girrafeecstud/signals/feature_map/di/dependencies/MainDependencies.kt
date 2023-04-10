@@ -3,6 +3,7 @@ package com.girrafeecstud.signals.feature_map.di.dependencies
 import android.content.Context
 import com.girrafeecstud.location_tracker_api.domain.GetLastKnownLocationUseCase
 import com.girrafeecstud.location_tracker_api.engine.LocationTrackerEngine
+import com.girrafeecstud.on_board.data.OnBoardSharedPreferencesDataSource
 import com.girrafeecstud.signals.rescuer_details_api.ui.BaseRescuerDetailsFragment
 import com.girrafeecstud.signals.rescuers_api.domain.IGetRescuersListUseCase
 import com.girrafeecstud.signals.rescuers_list_api.presenation.RescuersListSharedStateEngine
@@ -38,4 +39,6 @@ interface MainDependencies {
     fun getGetSignalsListUseCase(): GetSignalsListUseCase
 
     fun getSignalDetailsFragment(): BaseSignalDetailsFragment
+
+    fun getOnBoardSharedPreferencesDataSource(): OnBoardSharedPreferencesDataSource
 }

@@ -15,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.girrafeecstud.core_components.vibrate
 import com.girrafeecstud.core_ui.extension.addOnKeyboardVisibilityListener
 import com.girrafeecstud.core_ui.extension.hideView
 import com.girrafeecstud.core_ui.extension.isKeyboardVisible
@@ -149,20 +150,7 @@ class SosSignalFragment : BaseFragment(), SosTypeClickEvent {
     override fun setListeners() {
         binding.sosBtn.setOnLongClickListener {
             sendSosSignal()
-            val vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                val vibratorManager =
-                    requireActivity().getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
-                vibratorManager.defaultVibrator
-            } else {
-                @Suppress("DEPRECATION")
-                requireActivity().getSystemService(VIBRATOR_SERVICE) as Vibrator
-            }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                vibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE))
-            } else {
-                @Suppress("DEPRECATION")
-                vibrator.vibrate(100)
-            }
+            vibrate()
             true
         }
 //        binding.sosSignalDescription.setOnFocusChangeListener { view, hasFocus ->

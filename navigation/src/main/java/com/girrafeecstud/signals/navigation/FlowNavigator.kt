@@ -16,6 +16,13 @@ class FlowNavigator : Navigator<FlowDestination> {
 
     override fun navigateToDestination(destination: FlowDestination) {
         when (destination) {
+            is FlowDestination.OnBoardFlow -> {
+                navController?.navigate(
+                    MainNavFlowDirections
+                        .actionGlobalOnBoardFlow()
+                        .setDefaultScreen(destination.defaultScreen as DefaultOnBoardFlowScreen)
+                )
+            }
             is FlowDestination.AuthFlow -> {
                 navController?.navigate(
                     MainNavFlowDirections.actionGlobalAuthFlow()

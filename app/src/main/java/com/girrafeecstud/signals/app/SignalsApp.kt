@@ -6,6 +6,7 @@ import android.util.Log
 import com.girrafeecstud.core_components.di.CoreComponentsComponent
 import com.girrafeecstud.core_components.di.ICoreComponentsDependencies
 import com.girrafeecstud.countdown_timer_impl.di.CountDownTimerFeatureComponent
+import com.girrafeecstud.on_board.di.DaggerOnBoardFeatureComponent_OnBoardFeatureDependenciesComponent
 import com.girrafeecstud.route_builder_impl.di.RouteBuilderFeatureComponent
 import com.girrafeecstud.route_builder_impl.di.RouteBuilderFeatureDependencies
 import com.girrafeecstud.signals.rescuers_impl.di.DaggerRescuersFeatureComponent_RescuersFeatureDependenciesComponent
@@ -20,6 +21,7 @@ import com.girrafeecstud.signals.core_preferences.di.dependencies.CorePreference
 import com.girrafeecstud.signals.di.AppComponent
 import com.girrafeecstud.signals.di.AppDependencies
 import com.girrafeecstud.signals.di.DaggerAppComponent
+import com.girrafeecstud.on_board.di.OnBoardFeatureComponent
 import com.girrafeecstud.signals.event_bus.di.EventBusComponent
 import com.girrafeecstud.signals.feature_map.di.DaggerMainComponent_MainDependenciesComponent
 import com.girrafeecstud.signals.feature_map.di.MainComponent
@@ -39,17 +41,10 @@ import com.google.firebase.messaging.FirebaseMessaging
 
 class SignalsApp : Application() {
 
-    lateinit var appComponent: AppComponent
-
-    lateinit var networkComponent: CoreNetworkComponent
-
     override fun onCreate() {
         super.onCreate()
 
-        appComponent = DaggerAppComponent
-            .builder()
-            .appDependencies(AppDependenciesImpl())
-            .build()
+        AppComponent.init(dependencies = AppDependenciesImpl())
 
         // TODO подумать над тем, как это делать иначе
         CoreNetworkComponent.init(networkDependencies = NetworkDependenciesImpl())
@@ -58,6 +53,11 @@ class SignalsApp : Application() {
         CoreComponentsComponent.init(dependencies = CoreComponentsDependencies())
         EventBusComponent.init()
         CountDownTimerFeatureComponent.init()
+        OnBoardFeatureComponent.init(dependencies = DaggerOnBoardFeatureComponent_OnBoardFeatureDependenciesComponent
+            .builder()
+            .coreComponentsApi(CoreComponentsComponent.coreComponentsComponent)
+            .build()
+        )
         LocationTrackerFeatureComponent.init(LocationTrackerDependenciesImpl())
         RouteBuilderFeatureComponent.init(RouteBuilderDependenciesImpl())
         // TODO how to reset class?
@@ -112,6 +112,7 @@ class SignalsApp : Application() {
             .signalsFeatureApi(SignalsFeatureComponent.signalsFeatureComponent)
             .signalDetailsFeatureApi(SignalDetailsFeatureComponent.signalDetailsFeatureComponent)
             .eventBusApi(EventBusComponent.eventBusComponent)
+            .onBoardFeatureApi(OnBoardFeatureComponent.onBoardFeatureComponent)
             .build()
         )
         // TODO how to reset class?

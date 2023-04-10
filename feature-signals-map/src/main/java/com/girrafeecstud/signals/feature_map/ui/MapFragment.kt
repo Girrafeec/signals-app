@@ -282,6 +282,7 @@ class MapFragment : BaseFragment(), SignalsClickEvent, RescuersClickEvent {
 
             val line = Polyline(binding.mapView)
             line.setPoints(waypoints)
+            line.infoWindow = null
             val paint: Paint = line.outlinePaint
             paint.color = ContextCompat.getColor(requireActivity().applicationContext, com.girrafeecstud.core_ui.R.color.orange_700)
             paint.strokeWidth = 20f

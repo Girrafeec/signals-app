@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/onboard_flow"
+    app:startDestination="@id/fragment_splash">
+
+    <argument
+        android:name="defaultScreen"
+        app:argType="com.girrafeecstud.signals.navigation.DefaultOnBoardFlowScreen"
+        android:defaultValue="SPLASH_SCREEN"/>
+
+    <action
+        android:id="@+id/action_global_fragment_splash"
+        app:destination="@id/fragment_splash"
+        app:popUpTo="@id/fragment_splash"
+        app:popUpToInclusive="true"/>
+
+    <action
+        android:id="@+id/action_global_fragment_permissions"
+        app:destination="@id/fragment_permissions"
+        app:popUpTo="@id/fragment_permissions"
+        app:popUpToInclusive="true"/>
+
+    <action
+        android:id="@+id/action_global_fragment_on_board"
+        app:destination="@id/fragment_on_board"
+        app:popUpTo="@id/fragment_on_board"
+        app:popUpToInclusive="true"/>
+
+    <fragment
+        android:id="@+id/fragment_splash"
+        android:name="com.girrafeecstud.on_board.ui.SplashFragment"
+        tools:layout="@layout/fragment_splash"/>
+
+    <fragment
+        android:id="@+id/fragment_on_board"
+        android:name="com.girrafeecstud.on_board.ui.OnBoardFragment"
+        tools:layout="@layout/fragment_on_board">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_permissions"
+        android:name="com.girrafeecstud.on_board.ui.PermissionsFragment"
+        tools:layout="@layout/fragment_permissions"/>
+
+</navigation>

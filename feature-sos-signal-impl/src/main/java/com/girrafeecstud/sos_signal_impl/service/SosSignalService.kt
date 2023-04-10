@@ -115,7 +115,7 @@ class SosSignalService : Service() {
             val notificationChannel = NotificationChannel(
                 CHANNEL_ID,
                 CHANNEL_ID,
-                NotificationManager.IMPORTANCE_DEFAULT
+                NotificationManager.IMPORTANCE_LOW
             )
             getSystemService(NotificationManager::class.java).createNotificationChannel(notificationChannel)
             sosSignalNotification = Notification.Builder(this, CHANNEL_ID)
@@ -124,6 +124,7 @@ class SosSignalService : Service() {
                 .setSmallIcon(com.girrafeecstud.core_ui.R.drawable.ic_bell)
         }
         else {
+            @Suppress("DEPRECATION")
             sosSignalNotification = Notification.Builder(this)
                 .setContentTitle(title)
                 .setContentText(text)

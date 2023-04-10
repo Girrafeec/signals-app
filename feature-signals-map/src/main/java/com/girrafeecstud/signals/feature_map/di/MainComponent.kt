@@ -2,6 +2,8 @@ package com.girrafeecstud.signals.feature_map.di
 
 import com.girrafeecstud.core_components.di.CoreComponentsApi
 import com.girrafeecstud.location_tracker_api.di.LocationTrackerFeatureApi
+import com.girrafeecstud.on_board.di.OnBoardFeatureApi
+import com.girrafeecstud.on_board.di.OnBoardFeatureComponent
 import com.girrafeecstud.signals.rescuer_details_api.di.RescuerDetailsFeatureApi
 import com.girrafeecstud.signals.rescuers_api.di.RescuersFeatureApi
 import com.girrafeecstud.signals.rescuers_list_api.di.RescuersListFeatureApi
@@ -78,7 +80,8 @@ interface MainComponent {
             RescuerDetailsFeatureApi::class,
             SignalsFeatureApi::class,
             SignalDetailsFeatureApi::class,
-            EventBusApi::class
+            EventBusApi::class,
+            OnBoardFeatureApi::class
         ]
     )
     interface MainDependenciesComponent: MainDependencies

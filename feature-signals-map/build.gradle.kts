@@ -111,6 +111,7 @@ dependencies {
     implementation(project(":core-base"))
     implementation(project(":event-bus"))
     implementation(project(":navigation"))
+    implementation(project(":feature-on-board"))
     implementation(project(":feature-route-builder-api"))
     implementation(project(":feature-location-tracker-api"))
     implementation(project(":feature-sos-signal-api"))

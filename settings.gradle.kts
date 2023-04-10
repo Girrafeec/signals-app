@@ -10,6 +10,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        jcenter()
         maven {
             url = uri("https://jitpack.io")
         }
@@ -45,3 +46,4 @@ include(":feature-signal-details-impl")
 include(":feature-countdown-timer-api")
 include(":feature-countdown-timer-impl")
 include(":core-components")
+include(":feature-on-board")

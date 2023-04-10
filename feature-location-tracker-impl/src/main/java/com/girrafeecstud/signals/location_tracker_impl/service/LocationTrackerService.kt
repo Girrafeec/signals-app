@@ -51,14 +51,14 @@ class LocationTrackerService : Service() {
             getSystemService(NotificationManager::class.java).createNotificationChannel(channel)
 
             notification = Notification.Builder(this, CHANNEL_ID)
-                .setContentText("Service is running")
-                .setContentTitle("Service enabled")
+                .setContentText("Отслеживание местоположения")
+                .setContentTitle("Signals")
         }
         else {
-            // TODO make something with deprecated method
+            @Suppress("DEPRECATION")
             notification = Notification.Builder(this)
-                .setContentText("Service is running")
-                .setContentTitle("Service enabled")
+                .setContentText("Отслеживание местоположения")
+                .setContentTitle("Signals")
         }
 
         startLocationTracker()

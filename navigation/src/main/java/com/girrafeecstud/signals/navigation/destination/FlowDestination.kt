@@ -1,9 +1,6 @@
 package com.girrafeecstud.signals.navigation.destination
 
-import com.girrafeecstud.signals.navigation.DefaultMapsFlowScreen
-import com.girrafeecstud.signals.navigation.DefaultFlowScreen
-import com.girrafeecstud.signals.navigation.DefaultSignalsFlowScreen
-import com.girrafeecstud.signals.navigation.R
+import com.girrafeecstud.signals.navigation.*
 
 sealed class FlowDestination(
     private val _destinationId: Int,
@@ -12,6 +9,14 @@ sealed class FlowDestination(
 
     override val destinationId: Int
         get() = _destinationId
+
+    class OnBoardFlow(
+        _defaultScreen: DefaultOnBoardFlowScreen =
+            DefaultOnBoardFlowScreen.SPLASH_SCREEN
+    ) : FlowDestination(
+        _destinationId = R.id.on_board_flow_fragment,
+        defaultScreen = _defaultScreen
+    )
 
     class AuthFlow(
     ) : FlowDestination(_destinationId = R.id.auth_flow_fragment)

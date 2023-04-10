@@ -14,6 +14,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.girrafeecstud.core_components.intensiveVibrate
+import com.girrafeecstud.core_components.vibrate
 import com.girrafeecstud.core_ui.extension.disable
 import com.girrafeecstud.core_ui.extension.hideView
 import com.girrafeecstud.core_ui.extension.showView
@@ -108,8 +110,10 @@ class SosCountDownDialog : BaseDialogFragment<SosCountDownUiState>() {
     }
 
     override fun setState(state: SosCountDownUiState) {
-        if (state.milliesLeft != null)
+        if (state.milliesLeft != null) {
+            vibrate()
             binding.countdownText.text = state.milliesLeft.milliesToFormattedTimeString()
+        }
 
         if (state.sosTransmitting) {
             binding.countdownText.hideView()
