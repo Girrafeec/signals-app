@@ -15,18 +15,18 @@ class OnBoardSlidesAdapter @Inject constructor(
 
     private val slides = listOf(
         OnBoardSlide(
-            title = "титул1",
-            description = "описание1",
+            title = "Будьте готовы к непредвиденным ситуациям",
+            description = "Signals - ваш надежный помощник в экстренных ситуациях. Вы можете вызвать на помощь и отправить SOS-сигнал в одно касание",
+            icon = com.girrafeecstud.core_ui.R.drawable.onboard_first
+        ),
+        OnBoardSlide(
+            title = "Безопасность - наш главный приоритет",
+            description = "Signals обеспечивает безопасность ваших близких и вас самих. Мы быстро свяжем вас с людьми рядом, которые готовы помочь",
             icon = com.girrafeecstud.core_ui.R.drawable.ic_launcher_background
         ),
         OnBoardSlide(
-            title = "титул2",
-            description = "описание2",
-            icon = com.girrafeecstud.core_ui.R.drawable.ic_launcher_background
-        ),
-        OnBoardSlide(
-            title = "титул3",
-            description = "описание3",
+            title = "Спокойствие и уверенность в экстренной ситуации",
+            description = "С помощью Signals вы можете отслеживать статус вашего вызова на помощь и получить информацию о людях, которые вышли на помощь",
             icon = com.girrafeecstud.core_ui.R.drawable.ic_launcher_background
         )
     )
