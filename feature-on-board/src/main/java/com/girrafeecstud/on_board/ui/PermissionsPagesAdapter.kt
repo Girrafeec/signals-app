@@ -20,69 +20,69 @@ class PermissionsPagesAdapter @Inject constructor(
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.TIRAMISU)
             listOf(
                 PermissionPage.PermissionTitle(
-                    title = "title 1",
-                    description = "description 1",
-                    icon = com.girrafeecstud.core_ui.R.drawable.ic_launcher_background
+                    title = "Предоставление разрешений",
+                    description = "Для наилучшей работы приложения Signals, необходимо предоставить все необходимые разрешения",
+                    icon = com.girrafeecstud.core_ui.R.drawable.permissions_not_accepted
                 ),
                 PermissionPage.PermissionPageItem(
-                    title = "Местоположение",
-                    description = "description 1",
-                    icon = com.girrafeecstud.core_ui.R.drawable.ic_launcher_background,
+                    title = "Для определения вашего местоположения",
+                    description = "Приложению нужен доступ к вашей геолокации для определения вашего местоположения и быстрой доставки помощи",
+                    icon = com.girrafeecstud.core_ui.R.drawable.permission_location,
                     permission = AppPermission.Location
                 ),
                 PermissionPage.PermissionPageItem(
-                    title = "Список контактов",
-                    description = "description 2",
-                    icon = com.girrafeecstud.core_ui.R.drawable.ic_launcher_background,
+                    title = "Для звонков в экстренных ситуациях",
+                    description = "Приложению нужен доступ к вашим звонкам, чтобы вы могли быстро позвонить в экстренных ситуациях и вызвать помощь",
+                    icon = com.girrafeecstud.core_ui.R.drawable.permission_call,
                     permission = AppPermission.Contacts
                 ),
                 PermissionPage.PermissionPageItem(
-                    title = "Звонки",
-                    description = "description 3",
-                    icon = com.girrafeecstud.core_ui.R.drawable.ic_launcher_background,
+                    title = "Для быстрого контакта с близкими",
+                    description = "Приложению нужен доступ к вашему списку контактов, чтобы вы могли быстро связаться с близкими людьми в случае необходимости",
+                    icon = com.girrafeecstud.core_ui.R.drawable.permission_contacts,
                     permission = AppPermission.PhoneCall
                 ),
                 PermissionPage.PermissionPageItem(
-                    title = "Уведомления",
-                    description = "description 4",
-                    icon = com.girrafeecstud.core_ui.R.drawable.ic_launcher_background,
+                    title = "Для получения уведомлений о помощи",
+                    description = "Приложению нужен доступ к вашим уведомлениям, чтобы вы могли получать важные уведомления о том, когда вышедшая на помощь команда отправится к вам",
+                    icon = com.girrafeecstud.core_ui.R.drawable.permission_notifications,
                     permission = AppPermission.Notifications
                 ),
                 PermissionPage.PermissionTitle(
-                    title = "title 6",
-                    description = "description 6",
-                    icon = com.girrafeecstud.core_ui.R.drawable.ic_launcher_background
+                    title = "Вы готовы использовать Signals на все 100%",
+                    description = "Теперь вы можете использовать приложение Signals в полной мере",
+                    icon = com.girrafeecstud.core_ui.R.drawable.permissions_accepted
                 )
             )
     else
             listOf(
                 PermissionPage.PermissionTitle(
-                    title = "title 1",
-                    description = "description 1",
-                    icon = com.girrafeecstud.core_ui.R.drawable.ic_launcher_background
+                    title = "Предоставление разрешений",
+                    description = "Для наилучшей работы приложения Signals, необходимо предоставить все необходимые разрешения",
+                    icon = com.girrafeecstud.core_ui.R.drawable.permissions_not_accepted
                 ),
                 PermissionPage.PermissionPageItem(
-                    title = "Местоположение",
-                    description = "description 1",
-                    icon = com.girrafeecstud.core_ui.R.drawable.ic_launcher_background,
+                    title = "Для определения вашего местоположения",
+                    description = "Приложению нужен доступ к вашей геолокации для определения вашего местоположения и быстрой доставки помощи",
+                    icon = com.girrafeecstud.core_ui.R.drawable.permission_location,
                     permission = AppPermission.Location
                 ),
                 PermissionPage.PermissionPageItem(
-                    title = "Список контактов",
-                    description = "description 2",
-                    icon = com.girrafeecstud.core_ui.R.drawable.ic_launcher_background,
+                    title = "Для звонков в экстренных ситуациях",
+                    description = "Приложению нужен доступ к вашим звонкам, чтобы вы могли быстро позвонить в экстренных ситуациях и вызвать помощь",
+                    icon = com.girrafeecstud.core_ui.R.drawable.permission_call,
                     permission = AppPermission.Contacts
                 ),
                 PermissionPage.PermissionPageItem(
-                    title = "Звонки",
-                    description = "description 3",
-                    icon = com.girrafeecstud.core_ui.R.drawable.ic_launcher_background,
+                    title = "Для быстрого контакта с близкими",
+                    description = "Приложению нужен доступ к вашему списку контактов, чтобы вы могли быстро связаться с близкими людьми в случае необходимости",
+                    icon = com.girrafeecstud.core_ui.R.drawable.permission_contacts,
                     permission = AppPermission.PhoneCall
                 ),
                 PermissionPage.PermissionTitle(
-                    title = "title 6",
-                    description = "description 6",
-                    icon = com.girrafeecstud.core_ui.R.drawable.ic_launcher_background
+                    title = "Вы готовы использовать Signals на все 100%",
+                    description = "Теперь вы можете использовать приложение Signals в полной мере",
+                    icon = com.girrafeecstud.core_ui.R.drawable.permissions_accepted
                 )
             )
 

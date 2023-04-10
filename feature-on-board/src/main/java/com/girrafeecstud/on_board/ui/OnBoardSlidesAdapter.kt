@@ -22,12 +22,12 @@ class OnBoardSlidesAdapter @Inject constructor(
         OnBoardSlide(
             title = "Безопасность - наш главный приоритет",
             description = "Signals обеспечивает безопасность ваших близких и вас самих. Мы быстро свяжем вас с людьми рядом, которые готовы помочь",
-            icon = com.girrafeecstud.core_ui.R.drawable.ic_launcher_background
+            icon = com.girrafeecstud.core_ui.R.drawable.onboarding_two
         ),
         OnBoardSlide(
             title = "Спокойствие и уверенность в экстренной ситуации",
             description = "С помощью Signals вы можете отслеживать статус вашего вызова на помощь и получить информацию о людях, которые вышли на помощь",
-            icon = com.girrafeecstud.core_ui.R.drawable.ic_launcher_background
+            icon = com.girrafeecstud.core_ui.R.drawable.onboard_third
         )
     )
 
