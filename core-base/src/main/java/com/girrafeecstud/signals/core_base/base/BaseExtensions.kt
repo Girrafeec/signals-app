@@ -2,6 +2,9 @@
 
 package com.girrafeecstud.signals.core_base.base
 
+import java.text.SimpleDateFormat
+import java.util.*
+
 fun Double.roundTo(numDecimalPlaces: Int): Double =
     "%.${numDecimalPlaces}f".format(this).toDouble()
 
@@ -40,4 +43,9 @@ fun Long.milliesToFormattedTimeString(): String {
             }
         }
     }
+}
+
+fun Date.toString(format: String, locale: Locale = Locale.getDefault()): String {
+    val formatter = SimpleDateFormat(format, locale)
+    return formatter.format(this)
 }

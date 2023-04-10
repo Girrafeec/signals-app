@@ -99,8 +99,8 @@ class Dependencies {
 
     object EasyPermissions {
         const val easyPermissions = "pub.devrel:easypermissions:${Versions.easyPermissionsVersion}"
-        const val eazyPermissionsCoroutine = "com.sagar:coroutinespermission:2.0.0"
-        const val eazyPermissions = "com.sagar:dslpermission:2.0.0"
+        const val eazyPermissionsCoroutine = "com.sagar:coroutinespermission:2.0.3"
+        const val eazyPermissions = "com.sagar:dslpermission:2.0.3"
     }
 
     object OSMDroid {

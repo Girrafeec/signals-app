@@ -1,6 +1,8 @@
 package com.girrafeecstud.signals.feature_map.ui
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -98,7 +100,10 @@ class SosMapFragment : BaseFragment() {
             sosMapViewModel.disableSosSignal(requireActivity().applicationContext)
         }
         binding.emergencyCallBtn.setOnClickListener {
-            Log.i("tag", "clicked on emergency call")
+            Log.i("tag ыщы", "clicked on emergency call")
+            val intent = Intent(Intent.ACTION_CALL)
+            intent.setData(Uri.parse("tel:" + "112"))
+            requireActivity().startActivity(intent)
         }
     }
 

@@ -17,17 +17,17 @@ class OnBoardSlidesAdapter @Inject constructor(
         OnBoardSlide(
             title = "титул1",
             description = "описание1",
-            icon = R.drawable.ic_launcher_background
+            icon = com.girrafeecstud.core_ui.R.drawable.ic_launcher_background
         ),
         OnBoardSlide(
             title = "титул2",
             description = "описание2",
-            icon = R.drawable.ic_launcher_background
+            icon = com.girrafeecstud.core_ui.R.drawable.ic_launcher_background
         ),
         OnBoardSlide(
             title = "титул3",
             description = "описание3",
-            icon = R.drawable.ic_launcher_background
+            icon = com.girrafeecstud.core_ui.R.drawable.ic_launcher_background
         )
     )
 

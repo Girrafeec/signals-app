@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.girrafeecstud.core_ui.ui.BaseFragment
+import com.girrafeecstud.on_board.R
 import com.girrafeecstud.on_board.databinding.FragmentSplashBinding
 
 class SplashFragment : BaseFragment() {
@@ -14,6 +15,11 @@ class SplashFragment : BaseFragment() {
     private var _binding: FragmentSplashBinding? = null
 
     private val binding get() = _binding!!
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requireActivity().setTheme(com.girrafeecstud.core_ui.R.style.SplashTheme)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

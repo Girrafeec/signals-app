@@ -2,7 +2,7 @@ package com.girrafeecstud.signals.signals_api.domain.entity
 
 data class EmergencySignal(
     val signalId: String,
-    val signalStartTimestamp: String,
+    var signalStartTimestamp: String,
     var signalLatitude: Double,
     var signalLongitude: Double,
     val emergencySignalType: EmergencySignalType,

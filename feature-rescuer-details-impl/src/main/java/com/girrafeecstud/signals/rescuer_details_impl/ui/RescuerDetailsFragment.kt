@@ -1,7 +1,10 @@
 package com.girrafeecstud.signals.rescuer_details_impl.ui
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,15 +14,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import com.girrafeecstud.core_ui.extension.*
-import com.girrafeecstud.signals.rescuer_details_impl.databinding.FragmentRescuerDetailsBinding
-import com.girrafeecstud.signals.rescuer_details_impl.di.component.RescuerDetailsFeatureComponent
-import com.girrafeecstud.signals.rescuers_api.domain.Rescuer
 import com.girrafeecstud.core_ui.presentation.UiState
 import com.girrafeecstud.core_ui.ui.BaseFragment
 import com.girrafeecstud.signals.core_base.presentation.base.MainViewModelFactory
-import com.girrafeecstud.signals.rescuer_details_api.ui.BaseRescuerDetailsFragment
+import com.girrafeecstud.signals.rescuer_details_impl.databinding.FragmentRescuerDetailsBinding
+import com.girrafeecstud.signals.rescuer_details_impl.di.component.RescuerDetailsFeatureComponent
 import com.girrafeecstud.signals.rescuer_details_impl.presentation.RescuerDetailsUiState
 import com.girrafeecstud.signals.rescuer_details_impl.presentation.RescuerDetailsViewModel
+import com.girrafeecstud.signals.rescuers_api.domain.Rescuer
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -28,6 +30,10 @@ import javax.inject.Inject
 class RescuerDetailsFragment @Inject constructor(
 
 ) : BaseFragment() {
+
+    companion object {
+        var rescuer: Rescuer? = null
+    }
 
     private var _binding: FragmentRescuerDetailsBinding? = null
 
@@ -77,9 +83,12 @@ class RescuerDetailsFragment @Inject constructor(
 //        binding.showRescuerLocationBtn.setOnClickListener {
 //            Log.i("tag", "show rescuer on map")
 //        }
-//        binding.callRescuerBtn.setOnClickListener {
-//            Log.i("tag", "call rescuer")
-//        }
+        binding.callRescuerBtn.setOnClickListener {
+            Log.i("tag resc det", "call rescuer")
+            val intent = Intent(Intent.ACTION_CALL)
+            intent.setData(Uri.parse("tel:" + rescuer?.rescuerPhoneNumber))
+            requireActivity().startActivity(intent)
+        }
     }
 
     override fun registerObservers() {
@@ -108,8 +117,10 @@ class RescuerDetailsFragment @Inject constructor(
             binding.rescuerDetailsContentLayout.enable()
         }
 
-        if (state.rescuerDetails != null)
+        if (state.rescuerDetails != null) {
+            rescuer = state.rescuerDetails
             setRescuerDetails(rescuer = state.rescuerDetails)
+        }
     }
 
     private fun setRescuerDetails(rescuer: Rescuer?) {

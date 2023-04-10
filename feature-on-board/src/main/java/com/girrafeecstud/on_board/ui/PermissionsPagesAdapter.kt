@@ -22,36 +22,36 @@ class PermissionsPagesAdapter @Inject constructor(
                 PermissionPage.PermissionTitle(
                     title = "title 1",
                     description = "description 1",
-                    icon = R.drawable.ic_launcher_background
+                    icon = com.girrafeecstud.core_ui.R.drawable.ic_launcher_background
                 ),
                 PermissionPage.PermissionPageItem(
                     title = "Местоположение",
                     description = "description 1",
-                    icon = R.drawable.ic_launcher_background,
+                    icon = com.girrafeecstud.core_ui.R.drawable.ic_launcher_background,
                     permission = AppPermission.Location
                 ),
                 PermissionPage.PermissionPageItem(
                     title = "Список контактов",
                     description = "description 2",
-                    icon = R.drawable.ic_launcher_background,
+                    icon = com.girrafeecstud.core_ui.R.drawable.ic_launcher_background,
                     permission = AppPermission.Contacts
                 ),
                 PermissionPage.PermissionPageItem(
                     title = "Звонки",
                     description = "description 3",
-                    icon = R.drawable.ic_launcher_background,
+                    icon = com.girrafeecstud.core_ui.R.drawable.ic_launcher_background,
                     permission = AppPermission.PhoneCall
                 ),
                 PermissionPage.PermissionPageItem(
                     title = "Уведомления",
                     description = "description 4",
-                    icon = R.drawable.ic_launcher_background,
+                    icon = com.girrafeecstud.core_ui.R.drawable.ic_launcher_background,
                     permission = AppPermission.Notifications
                 ),
                 PermissionPage.PermissionTitle(
                     title = "title 6",
                     description = "description 6",
-                    icon = R.drawable.ic_launcher_background
+                    icon = com.girrafeecstud.core_ui.R.drawable.ic_launcher_background
                 )
             )
     else
@@ -59,30 +59,30 @@ class PermissionsPagesAdapter @Inject constructor(
                 PermissionPage.PermissionTitle(
                     title = "title 1",
                     description = "description 1",
-                    icon = R.drawable.ic_launcher_background
+                    icon = com.girrafeecstud.core_ui.R.drawable.ic_launcher_background
                 ),
                 PermissionPage.PermissionPageItem(
                     title = "Местоположение",
                     description = "description 1",
-                    icon = R.drawable.ic_launcher_background,
+                    icon = com.girrafeecstud.core_ui.R.drawable.ic_launcher_background,
                     permission = AppPermission.Location
                 ),
                 PermissionPage.PermissionPageItem(
                     title = "Список контактов",
                     description = "description 2",
-                    icon = R.drawable.ic_launcher_background,
+                    icon = com.girrafeecstud.core_ui.R.drawable.ic_launcher_background,
                     permission = AppPermission.Contacts
                 ),
                 PermissionPage.PermissionPageItem(
                     title = "Звонки",
                     description = "description 3",
-                    icon = R.drawable.ic_launcher_background,
+                    icon = com.girrafeecstud.core_ui.R.drawable.ic_launcher_background,
                     permission = AppPermission.PhoneCall
                 ),
                 PermissionPage.PermissionTitle(
                     title = "title 6",
                     description = "description 6",
-                    icon = R.drawable.ic_launcher_background
+                    icon = com.girrafeecstud.core_ui.R.drawable.ic_launcher_background
                 )
             )
 

@@ -81,7 +81,7 @@ class PermissionsFragment : BaseFragment() {
                         val permissionPage = pagesAdaper.pages.get(position)
                         when (permissionPage) {
                             is PermissionPage.PermissionPageItem -> {
-                                binding.applyButton.text = "Разрешить"
+                                binding.applyButtonText.text = "Разрешить"
                                 binding.applyButton.setOnClickListener {
                                     viewLifecycleOwner.lifecycleScope.launch {
                                         withContext(Dispatchers.Main) {
@@ -94,7 +94,7 @@ class PermissionsFragment : BaseFragment() {
                                 }
                             }
                             is PermissionPage.PermissionTitle -> {
-                                binding.applyButton.text = "Далее"
+                                binding.applyButtonText.text = "Ок"
                                 binding.applyButton.setOnClickListener {
                                     binding.onBoardViewPager.currentItem.let {
                                         binding.onBoardViewPager.setCurrentItem(it + 1, false)
@@ -104,7 +104,7 @@ class PermissionsFragment : BaseFragment() {
                         }
                         return
                     }
-                    binding.applyButton.text = "Начать"
+                    binding.applyButtonText.text = "Начать"
                     binding.applyButton.setOnClickListener {
                         viewLifecycleOwner.lifecycleScope.launch {
                             saveOnboarding()
@@ -145,7 +145,7 @@ class PermissionsFragment : BaseFragment() {
                     .setMessage("Для использования приложения необходимо выдать разрешение")
                     .setTitle("Разрешения")
                     .setPositiveButton("ОК") { _, _ ->
-                        when (permissionsResult.requestId) {
+                        when (permissionsResult.requestCode) {
                             1 -> {
                                 viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
                                     handlePermissionsResult(
@@ -200,7 +200,7 @@ class PermissionsFragment : BaseFragment() {
                     .setMessage("Для использования приложения необходимо выдать разрешение")
                     .setTitle("Разрешения")
                     .setPositiveButton("ОК") { _, _ ->
-                        when (permissionsResult.requestId) {
+                        when (permissionsResult.requestCode) {
                             1 -> {
                                 viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
                                     handlePermissionsResult(

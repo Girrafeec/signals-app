@@ -1,6 +1,7 @@
 package com.girrafeecstud.signals.signal_details_impl.ui
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,19 +13,27 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
+import com.girrafeecstud.core_ui.extension.hideView
 import com.girrafeecstud.core_ui.extension.loadAndSetImage
+import com.girrafeecstud.core_ui.extension.removeView
 import com.girrafeecstud.core_ui.ui.BaseFragment
 import com.girrafeecstud.signals.core_base.presentation.base.MainViewModelFactory
 import com.girrafeecstud.signals.signal_details_api.ui.BaseSignalDetailsFragment
+import com.girrafeecstud.signals.signal_details_impl.R
 import com.girrafeecstud.signals.signal_details_impl.databinding.FragmentSignalDetailsBinding
 import com.girrafeecstud.signals.signal_details_impl.di.SignalDetailsFeatureComponent
 import com.girrafeecstud.signals.signal_details_impl.presentation.SignalDetailsUiState
 import com.girrafeecstud.signals.signal_details_impl.presentation.SignalDetailsViewModel
 import com.girrafeecstud.signals.signals_api.domain.entity.EmergencySignal
+import com.girrafeecstud.signals.signals_api.domain.entity.EmergencySignalType
 import com.girrafeecstud.signals.signals_api.engine.SignalsEngine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 import javax.inject.Inject
 
 class SignalDetailsFragment @Inject constructor(
@@ -140,6 +149,21 @@ class SignalDetailsFragment @Inject constructor(
             return
         binding.callerProfileImage.loadAndSetImage(url = signal.signalSender.signalSenderProfileImageUrl)
         binding.callerName.text = "${signal.signalSender.signalSenderFirstName} ${signal.signalSender.signalSenderLastName}"
+        if (!signal.emergencySignalDescription.equals(""))
+            binding.signalDescription?.text = "\"${signal.emergencySignalDescription}\""
+        else
+            binding.signalDescription?.hideView()
+
+        if (signal.emergencySignalType == EmergencySignalType.DEFAULT_SOS_SIGNAL)
+            binding.signalTypeImage?.setImageResource(com.girrafeecstud.core_ui.R.drawable.ic_bell_red_big)
+        if (signal.emergencySignalType == EmergencySignalType.HEART_ATTACK_SIGNAL)
+            binding.signalTypeImage?.setImageResource(com.girrafeecstud.core_ui.R.drawable.ic_heart_red)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME
+            val dateTime = LocalDateTime.parse(signal.signalStartTimestamp, formatter)
+            binding.signalStartTimestamp.text = "${dateTime.hour}:${dateTime.minute}"
+        }
     }
 
     private fun setLoading(isLoading: Boolean) =

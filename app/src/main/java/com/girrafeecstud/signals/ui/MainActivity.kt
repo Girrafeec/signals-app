@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity(), ToFlowNavigable {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.Theme_Signals)
         binding  =ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -117,12 +118,13 @@ class MainActivity : AppCompatActivity(), ToFlowNavigable {
                                 )
                             )
                         }
-                        else
+                        else {
                             flowNavigator.setStartDestination(
                                 destination = FlowDestination.MapsFlow(
                                     _defaultScreen = DefaultMapsFlowScreen.SIGNALS_MAP_SCREEN
                                 )
                             )
+                        }
                         tempSosEngineScope.cancel()
                     }
                     .launchIn(tempSosEngineScope)

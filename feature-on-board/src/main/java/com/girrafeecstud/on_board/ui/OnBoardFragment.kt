@@ -69,7 +69,7 @@ class OnBoardFragment : BaseFragment() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     if (position != slidesAdapter.itemCount - 1) {
-                        binding.nextButton.text = "ДАЛЕЕ"
+                        binding.nextButtonText.text = "Далее"
                         binding.nextButton.setOnClickListener {
                             binding.onBoardViewPager.currentItem.let {
                                 binding.onBoardViewPager.setCurrentItem(it+1, false)
@@ -77,7 +77,7 @@ class OnBoardFragment : BaseFragment() {
                         }
                         return
                     }
-                    binding.nextButton.text = "НАЧАТЬ"
+                    binding.nextButtonText.text = "Начать"
                     binding.nextButton.setOnClickListener {
 //                        viewLifecycleOwner.lifecycleScope.launch {
 //                            saveOnboarding()

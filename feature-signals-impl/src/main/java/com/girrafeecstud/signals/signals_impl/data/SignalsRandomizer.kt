@@ -5,12 +5,14 @@ package com.girrafeecstud.signals.signals_impl.data
 import android.util.Log
 import com.girrafeecstud.location_tracker_api.data.BaseLocationTrackerDataSource
 import com.girrafeecstud.location_tracker_api.domain.entity.UserLocation
+import com.girrafeecstud.signals.core_base.base.toString
 import com.girrafeecstud.signals.core_base.domain.base.BusinessResult
 import com.girrafeecstud.signals.signals_api.domain.entity.EmergencySignal
 import com.girrafeecstud.signals.signals_api.domain.entity.EmergencySignalType
 import com.girrafeecstud.signals.signals_api.domain.entity.SignalSender
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import java.util.Calendar
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -29,11 +31,11 @@ class SignalsRandomizer @Inject constructor(
             signalLongitude = 30.483845,
             emergencySignalType = EmergencySignalType.DEFAULT_SOS_SIGNAL,
             emergencySignalTitle = "Нужна помощь!",
-            emergencySignalDescription = "Описание",
+            emergencySignalDescription = "",
             signalSender = SignalSender(
                 signalSenderId = "ca0ab149-010f-42a4-9ea8-e0964046aa8f",
-                signalSenderFirstName = "Mike",
-                signalSenderLastName = "Brown",
+                signalSenderFirstName = "Артём",
+                signalSenderLastName = "Смирнов",
                 signalSenderProfileImageUrl = "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=689&q=80"
             )
         ),
@@ -44,11 +46,11 @@ class SignalsRandomizer @Inject constructor(
             signalLongitude = 30.482426,
             emergencySignalType = EmergencySignalType.HEART_ATTACK_SIGNAL,
             emergencySignalTitle = "Нужна помощь!",
-            emergencySignalDescription = "Описание",
+            emergencySignalDescription = "2 этаж",
             signalSender = SignalSender(
                 signalSenderId = "1f56dc27-e35b-4f0d-909c-ecabd9acaef1",
-                signalSenderFirstName = "Max",
-                signalSenderLastName = "Larsen",
+                signalSenderFirstName = "Илья",
+                signalSenderLastName = "Петров",
                 signalSenderProfileImageUrl = "https://images.unsplash.com/photo-1639747280929-e84ef392c69a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
             )
         )
@@ -85,6 +87,12 @@ class SignalsRandomizer @Inject constructor(
         return Math.toDegrees(lon2Rad)
     }
 
+    private fun getCurrentDateTime(): String {
+        val date = Calendar.getInstance().time
+        val dateInString = date.toString(format = "yyyy-MM-dd'T'HH:mm:ss")
+        return dateInString
+    }
+
     private fun getSignalsWithLocation(
         signalsNumber: Int
     ): Flow<List<EmergencySignal>> =
@@ -98,14 +106,17 @@ class SignalsRandomizer @Inject constructor(
                 if (signalsNumber == 1) {
                     signalsTempList.get(0).signalLatitude = getLatitude(latitude = location.latitude, longitude = location.longitude, distance = 100.0)
                     signalsTempList.get(0).signalLongitude = location.longitude
+                    signalsTempList.get(0).signalStartTimestamp = getCurrentDateTime()
                     emit(listOf(signalsTempList.get(0)))
                 }
                 else if (signalsNumber == 2) {
                     signalsTempList.get(0).signalLatitude = getLatitude(latitude = location.latitude, longitude = location.longitude, distance = 100.0)
                     signalsTempList.get(0).signalLongitude = location.longitude
+                    signalsTempList.get(0).signalStartTimestamp = getCurrentDateTime()
 
                     signalsTempList.get(1).signalLongitude = getLongitude(latitude = location.latitude, longitude = location.longitude, distance = 150.0)
                     signalsTempList.get(1).signalLatitude = location.latitude
+                    signalsTempList.get(1).signalStartTimestamp = getCurrentDateTime()
                     emit(signalsTempList)
                 }
             }

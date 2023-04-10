@@ -21,19 +21,19 @@ class RescuersRandomizer @Inject constructor(
     private val rescuersTempList = listOf(
         Rescuer(
             rescuerId = "ce0c4cf7-9968-4155-bea2-e310b1248b08",
-            rescuerFirstName = "Alex",
-            rescuerLastName = "Born",
-            rescuerPhoneNumber = "+79234556985",
-            rescuerProfileImageUrl = "https://i0.wp.com/xn--tomo-o83cuf7jj61w54ryvgb31m.com/wp-content/uploads/2022/04/pexels-photo-7562313.jpeg?w=867&ssl=1",
+            rescuerFirstName = "Дмитрий",
+            rescuerLastName = "Смирнов",
+            rescuerPhoneNumber = "+79161234567",
+            rescuerProfileImageUrl = "https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
             rescuerLocationLatitude = 59.9003,
             rescuerLocationLongitude = 30.4891
         ),
         Rescuer(
             rescuerId = "16866392-53b1-4398-8a11-5cadfb559e7d",
-            rescuerFirstName = "Randall",
-            rescuerLastName = "Boggs",
-            rescuerPhoneNumber = "+79999999999",
-            rescuerProfileImageUrl = "https://static.wikia.nocookie.net/pixar/images/8/86/Randall.png/revision/latest/scale-to-width-down/1000?cb=20160404023111",
+            rescuerFirstName = "Анна",
+            rescuerLastName = "Иванова",
+            rescuerPhoneNumber = "+79039876543",
+            rescuerProfileImageUrl = "https://images.unsplash.com/photo-1554151228-14d9def656e4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=686&q=80",
             rescuerLocationLatitude = 60.029972,
             rescuerLocationLongitude = 30.631602
         )
