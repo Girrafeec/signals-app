@@ -76,4 +76,5 @@ dependencies {
     implementation(project(":event-bus"))
     implementation(project(":feature-signals-api"))
     implementation(project(":feature-location-tracker-api"))
+    implementation(project(":feature-auth-api"))
 }

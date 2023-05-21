@@ -1,0 +1,7 @@
+package com.girrafeecstud.signals.auth_impl.login.di
+
+import javax.inject.Scope
+
+@Scope
+@Retention(AnnotationRetention.RUNTIME)
+annotation class LoginScope

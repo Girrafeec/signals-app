@@ -87,4 +87,5 @@ dependencies {
     implementation(project(":navigation"))
     implementation(project(":feature-rescuers-api"))
     implementation(project(":feature-rescuer-details-api"))
+    implementation(project(":feature-auth-api"))
 }

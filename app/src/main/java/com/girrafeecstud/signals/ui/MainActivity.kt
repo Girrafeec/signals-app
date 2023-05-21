@@ -9,22 +9,19 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.girrafeecstud.on_board.data.OnBoardSharedPreferencesDataSource
 import com.girrafeecstud.signals.R
-import com.girrafeecstud.signals.app.SignalsApp
 import com.girrafeecstud.signals.databinding.ActivityMainBinding
 import com.girrafeecstud.signals.di.AppComponent
 import com.girrafeecstud.signals.navigation.DefaultMapsFlowScreen
 import com.girrafeecstud.signals.navigation.DefaultOnBoardFlowScreen
 import com.girrafeecstud.signals.navigation.destination.FlowDestination
 import com.girrafeecstud.signals.navigation.ToFlowNavigable
-import com.girrafeecstud.signals.presentation.MainViewModel
 import com.girrafeecstud.signals.navigation.FlowNavigator
 import com.girrafeecstud.sos_signal_api.engine.SosSignalState
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), ToFlowNavigable {
 
@@ -34,13 +31,6 @@ class MainActivity : AppCompatActivity(), ToFlowNavigable {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
 
-//    @Inject
-//    lateinit var mainViewModelFactory: MainViewModelFactory
-
-    private val mainViewModel: MainViewModel by viewModels {
-        AppComponent.appComponent.mainViewModelFactody()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.Theme_Signals)
@@ -48,6 +38,18 @@ class MainActivity : AppCompatActivity(), ToFlowNavigable {
         setContentView(binding.root)
 
         setUpNavigation()
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            Log.i("tag", "task ${task.isSuccessful}")
+            if (!task.isSuccessful)
+                return@addOnCompleteListener
+            val token = task.result
+            Log.i("tag", "notification token $token")
+            // Save token
+            lifecycleScope.launch {
+                AppComponent.appComponent.notificationTokensDataSource().setNotificationToken(token)
+            }
+        }
     }
 
     override fun onDestroy() {
@@ -66,44 +68,6 @@ class MainActivity : AppCompatActivity(), ToFlowNavigable {
         flowNavigator.setNavController(navController)
 
         // Choose start destination
-        mainViewModel.requestUserAuthorizedStatus()
-//        mainViewModel.getUserAuthorizedStatus().observe(this) { isUserAuthorized ->
-//            when (isUserAuthorized) {
-//                false -> {
-//                    navGraph.setStartDestination(R.id.authFlowFragment)
-//                    navController.graph = navGraph //TODO исправить и добавить как-то ожидание
-//                }
-//                true -> {
-//                    navGraph.setStartDestination(R.id.mainFlowFragment)
-//                    navController.graph = navGraph
-//                }
-//            }
-//        }
-
-        // TODO to it after checking for auth status
-//        lifecycleScope.launch {
-//            repeatOnLifecycle(Lifecycle.State.CREATED) {
-//                val temporaryNavigationScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
-//                (applicationContext as SignalsApp).appComponent.sosSignalEngine().getSosSignalState()
-//                    .onEach { state ->
-//                        if (!(state is SosSignalState.SosSignalDisabled)) {
-//                            flowNavigator.setStartDestination(
-//                                destination = FlowDestination.MapsFlow(
-//                                    _defaultScreen = DefaultMapsFlowScreen.SOS_SIGNAL_MAP_SCREEN
-//                                )
-//                            )
-//                        }
-//                        else
-//                            flowNavigator.setStartDestination(
-//                                destination = FlowDestination.MapsFlow(
-//                                    _defaultScreen = DefaultMapsFlowScreen.SIGNALS_MAP_SCREEN
-//                                )
-//                            )
-//                        temporaryNavigationScope.cancel()
-//                    }
-//                    .launchIn(temporaryNavigationScope)
-//            }
-//        }
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
@@ -131,6 +95,22 @@ class MainActivity : AppCompatActivity(), ToFlowNavigable {
             }
         }
 
+        // If user is unauthorized - open auth flow
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.CREATED) {
+                val tempScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+                tempScope.launch {
+                    val isUserAuthenticated = AppComponent.appComponent.authDataSource().getUserAuthorizedStatus()
+                    if (!isUserAuthenticated) {
+                        Log.i("tag start", "not authenticated")
+                        flowNavigator.setStartDestination(
+                            destination = FlowDestination.AuthFlow()
+                        )
+                    }
+                }
+            }
+        }
+
         // TODO fix it!
         // If user already onboarded we choose maps flow as start destination, else - onboard flow
         lifecycleScope.launch {
@@ -138,7 +118,7 @@ class MainActivity : AppCompatActivity(), ToFlowNavigable {
 
                 val tempScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
                 tempScope.launch {
-                    val isUserOnBoarded = AppComponent.appComponent.OnBoardDataSource().getOnBoardStatus()
+                    val isUserOnBoarded = AppComponent.appComponent.onBoardDataSource().getOnBoardStatus()
                     if (isUserOnBoarded) {
                         Log.i("tag start", "onboarded")
                     }

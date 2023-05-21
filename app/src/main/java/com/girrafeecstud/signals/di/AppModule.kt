@@ -2,7 +2,6 @@ package com.girrafeecstud.signals.di
 
 import androidx.lifecycle.ViewModel
 import com.girrafeecstud.signals.core_base.di.base.ViewModelKey
-import com.girrafeecstud.signals.presentation.MainViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -13,12 +12,6 @@ class AppModule {
 
     @Module
     interface AppBindModule {
-
-        @Binds
-        @IntoMap
-        @Singleton
-        @ViewModelKey(MainViewModel::class)
-        fun bindMainViewModel(impl: MainViewModel): ViewModel
 
     }
 

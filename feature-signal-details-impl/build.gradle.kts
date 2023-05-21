@@ -82,4 +82,5 @@ dependencies {
     implementation(project(":navigation"))
     implementation(project(":feature-signals-api"))
     implementation(project(":feature-signal-details-api"))
+    implementation(project(":feature-auth-api"))
 }

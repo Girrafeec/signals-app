@@ -1,6 +1,11 @@
 package com.girrafeecstud.signals.di
 
 import com.girrafeecstud.on_board.data.OnBoardSharedPreferencesDataSource
+import com.girrafeecstud.push_notifications_api.data.INotificationTokensDataSource
+import com.girrafeecstud.push_notifications_impl.data.LocalNotificationTokensDataSource
+import com.girrafeecstud.signals.auth_api.data.IAuthRepository
+import com.girrafeecstud.signals.auth_impl.auth_common.data.AuthSharedPreferencesDataSource
+import com.girrafeecstud.signals.auth_impl.auth_common.data.AuthSharedPreferencesRepository
 import com.girrafeecstud.signals.core_base.presentation.base.MainViewModelFactory
 import com.girrafeecstud.signals.core_base.presentation.base.di.BaseViewModelFactoryModule
 import com.girrafeecstud.sos_signal_impl.engine.SosSignalEngineImpl
@@ -19,11 +24,15 @@ import javax.inject.Singleton
 )
 interface AppComponent {
 
-    fun mainViewModelFactody(): MainViewModelFactory
-
-    fun OnBoardDataSource(): OnBoardSharedPreferencesDataSource
+    fun onBoardDataSource(): OnBoardSharedPreferencesDataSource
 
     fun sosSignalEngine(): SosSignalEngineImpl
+
+    fun authDataSource(): AuthSharedPreferencesDataSource
+
+    fun notificationTokensDataSource(): LocalNotificationTokensDataSource
+
+//    fun authRepository(): AuthSharedPreferencesRepository
 
     @Component.Builder
     interface Builder {

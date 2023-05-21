@@ -35,6 +35,17 @@ dependencies {
     // AppCompat
     implementation(Dependencies.AndroidX.AppCompat.appCompat)
 
+    // OkHttp3
+    implementation(Dependencies.OkHttp3.okHttp3)
+    implementation(Dependencies.OkHttp3.mockWebServer)
+
+    // Unit-tests
+    testImplementation(Dependencies.jUnit.jUnit)
+    testImplementation(Dependencies.OkHttp3.mockWebServer)
+    testImplementation(Dependencies.Coroutines.coroutinesTest)
+    testImplementation(Dependencies.Mockito.mockitoKotlin)
+    testImplementation(Dependencies.Mockito.mockitoInline)
+
     // Dagger
     implementation(Dependencies.Dagger.dagger)
     kapt(Dependencies.Dagger.daggerCompiler)

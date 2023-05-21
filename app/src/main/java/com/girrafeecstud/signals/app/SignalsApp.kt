@@ -22,6 +22,10 @@ import com.girrafeecstud.signals.di.AppComponent
 import com.girrafeecstud.signals.di.AppDependencies
 import com.girrafeecstud.signals.di.DaggerAppComponent
 import com.girrafeecstud.on_board.di.OnBoardFeatureComponent
+import com.girrafeecstud.push_notifications_impl.di.DaggerPushNotificationsFeatureComponent_PushNotificationsFeatureDependenciesComponent
+import com.girrafeecstud.push_notifications_impl.di.PushNotificationsFeatureComponent
+import com.girrafeecstud.signals.auth_impl.di.AuthFeatureComponent
+import com.girrafeecstud.signals.auth_impl.di.DaggerAuthFeatureComponent_AuthDependenciesComponent
 import com.girrafeecstud.signals.event_bus.di.EventBusComponent
 import com.girrafeecstud.signals.feature_map.di.DaggerMainComponent_MainDependenciesComponent
 import com.girrafeecstud.signals.feature_map.di.MainComponent
@@ -56,6 +60,19 @@ class SignalsApp : Application() {
         OnBoardFeatureComponent.init(dependencies = DaggerOnBoardFeatureComponent_OnBoardFeatureDependenciesComponent
             .builder()
             .coreComponentsApi(CoreComponentsComponent.coreComponentsComponent)
+            .build()
+        )
+        AuthFeatureComponent.init(authDependencies = DaggerAuthFeatureComponent_AuthDependenciesComponent
+            .builder()
+            .coreNetworkApi(CoreNetworkComponent.coreNetworkComponent)
+            .coreComponentsApi(CoreComponentsComponent.coreComponentsComponent)
+            .build()
+        )
+        PushNotificationsFeatureComponent.init(dependencies = DaggerPushNotificationsFeatureComponent_PushNotificationsFeatureDependenciesComponent
+            .builder()
+            .coreComponentsApi(CoreComponentsComponent.coreComponentsComponent)
+            .coreNetworkApi(CoreNetworkComponent.coreNetworkComponent)
+            .authFeatureApi(AuthFeatureComponent.authComponent)
             .build()
         )
         LocationTrackerFeatureComponent.init(LocationTrackerDependenciesImpl())
@@ -113,6 +130,7 @@ class SignalsApp : Application() {
             .signalDetailsFeatureApi(SignalDetailsFeatureComponent.signalDetailsFeatureComponent)
             .eventBusApi(EventBusComponent.eventBusComponent)
             .onBoardFeatureApi(OnBoardFeatureComponent.onBoardFeatureComponent)
+            .pushNotificationsFeatureApi(PushNotificationsFeatureComponent.pushNotificationsFeatureComponent)
             .build()
         )
         // TODO how to reset class?
@@ -124,13 +142,6 @@ class SignalsApp : Application() {
             .build()
         )
 
-        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
-            Log.i("tag", "task ${task.isSuccessful}")
-            if (!task.isSuccessful)
-                return@addOnCompleteListener
-            val token = task.result
-            Log.i("tag", "token $token")
-        }
     }
 
     private inner class AppDependenciesImpl: AppDependencies {

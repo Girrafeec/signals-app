@@ -76,4 +76,5 @@ dependencies {
     implementation(project(":feature-location-tracker-api"))
     implementation(project(":feature-route-builder-api"))
     implementation(project(":feature-rescuers-api"))
+    implementation(project(":feature-auth-api"))
 }

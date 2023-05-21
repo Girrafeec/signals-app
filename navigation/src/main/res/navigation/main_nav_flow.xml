@@ -70,7 +70,7 @@
 
     <fragment
         android:id="@+id/auth_flow_fragment"
-        android:name="com.girrafeecstud.signals.feature_auth.ui.AuthFlowFragment"/>
+        android:name="com.girrafeecstud.signals.auth_impl.ui.AuthFlowFragment"/>
 
     <fragment
         android:id="@+id/maps_flow_fragment"

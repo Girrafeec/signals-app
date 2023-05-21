@@ -36,6 +36,7 @@ dependencies {
     // Retrofit
     implementation(Dependencies.Retrofit.retrofit)
     implementation(Dependencies.Retrofit.retrofitConverterGson)
+    implementation(Dependencies.Retrofit.retrofitConverterScalars)
 
     // OkHttp3
     implementation(Dependencies.OkHttp3.okHttp3)

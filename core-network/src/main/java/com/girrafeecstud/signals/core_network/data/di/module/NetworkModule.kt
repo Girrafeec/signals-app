@@ -8,6 +8,7 @@ import dagger.Provides
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import javax.inject.Singleton
 
 // TODO решить вопрос с scope зависимостей модуля
@@ -25,6 +26,10 @@ class NetworkModule {
 
     @Provides
     @Singleton
+    fun provideScalarsConverterFactory(): ScalarsConverterFactory = ScalarsConverterFactory.create()
+
+    @Provides
+    @Singleton
     fun provideOkHttpClient(
         networkConnectionInterceptor: NetworkConnectionInterceptor
     ): OkHttpClient =
@@ -36,11 +41,13 @@ class NetworkModule {
     @Singleton
     fun provideRetrofit(
         gsonConverterFactory: GsonConverterFactory,
+        scalarsConverterFactory: ScalarsConverterFactory,
         okHttpClient: OkHttpClient,
         @BaseApiUrl baseApiUrl: String
     ): Retrofit =
         Retrofit.Builder()
             .baseUrl(baseApiUrl)
+            .addConverterFactory(scalarsConverterFactory)
             .addConverterFactory(gsonConverterFactory)
             .client(okHttpClient)
             .build()

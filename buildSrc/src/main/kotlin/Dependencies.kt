@@ -90,6 +90,7 @@ class Dependencies {
     object Retrofit {
         const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofitVersion}"
         const val retrofitConverterGson = "com.squareup.retrofit2:converter-gson:${Versions.retrofitVersion}"
+        const val retrofitConverterScalars = "com.squareup.retrofit2:converter-scalars:${Versions.retrofitVersion}"
     }
 
     object OkHttp3 {
@@ -128,6 +129,10 @@ class Dependencies {
     object CustomViews {
         const val swipeButton = "com.ebanx:swipe-button:${Versions.swipeButton}"
         const val circleIndicator = "me.relex:circleindicator:2.1.6"
+    }
+
+    object SharedPreferences {
+        const val shafranSharedPreferencesMock = "io.github.ivanshafran:shared-preferences-mock:${Versions.shafranSharedPreferencesMock}"
     }
 
 }

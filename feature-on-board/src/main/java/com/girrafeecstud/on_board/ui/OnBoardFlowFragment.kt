@@ -75,11 +75,6 @@ class OnBoardFlowFragment : BaseFlowFragment(
         }
     }
 
-    fun navigateToMapsFlow() {
-        (requireActivity() as ToFlowNavigable)
-            .navigateToScreen(destination = FlowDestination.MapsFlow())
-    }
-
     override fun navigateToScreen(destination: OnBoardDestination) {
         navigator.navigateToDestination(destination = destination)
     }

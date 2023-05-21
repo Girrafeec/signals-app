@@ -67,4 +67,6 @@ object Versions {
     const val swipeButton = "0.8.3"
 
     const val roomVersion = "2.5.1"
+
+    const val shafranSharedPreferencesMock = "1.2.4"
 }

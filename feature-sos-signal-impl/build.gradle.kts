@@ -76,4 +76,5 @@ dependencies {
     implementation(project(":event-bus"))
     implementation(project(":feature-countdown-timer-api"))
     implementation(project(":feature-sos-signal-api"))
+    implementation(project(":feature-auth-api"))
 }

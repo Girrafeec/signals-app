@@ -88,7 +88,8 @@ dependencies {
     implementation(project(":event-bus"))
     implementation(project(":navigation"))
     implementation(project(":feature-on-board"))
-    implementation(project(":feature-auth"))
+    implementation(project(":feature-auth-api"))
+    implementation(project(":feature-auth-impl"))
     implementation(project(":feature-signals-map"))
     implementation(project(":feature-location-tracker-api"))
     implementation(project(":feature-location-tracker-impl"))
@@ -109,4 +110,6 @@ dependencies {
     implementation(project(":feature-signal-details-impl"))
     implementation(project(":feature-countdown-timer-api"))
     implementation(project(":feature-countdown-timer-impl"))
+    implementation(project(":feature-push-notifications-api"))
+    implementation(project(":feature-push-notifications-impl"))
 }

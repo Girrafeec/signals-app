@@ -107,9 +107,10 @@ class PermissionsFragment : BaseFragment() {
                     binding.applyButtonText.text = "Начать"
                     binding.applyButton.setOnClickListener {
                         viewLifecycleOwner.lifecycleScope.launch {
-                            saveOnboarding()
+                            saveOnBoarding()
                         }
-                        (requireParentFragment().requireParentFragment() as OnBoardFlowFragment).navigateToMapsFlow()
+                        (requireActivity() as ToFlowNavigable)
+                            .navigateToScreen(destination = FlowDestination.AuthFlow())
                     }
                 }
             }
@@ -123,7 +124,7 @@ class PermissionsFragment : BaseFragment() {
             permissions = appPermission.permissions
         )
 
-    suspend fun saveOnboarding() {
+    suspend fun saveOnBoarding() {
         onBoardDataSource.setOnBoardStatus(onBoardFinished = true)
         Log.i("tag start", "onboarded true saved")
     }

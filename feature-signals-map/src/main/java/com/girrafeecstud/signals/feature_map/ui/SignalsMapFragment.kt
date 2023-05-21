@@ -16,6 +16,7 @@ import com.girrafeecstud.signals.core_base.presentation.base.MainViewModelFactor
 import com.girrafeecstud.location_tracker_api.utils.TrackerPermissionsUtility
 import com.girrafeecstud.core_ui.ui.BaseFragment
 import com.girrafeecstud.on_board.data.OnBoardSharedPreferencesDataSource
+import com.girrafeecstud.push_notifications_api.engine.INotificationTokensEngine
 import com.girrafeecstud.signals.feature_map.R
 import com.girrafeecstud.signals.feature_map.databinding.FragmentSignalsMapBinding
 import com.girrafeecstud.signals.feature_map.di.MainComponent
@@ -45,6 +46,9 @@ class SignalsMapFragment : BaseFragment() {
     lateinit var locationTrackerEngine: LocationTrackerEngine
 
     @Inject
+    lateinit var notificationTokensEngine: INotificationTokensEngine
+
+    @Inject
     lateinit var mainViewModelFactory: MainViewModelFactory
 
     private val signalsMapViewModel: SignalsMapViewModel by viewModels {
@@ -61,9 +65,6 @@ class SignalsMapFragment : BaseFragment() {
 
     @Inject
     lateinit var signalDetailsFragment: BaseSignalDetailsFragment
-
-//    @Inject
-//    lateinit var onBoardDataSource: OnBoardSharedPreferencesDataSource
 
     override fun onAttach(context: Context) {
         MainComponent.mainComponent.signalsMapComponent().build().inject(this)
@@ -89,6 +90,7 @@ class SignalsMapFragment : BaseFragment() {
 
         requestLocationPermissions()
         startLocationTracker()
+        startNotificationTokensEngine()
 //        viewLifecycleOwner.lifecycleScope.launch {
 //            handleOnBoardingStatus(onBoardDataSource.getOnBoardStatus())
 //        }
@@ -112,6 +114,10 @@ class SignalsMapFragment : BaseFragment() {
 
     private fun startLocationTracker() {
         locationTrackerEngine.startLocationTracker(context = requireActivity().applicationContext)
+    }
+
+    private fun startNotificationTokensEngine() {
+        notificationTokensEngine.startEngine()
     }
 
     override fun setListeners() {

@@ -84,4 +84,5 @@ dependencies {
     implementation(project(":core-preferences"))
     implementation(project(":core-base"))
     implementation(project(":feature-location-tracker-api"))
+    implementation(project(":feature-auth-api"))
 }

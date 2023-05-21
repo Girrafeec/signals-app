@@ -2,6 +2,7 @@ package com.girrafeecstud.signals.service
 
 import android.content.Intent
 import android.util.Log
+import com.girrafeecstud.signals.di.AppComponent
 import com.girrafeecstud.signals.rescuers_api.utils.RescuersFeatureUtils
 import com.girrafeecstud.signals.rescuers_impl.engine.RescuersFeatureReceiver
 import com.girrafeecstud.signals.signal_details_impl.engine.SignalDetailsFeatureReceiver
@@ -9,13 +10,25 @@ import com.girrafeecstud.signals.signals_api.utils.SignalsFeatureUtils
 import com.girrafeecstud.signals.signals_impl.engine.SignalsFeatureReceiver
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import kotlinx.coroutines.*
 
 class SignalsPushService : FirebaseMessagingService() {
+
+    private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
 
         Log.i("tag", "new token $token")
+        serviceScope.launch {
+            async {
+                AppComponent.appComponent.notificationTokensDataSource().setNotificationToken(token)
+            }
+            async {
+                AppComponent.appComponent.notificationTokensDataSource().setNotificationTokenNotSent()
+            }
+        }
+
     }
 
     override fun onMessageReceived(message: RemoteMessage) {
