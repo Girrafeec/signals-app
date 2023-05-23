@@ -10,6 +10,7 @@ import com.girrafeecstud.sos_signal_api.domain.entity.SosSignal
 import com.girrafeecstud.sos_signal_api.engine.SosSignalEngine
 import com.girrafeecstud.sos_signal_api.engine.SosSignalState
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SosMapViewModel @Inject constructor(
@@ -21,21 +22,22 @@ class SosMapViewModel @Inject constructor(
     override val state: StateFlow<SosMapUIState> = _state.asStateFlow()
 
     init {
-
-        getRescuersListUseCase()
-            .onEach { result ->
-                Log.i("tag", "sos vm result $result")
-                when (result) {
-                    is BusinessResult.Error -> {}
-                    is BusinessResult.Exception -> {}
-                    is BusinessResult.Success -> {
-                        _state.update {
-                            SosMapUIState.DrawRescuersLocations(rescuers = result._data)
+        viewModelScope.launch {
+            getRescuersListUseCase()
+                .onEach { result ->
+                    Log.i("tag", "sos vm result $result")
+                    when (result) {
+                        is BusinessResult.Error -> {}
+                        is BusinessResult.Exception -> {}
+                        is BusinessResult.Success -> {
+                            _state.update {
+                                SosMapUIState.DrawRescuersLocations(rescuers = result._data)
+                            }
                         }
                     }
                 }
-            }
-            .launchIn(viewModelScope)
+                .launchIn(viewModelScope)
+        }
 
         sosSignalEngine.getSosSignalState()
             .onEach { state ->

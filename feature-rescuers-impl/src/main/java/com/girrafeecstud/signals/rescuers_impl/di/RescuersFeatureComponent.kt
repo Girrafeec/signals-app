@@ -2,6 +2,7 @@ package com.girrafeecstud.signals.rescuers_impl.di
 
 import com.girrafeecstud.location_tracker_api.di.LocationTrackerFeatureApi
 import com.girrafeecstud.route_builder_api.di.RouteBuilderFeatureApi
+import com.girrafeecstud.signals.auth_api.di.AuthFeatureApi
 import com.girrafeecstud.signals.rescuers_api.di.RescuersFeatureApi
 import com.girrafeecstud.signals.rescuers_impl.di.annotation.RescuersFeatureScope
 import com.girrafeecstud.signals.core_network.data.di.CoreNetworkApi
@@ -53,7 +54,8 @@ interface RescuersFeatureComponent : RescuersFeatureApi {
         dependencies = [
             CoreNetworkApi::class,
             LocationTrackerFeatureApi::class,
-            RouteBuilderFeatureApi::class
+            RouteBuilderFeatureApi::class,
+            AuthFeatureApi::class
         ]
     )
     interface RescuersFeatureDependenciesComponent : RescuersFeatureDependencies

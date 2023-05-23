@@ -7,16 +7,16 @@ import kotlinx.coroutines.flow.Flow
 
 interface IAuthDataSource {
 
-    suspend fun getUserAuthorizedStatus(): Boolean
+    fun getUserAuthorizedStatus(): Boolean
 
-    suspend fun setUserAuthorized()
+    fun setUserAuthorized()
 
-    suspend fun setUserUnauthorized()
+    fun setUserUnauthorized()
 
-    suspend fun getUserToken(): Flow<BusinessResult<String>>
+    fun getUserToken(): Flow<BusinessResult<String>>
 
-    suspend fun setUserToken(userToken: String)
+    fun setUserToken(userToken: String)
 
-    suspend fun clearUserToken()
+    fun clearUserToken()
 
 }

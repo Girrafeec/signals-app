@@ -33,22 +33,22 @@ class AuthSharedPreferencesDataSource @Inject constructor(
         )
     }
 
-    override suspend fun getUserAuthorizedStatus(): Boolean =
+    override fun getUserAuthorizedStatus(): Boolean =
         sharedPreferences.getBoolean(USER_AUTHORIZED, false)
 
-    override suspend fun setUserAuthorized() =
+    override fun setUserAuthorized() =
         sharedPreferences
             .edit()
             .putBoolean(USER_AUTHORIZED, true)
             .apply()
 
-    override suspend fun setUserUnauthorized() =
+    override fun setUserUnauthorized() =
         sharedPreferences
             .edit()
             .putBoolean(USER_AUTHORIZED, false)
             .apply()
 
-    override suspend fun getUserToken(): Flow<BusinessResult<String>> =
+    override fun getUserToken(): Flow<BusinessResult<String>> =
         flow {
             val result = sharedPreferences
                 .getString(USER_TOKEN, null)
@@ -58,13 +58,13 @@ class AuthSharedPreferencesDataSource @Inject constructor(
             emit(BusinessResult.Success(_data = result))
         }
 
-    override suspend fun setUserToken(userToken: String) =
+    override fun setUserToken(userToken: String) =
         sharedPreferences
             .edit()
             .putString(USER_TOKEN, userToken)
             .apply()
 
-    override suspend fun clearUserToken() =
+    override fun clearUserToken() =
         sharedPreferences
             .edit()
             .putString(USER_TOKEN, null)

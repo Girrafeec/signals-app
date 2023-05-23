@@ -14,6 +14,6 @@ class GetRescuerDetailsUseCase @Inject constructor(
     private val repository: RescuersRepository
 ) : IGetRescuerDetailsUseCase {
 
-    override fun invoke(rescuerId: String): Flow<BusinessResult<Rescuer>> =
+    override suspend fun invoke(rescuerId: String): Flow<BusinessResult<Rescuer>> =
         repository.getRescuerDetails(rescuerId = rescuerId).flowOn(Dispatchers.IO)
 }

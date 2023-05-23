@@ -43,18 +43,20 @@ class RescuersService : Service() {
 
     //TODO create notification here with info about rescuers!!
     private fun getRescuers() {
-        getRescuersListUseCase()
-            .onEach { result ->
-                when (result) {
-                    is BusinessResult.Error -> {}
-                    is BusinessResult.Exception -> {}
-                    is BusinessResult.Success -> {
-                        Log.i("tag", "got rescuers")
-                        stopSelf()
+        rescuersServiceScope.launch {
+            getRescuersListUseCase()
+                .onEach { result ->
+                    when (result) {
+                        is BusinessResult.Error -> {}
+                        is BusinessResult.Exception -> {}
+                        is BusinessResult.Success -> {
+                            Log.i("tag", "got rescuers")
+                            stopSelf()
+                        }
                     }
                 }
-            }
-            .launchIn(rescuersServiceScope)
+                .launchIn(rescuersServiceScope)
+        }
     }
 
     private inner class RescuersServiceBinder : Binder() {

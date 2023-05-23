@@ -5,6 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface IGetRescuersListUseCase {
 
-    operator fun invoke(): Flow<BusinessResult<List<Rescuer>>>
+    operator suspend fun invoke(): Flow<BusinessResult<List<Rescuer>>>
 
 }

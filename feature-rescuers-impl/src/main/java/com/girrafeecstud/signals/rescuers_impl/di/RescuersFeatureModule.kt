@@ -7,6 +7,9 @@ import com.girrafeecstud.signals.rescuers_api.engine.RescuersEngine
 import com.girrafeecstud.signals.rescuers_impl.data.RescuersRandomizer
 import com.girrafeecstud.signals.rescuers_impl.data.datasource.RescuersDataSource
 import com.girrafeecstud.signals.rescuers_impl.data.datasource.RescuersDataSourceImpl
+import com.girrafeecstud.signals.rescuers_impl.data.network.RescuerDtoEntityMapper
+import com.girrafeecstud.signals.rescuers_impl.data.network.RescuerDtoListMapper
+import com.girrafeecstud.signals.rescuers_impl.data.network.RescuersApi
 import com.girrafeecstud.signals.rescuers_impl.data.repository.RescuersRepositoryImpl
 import com.girrafeecstud.signals.rescuers_impl.di.annotation.RescuersFeatureScope
 import com.girrafeecstud.signals.rescuers_impl.domain.GetRescuerDetailsUseCase
@@ -16,6 +19,7 @@ import com.girrafeecstud.signals.rescuers_impl.engine.RescuersEngineImpl
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import retrofit2.Retrofit
 import javax.inject.Named
 
 @Module(
@@ -23,6 +27,19 @@ import javax.inject.Named
     subcomponents = [RescuersFeatureReceiverComponent::class]
 )
 class RescuersFeatureModule {
+
+    @RescuersFeatureScope
+    @Provides
+    fun provideRescuerDtoEntityMapper() = RescuerDtoEntityMapper()
+
+    @RescuersFeatureScope
+    @Provides
+    fun provideRescuerDtoListMapper(mapper: RescuerDtoEntityMapper) =
+        RescuerDtoListMapper(rescuerDtoMapper = mapper)
+
+    @RescuersFeatureScope
+    @Provides
+    fun provideRescuersApi(retrofit: Retrofit) = retrofit.create(RescuersApi::class.java)
 
     @RescuersFeatureScope
     @Provides

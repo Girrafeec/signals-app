@@ -7,6 +7,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface IGetRescuerDetailsUseCase {
 
-    operator fun invoke(rescuerId: String): Flow<BusinessResult<Rescuer>>
+    operator suspend fun invoke(rescuerId: String): Flow<BusinessResult<Rescuer>>
 
 }

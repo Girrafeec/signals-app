@@ -102,6 +102,7 @@ class SignalsApp : Application() {
                 .coreNetworkApi(CoreNetworkComponent.coreNetworkComponent)
                 .locationTrackerFeatureApi(LocationTrackerFeatureComponent.locationTrackerFeatureComponent)
                 .routeBuilderFeatureApi(RouteBuilderFeatureComponent.routeBuilderFeatureComponent)
+                .authFeatureApi(AuthFeatureComponent.authComponent)
                 .build()
         )
         RescuersListFeatureComponent.init(

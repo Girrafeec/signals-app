@@ -6,8 +6,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface RescuersRepository {
 
-    fun getRescuersList(): Flow<BusinessResult<List<Rescuer>>>
+    suspend fun getRescuersList(): Flow<BusinessResult<List<Rescuer>>>
 
-    fun getRescuerDetails(rescuerId: String): Flow<BusinessResult<Rescuer>>
+    suspend fun getRescuerDetails(rescuerId: String): Flow<BusinessResult<Rescuer>>
 
 }

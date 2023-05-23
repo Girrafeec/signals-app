@@ -5,6 +5,7 @@ import com.girrafeecstud.location_tracker_api.domain.entity.UserLocation
 import com.girrafeecstud.route_builder_api.data.RoutesDataSource
 import com.girrafeecstud.route_builder_api.domain.Location
 import com.girrafeecstud.route_builder_api.domain.Route
+import com.girrafeecstud.signals.auth_api.data.IAuthDataSource
 import com.girrafeecstud.signals.rescuers_api.domain.Rescuer
 import com.girrafeecstud.signals.rescuers_impl.data.datasource.RescuersDataSource
 import com.girrafeecstud.signals.rescuers_impl.domain.RescuersRepository
@@ -18,49 +19,67 @@ class RescuersRepositoryImpl @Inject constructor(
     private val rescuersDataSource: RescuersDataSource,
     @Named("LOCATION_TRACKER_DATASOURCE")
     private val locationTrackerDataSource: BaseLocationTrackerDataSource,
-    private val routesDataSource: RoutesDataSource
+    private val routesDataSource: RoutesDataSource,
+    private val authDataSource: IAuthDataSource
 ) : RescuersRepository {
 
-    override fun getRescuersList(): Flow<BusinessResult<List<Rescuer>>> =
-        combine(
-            locationTrackerDataSource.getLastKnownLocation().take(1),
-            rescuersDataSource.getRescuersList(token = "")
-        ) { locationResult, rescuersResult ->
-            Pair(locationResult, rescuersResult)
-        }
-            .flatMapLatest { (locationResult, rescuersResult) ->
-                when (locationResult) {
+    override suspend fun getRescuersList(): Flow<BusinessResult<List<Rescuer>>> =
+        authDataSource.getUserToken()
+            .flatMapLatest { authTokenResult ->
+                when (authTokenResult) {
                     is BusinessResult.Success -> {
-                        when (rescuersResult) {
-                            is BusinessResult.Success -> {
-                                val currentLocation = locationResult._data!!
-                                var rescuers = rescuersResult._data!!
-                                var routes = createRoutes(currentLocation, rescuers)
-                                routesDataSource.getRoutes(routes = routes)
-                                    .map { routeResult ->
-                                        when (routeResult) {
+                        combine(
+                            locationTrackerDataSource.getLastKnownLocation().take(1),
+                            rescuersDataSource.getRescuersList(token = authTokenResult._data!!)
+                        ) { locationResult, rescuersResult ->
+                            Pair(locationResult, rescuersResult)
+                        }
+                            .flatMapLatest { (locationResult, rescuersResult) ->
+                                when (locationResult) {
+                                    is BusinessResult.Success -> {
+                                        when (rescuersResult) {
                                             is BusinessResult.Success -> {
-                                                val newRoutes = routeResult._data!!
-                                                rescuers = assignRoutes(rescuers, newRoutes)
-                                                BusinessResult.Success(rescuers)
+                                                val currentLocation = locationResult._data!!
+                                                var rescuers = rescuersResult._data!!
+                                                var routes = createRoutes(currentLocation, rescuers)
+                                                routesDataSource.getRoutes(routes = routes)
+                                                    .map { routeResult ->
+                                                        when (routeResult) {
+                                                            is BusinessResult.Success -> {
+                                                                val newRoutes = routeResult._data!!
+                                                                rescuers = assignRoutes(rescuers, newRoutes)
+                                                                BusinessResult.Success(rescuers)
+                                                            }
+                                                            is BusinessResult.Error -> BusinessResult.Error(routeResult.businessErrorType)
+                                                            is BusinessResult.Exception -> BusinessResult.Exception(routeResult.exceptionType)
+                                                        }
+                                                    }
+                                                    .flowOn(Dispatchers.IO)
                                             }
-                                            is BusinessResult.Error -> BusinessResult.Error(routeResult.businessErrorType)
-                                            is BusinessResult.Exception -> BusinessResult.Exception(routeResult.exceptionType)
+                                            is BusinessResult.Error -> flowOf(BusinessResult.Error(rescuersResult.businessErrorType))
+                                            is BusinessResult.Exception -> flowOf(BusinessResult.Exception(rescuersResult.exceptionType))
                                         }
                                     }
-                                    .flowOn(Dispatchers.IO)
+                                    is BusinessResult.Error -> flowOf(BusinessResult.Error(locationResult.businessErrorType))
+                                    is BusinessResult.Exception -> flowOf(BusinessResult.Exception(locationResult.exceptionType))
+                                }
                             }
-                            is BusinessResult.Error -> flowOf(BusinessResult.Error(rescuersResult.businessErrorType))
-                            is BusinessResult.Exception -> flowOf(BusinessResult.Exception(rescuersResult.exceptionType))
-                        }
                     }
-                    is BusinessResult.Error -> flowOf(BusinessResult.Error(locationResult.businessErrorType))
-                    is BusinessResult.Exception -> flowOf(BusinessResult.Exception(locationResult.exceptionType))
+                    is BusinessResult.Error -> flowOf(BusinessResult.Error(authTokenResult.businessErrorType))
+                    is BusinessResult.Exception -> flowOf(BusinessResult.Exception(authTokenResult.exceptionType))
                 }
             }
 
-    override fun getRescuerDetails(rescuerId: String): Flow<BusinessResult<Rescuer>> =
-        rescuersDataSource.getRescuerDetails(token = "", rescuerId = rescuerId).flowOn(Dispatchers.IO)
+    override suspend fun getRescuerDetails(rescuerId: String): Flow<BusinessResult<Rescuer>> =
+        authDataSource.getUserToken().flatMapLatest { authTokenResult ->
+            when (authTokenResult) {
+                is BusinessResult.Success -> {
+                    rescuersDataSource.getRescuerDetails(token = authTokenResult._data!!, rescuerId = rescuerId)
+                }
+                is BusinessResult.Error -> flowOf(BusinessResult.Error(authTokenResult.businessErrorType))
+                is BusinessResult.Exception -> flowOf(BusinessResult.Exception(authTokenResult.exceptionType))
+            }
+        }
 
     private fun createRoutes(
         location: UserLocation?,
