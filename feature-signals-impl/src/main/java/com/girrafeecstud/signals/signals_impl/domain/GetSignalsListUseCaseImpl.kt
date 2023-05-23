@@ -12,7 +12,7 @@ class GetSignalsListUseCaseImpl @Inject constructor(
     private val repository: SignalsRepository
 ) : GetSignalsListUseCase {
 
-    override fun invoke(): Flow<BusinessResult<List<EmergencySignal>>> =
+    override suspend fun invoke(): Flow<BusinessResult<List<EmergencySignal>>> =
         repository.getSignalsList().flowOn(Dispatchers.IO)
 
 }

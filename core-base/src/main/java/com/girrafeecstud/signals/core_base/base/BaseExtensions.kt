@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 fun Double.roundTo(numDecimalPlaces: Int): Double =
-    "%.${numDecimalPlaces}f".format(this).toDouble()
+    "%.${numDecimalPlaces}f".format(this).replace(',', '.').toDouble()
 
 fun Long.milliesToFormattedTimeString(): String {
     val hours = this / (60 * 60 * 1000) % 24

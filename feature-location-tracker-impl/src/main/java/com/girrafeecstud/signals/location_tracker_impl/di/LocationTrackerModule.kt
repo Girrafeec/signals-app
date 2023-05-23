@@ -9,9 +9,13 @@ import com.girrafeecstud.signals.location_tracker_impl.data.DefaultLocationTrack
 import com.girrafeecstud.location_tracker_api.data.BaseLocationTrackerDataSource
 import com.girrafeecstud.signals.location_tracker_impl.data.datasource.LocalLocationTrackerDataSource
 import com.girrafeecstud.signals.location_tracker_impl.data.datasource.LocationTrackerDataSource
+import com.girrafeecstud.signals.location_tracker_impl.data.datasource.RemoteLocationsDataSource
+import com.girrafeecstud.signals.location_tracker_impl.data.network.LocationsApi
+import com.girrafeecstud.signals.location_tracker_impl.data.network.UserLocationEntityDtoMapper
 import com.girrafeecstud.signals.location_tracker_impl.data.repository.LocationTrackerRepositoryImpl
 import com.girrafeecstud.signals.location_tracker_impl.domain.repository.LocationTrackerRepository
 import com.girrafeecstud.signals.location_tracker_impl.domain.usecase.GetLastKnownLocationUseCaseImpl
+import com.girrafeecstud.signals.location_tracker_impl.domain.usecase.UpdateLocationUseCase
 import com.girrafeecstud.signals.location_tracker_impl.engine.LocationTrackerEngineImpl
 import com.girrafeecstud.signals.location_tracker_impl.utils.TrackerUtility
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -19,6 +23,7 @@ import com.google.android.gms.location.LocationServices
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import retrofit2.Retrofit
 import javax.inject.Named
 
 @Module(
@@ -29,8 +34,26 @@ class LocationTrackerModule {
 
     @Provides
     @LocationTrackerScope
+    fun provideLocationsApi(retrofit: Retrofit) = retrofit.create(LocationsApi::class.java)
+
+    @Provides
+    @LocationTrackerScope
+    fun provideUserLocationEntityDtoMapper() = UserLocationEntityDtoMapper()
+
+    @Provides
+    @LocationTrackerScope
+    fun provideRemoteLocationsDataSource(api: LocationsApi, mapper: UserLocationEntityDtoMapper) =
+        RemoteLocationsDataSource(api, mapper)
+
+    @Provides
+    @LocationTrackerScope
     fun provideFusedLocationClient(applicationContext: Context): FusedLocationProviderClient =
         LocationServices.getFusedLocationProviderClient(applicationContext)
+
+    @Provides
+    @LocationTrackerScope
+    fun provideUpdateLocationUseCase(repository: LocationTrackerRepository) =
+        UpdateLocationUseCase(repository = repository)
 
     @Provides
     @LocationTrackerScope

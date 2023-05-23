@@ -7,13 +7,12 @@ import kotlinx.coroutines.flow.Flow
 interface SosSignalEngine {
 
     fun enableSosSignal(
-        context: Context,
         sosSignal: SosSignal
     )
 
-    fun updateSosSignal(context: Context, sosSignal: SosSignal)
+    fun updateSosSignal(sosSignal: SosSignal)
 
-    fun disableSosSignal(context: Context)
+    fun disableSosSignal()
 
     fun getSosSignalState(): Flow<SosSignalState>
 

@@ -72,6 +72,7 @@ dependencies {
     implementation(project(":core-network"))
     implementation(project(":core-preferences"))
     implementation(project(":core-base"))
+    implementation(project(":core-components"))
     implementation(project(":core-ui"))
     implementation(project(":event-bus"))
     implementation(project(":feature-countdown-timer-api"))

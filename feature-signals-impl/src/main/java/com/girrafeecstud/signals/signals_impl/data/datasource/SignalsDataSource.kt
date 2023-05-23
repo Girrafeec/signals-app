@@ -6,8 +6,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface SignalsDataSource {
 
-    fun getSignalsList(token: String): Flow<BusinessResult<List<EmergencySignal>>>
+    suspend fun getSignalsList(token: String): Flow<BusinessResult<List<EmergencySignal>>>
 
-    fun getSignalDetails(token: String, signalId: String): Flow<BusinessResult<EmergencySignal>>
+    suspend fun getSignalDetails(token: String, signalId: String): Flow<BusinessResult<EmergencySignal>>
 
 }

@@ -4,6 +4,6 @@ data class SignalSender(
     val signalSenderId: String,
     val signalSenderFirstName: String,
     val signalSenderLastName: String,
-    val  signalSenderProfileImageUrl: String,
+    val  signalSenderProfileImageUrl: String?,
     val signalSenderPhoneNumber: String? = null
 )

@@ -60,23 +60,26 @@ class SignalsService : Service() {
     }
 
     private fun getSignals() {
-        getSignalsListUseCase()
-            .onEach { result ->
-                when (result) {
-                    is BusinessResult.Error -> {}
-                    is BusinessResult.Exception -> {}
-                    is BusinessResult.Success -> {
-                        Log.i("tag", "got signals")
-                        stopSelf()
+        signalsServiceScope.launch {
+            getSignalsListUseCase()
+                .onEach { result ->
+                    when (result) {
+                        is BusinessResult.Error -> {}
+                        is BusinessResult.Exception -> {}
+                        is BusinessResult.Success -> {
+                            Log.i("tag", "got signals")
+                            stopSelf()
+                        }
                     }
                 }
-            }
-            .launchIn(signalsServiceScope)
+                .launchIn(signalsServiceScope)
+        }
     }
 
     private fun getSignalDetails(signalId: String) {
-        getSignalDetailsUseCase(signalId = signalId)
-            .onEach { result ->
+        signalsServiceScope.launch {
+            getSignalDetailsUseCase(signalId = signalId)
+                .onEach { result ->
                 when (result) {
                     is BusinessResult.Error -> {}
                     is BusinessResult.Exception -> {}
@@ -87,6 +90,8 @@ class SignalsService : Service() {
                 }
             }
             .launchIn(signalsServiceScope)
+
+        }
     }
 
     private inner class SignalsServiceBinder : Binder() {

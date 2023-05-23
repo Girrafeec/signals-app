@@ -1,15 +1,15 @@
 package com.girrafeecstud.signals.location_tracker_impl.di.dependencies
 
 import android.content.Context
+import com.girrafeecstud.signals.auth_api.data.IAuthDataSource
+import retrofit2.Retrofit
 
 interface LocationTrackerDependencies {
 
-//    fun retroft(): Retrofit
+    fun getRetrofit(): Retrofit
 
-//    fun authSharedPreferencesRepository(): AuthSharedPreferencesRepository
+    fun getContext(): Context
 
-//    fun authSharedPreferencesDataSource(): AuthSharedPreferencesDataSource
-
-    val applicationContext: Context
+    fun getAuthDataSource(): IAuthDataSource
 
 }

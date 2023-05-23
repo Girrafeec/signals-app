@@ -31,6 +31,7 @@ import com.girrafeecstud.signals.feature_signals_screens.presentation.SignalShar
 import com.girrafeecstud.signals.feature_signals_screens.presentation.SosSignalUiState
 import com.girrafeecstud.signals.feature_signals_screens.presentation.SosSignalViewModel
 import com.girrafeecstud.sos_signal_api.domain.entity.SosSignal
+import com.girrafeecstud.sos_signal_api.domain.entity.SosSignalType
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -200,8 +201,13 @@ class SosSignalFragment : BaseFragment(), SosTypeClickEvent {
     private fun sendSosSignal() {
         val sosType = sosTypesAdapter.selectedType
 
+        val signalTitle = when(sosType.type) {
+            SosSignalType.DEFAULT_SOS_SIGNAL -> "Мне нужна помощь!"
+            SosSignalType.HEART_ATTACK_SIGNAL -> "Мне нужна помощь, возможно, инфаркт!"
+        }
+
         val sosSignal = SosSignal(
-            signalTitle = "Default sos signal title",
+            signalTitle = signalTitle,
             signalDescription = binding.sosSignalDescription.text.toString(),
             signalType = sosType.type
         )

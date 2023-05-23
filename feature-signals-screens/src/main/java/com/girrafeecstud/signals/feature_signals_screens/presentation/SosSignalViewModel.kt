@@ -50,11 +50,11 @@ class SosSignalViewModel @Inject constructor(
     }
 
     fun sendSosSignal(context: Context, sosSignal: SosSignal) {
-        sosSignalEngine.enableSosSignal(context = context, sosSignal = sosSignal)
+        sosSignalEngine.enableSosSignal(sosSignal = sosSignal)
     }
 
     fun disableSos(context: Context) {
-        sosSignalEngine.disableSosSignal(context = context)
+        sosSignalEngine.disableSosSignal()
     }
 
 }

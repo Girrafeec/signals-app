@@ -23,9 +23,10 @@ import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 class SosSignalEngineImpl @Inject constructor(
+    private val context: Context
 ) : SosSignalEngine {
 
-    override fun enableSosSignal(context: Context, sosSignal: SosSignal) {
+    override fun enableSosSignal(sosSignal: SosSignal) {
         Log.i("tag sos", "enable")
         // TODO?
 //        if (isSosSignalServiceRunning(context = context))
@@ -33,16 +34,16 @@ class SosSignalEngineImpl @Inject constructor(
         sendCommandToService(context = context, sosSignal = sosSignal, action = SosSignalUtils.ACTION_SEND_SOS_SIGNAL)
     }
 
-    override fun updateSosSignal(context: Context, sosSignal: SosSignal) =
+    override fun updateSosSignal(sosSignal: SosSignal) =
         sendCommandToService(context = context, sosSignal = sosSignal, action = SosSignalUtils.ACTION_UPDATE_SOS_SIGNAL)
 
-    override fun disableSosSignal(context: Context) =
+    override fun disableSosSignal() =
         sendCommandToService(context = context, action = SosSignalUtils.ACTION_DISABLE_SOS_SIGNAL)
 
     override fun getSosSignalState(): Flow<SosSignalState> =
         SosSignalService.sosSignalState
 
-    private fun isSosSignalServiceRunning(context: Context): Boolean {
+    private fun isSosSignalServiceRunning(): Boolean {
         val activityManager: ActivityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         return activityManager.getRunningServices(Integer.MAX_VALUE).any {
             it.service.className == SosSignalService::class.java.name

@@ -1,5 +1,6 @@
 package com.girrafeecstud.push_notifications_impl.data
 
+import android.util.Log
 import com.girrafeecstud.push_notifications_api.data.INotificationTokensDataSource
 import com.girrafeecstud.push_notifications_api.data.INotificationTokensRepository
 import com.girrafeecstud.signals.auth_api.data.IAuthDataSource
@@ -25,26 +26,27 @@ class NotificationTokensRepository @Inject constructor(
         localPushNotificationsDataSource.isNotificationTokenSent()
 
     override suspend fun sendNotificationToken(): Flow<BusinessResult<EmptyResult>> =
-        localPushNotificationsDataSource.getNotificationToken()
-            .flatMapLatest { localNotificationTokenResult ->
-                when (localNotificationTokenResult) {
+        authDataSource.getUserToken()
+            .flatMapLatest { authTokenResult ->
+                when (authTokenResult) {
                     is BusinessResult.Success -> {
-                        authDataSource.getUserToken()
-                            .flatMapLatest { authTokenResult  ->
-                                when (authTokenResult) {
+                        localPushNotificationsDataSource.getNotificationToken()
+                            .flatMapLatest { localNotificationTokenResult ->
+                                when (localNotificationTokenResult) {
                                     is BusinessResult.Success -> {
+                                        Log.i("tag notifications", "auth token ${authTokenResult._data}")
                                         remotePushNotificationsDataSource.setNotificationToken(
                                             userAuthToken = authTokenResult._data!!,
                                             notificationToken = localNotificationTokenResult._data!!
                                         )
                                     }
-                                    is BusinessResult.Error -> { flowOf(BusinessResult.Error(authTokenResult.businessErrorType)) }
-                                    is BusinessResult.Exception -> { flowOf(BusinessResult.Exception(authTokenResult.exceptionType)) }
+                                    is BusinessResult.Error -> { flowOf(BusinessResult.Error(localNotificationTokenResult.businessErrorType)) }
+                                    is BusinessResult.Exception -> { flowOf(BusinessResult.Exception(localNotificationTokenResult.exceptionType)) }
                                 }
                             }
                     }
-                    is BusinessResult.Error -> { flowOf(BusinessResult.Error(localNotificationTokenResult.businessErrorType)) }
-                    is BusinessResult.Exception -> { flowOf(BusinessResult.Exception(localNotificationTokenResult.exceptionType)) }
+                    is BusinessResult.Error -> { flowOf(BusinessResult.Error(authTokenResult.businessErrorType)) }
+                    is BusinessResult.Exception -> { flowOf(BusinessResult.Exception(authTokenResult.exceptionType)) }
                 }
             }
 }

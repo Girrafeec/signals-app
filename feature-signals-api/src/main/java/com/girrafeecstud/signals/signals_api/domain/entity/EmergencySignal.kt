@@ -7,6 +7,6 @@ data class EmergencySignal(
     var signalLongitude: Double,
     val emergencySignalType: EmergencySignalType,
     val emergencySignalTitle: String,
-    val emergencySignalDescription: String,
+    val emergencySignalDescription: String?,
     val signalSender: SignalSender
 )

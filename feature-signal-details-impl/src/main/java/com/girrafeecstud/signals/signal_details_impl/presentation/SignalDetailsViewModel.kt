@@ -6,6 +6,7 @@ import com.girrafeecstud.core_ui.presentation.BaseViewModel
 import com.girrafeecstud.signals.core_base.domain.base.BusinessResult
 import com.girrafeecstud.signals.signals_api.domain.IGetSignalDetailsUseCase
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SignalDetailsViewModel @Inject constructor(
@@ -25,26 +26,28 @@ class SignalDetailsViewModel @Inject constructor(
     }
 
     fun fetchSignalDetails(signalId: String) {
-        getSignalDetailsUseCase(signalId = signalId)
-            .onStart {
-                _state.update { SignalDetailsUiState.SignalDetailsLoading }
-            }
-            .onEach { result ->
-                when (result) {
-                    is BusinessResult.Error -> {
-                        _state.update { SignalDetailsUiState.SignalDetailsLoadingError }
-                    }
-                    is BusinessResult.Exception -> {
-                        // TODO error!!
-                    }
-                    is BusinessResult.Success -> {
-                        Log.i("tag sos det", "got success")
-                        // TODO null safety
-                        _state.update { SignalDetailsUiState.ShowSignalDetails(signal = result._data!!) }
+        viewModelScope.launch {
+            getSignalDetailsUseCase(signalId = signalId)
+                .onStart {
+                    _state.update { SignalDetailsUiState.SignalDetailsLoading }
+                }
+                .onEach { result ->
+                    when (result) {
+                        is BusinessResult.Error -> {
+                            _state.update { SignalDetailsUiState.SignalDetailsLoadingError }
+                        }
+                        is BusinessResult.Exception -> {
+                            // TODO error!!
+                        }
+                        is BusinessResult.Success -> {
+                            Log.i("tag sos det", "got success")
+                            // TODO null safety
+                            _state.update { SignalDetailsUiState.ShowSignalDetails(signal = result._data!!) }
+                        }
                     }
                 }
-            }
-            .launchIn(viewModelScope)
+                .launchIn(viewModelScope)
+        }
     }
 
     override fun onCleared() {

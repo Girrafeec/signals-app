@@ -34,16 +34,16 @@ class SignalsPushService : FirebaseMessagingService() {
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
 
-        Log.i("tag", "new message ${message.data}")
+        Log.i("tag push", "new message ${message.data}")
 
         if (message.notification != null) {
-            Log.i("tag", "new message ${message.notification!!.clickAction.toString()}")
-            Log.i("tag", "new message has notification")
+            Log.i("tag push", "new message ${message.notification!!.clickAction.toString()}")
+            Log.i("tag push", "new message has notification")
         }
 
         if (message.data != null) {
 
-            Log.i("tag", "new message action ${message.data.get("action")}")
+            Log.i("tag push", "new message action ${message.data.get("action")}")
             val intents = prepareBroadcastIntents(action = message.data.get("action"))
             for (intent in intents) {
                 if (intent.action == null)

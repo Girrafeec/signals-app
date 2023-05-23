@@ -12,6 +12,6 @@ class GetSignalDetailsUseCase @Inject constructor(
     private val repository: SignalsRepository
 ) : IGetSignalDetailsUseCase {
 
-    override fun invoke(signalId: String): Flow<BusinessResult<EmergencySignal>> =
+    override suspend fun invoke(signalId: String): Flow<BusinessResult<EmergencySignal>> =
         repository.getSignalDetails(signalId = signalId).flowOn(Dispatchers.IO)
 }

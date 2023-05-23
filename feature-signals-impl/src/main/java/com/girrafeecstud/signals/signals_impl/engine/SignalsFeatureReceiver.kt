@@ -26,6 +26,7 @@ class SignalsFeatureReceiver : BroadcastReceiver() {
     lateinit var signalsEngine: SignalsEngine
 
     override fun onReceive(context: Context?, intent: Intent?) {
+        Log.i("tag sos signals", "receiver")
         signalsFeatureReceiverComponent.injectReceiver(receiver = this)
         if (intent?.action.equals(SignalsFeatureUtils.ACTION_START_SIGNALS_ENGINE)) {
             signalsEngine.startSignalsEngine(context = context!!) //TODO null safety problem

@@ -42,10 +42,11 @@ dependencies {
 
     // Unit-tests
     testImplementation(Dependencies.jUnit.jUnit)
-    testImplementation(Dependencies.Mockito.mockitoKotlin)
-    testImplementation(Dependencies.Mockito.mockitoInline)
     testImplementation(Dependencies.OkHttp3.mockWebServer)
     testImplementation(Dependencies.Coroutines.coroutinesTest)
+    testImplementation(Dependencies.Mockito.mockitoKotlin)
+    testImplementation(Dependencies.Mockito.mockitoInline)
+    testImplementation(Dependencies.SharedPreferences.shafranSharedPreferencesMock)
 
     // Dagger
     implementation(Dependencies.Dagger.dagger)

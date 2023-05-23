@@ -31,6 +31,8 @@ import com.girrafeecstud.signals.feature_map.di.DaggerMainComponent_MainDependen
 import com.girrafeecstud.signals.feature_map.di.MainComponent
 import com.girrafeecstud.signals.feature_signals_screens.di.SignalsScreensFeatureComponent
 import com.girrafeecstud.signals.feature_signals_screens.di.DaggerSignalsScreensFeatureComponent_SignalsScreensFeatureDependenciesComponent
+import com.girrafeecstud.signals.location_tracker_impl.di.DaggerLocationTrackerFeatureComponent
+import com.girrafeecstud.signals.location_tracker_impl.di.DaggerLocationTrackerFeatureComponent_LocationTrackerFeatureDependenciesComponent
 import com.girrafeecstud.signals.location_tracker_impl.di.LocationTrackerFeatureComponent
 import com.girrafeecstud.signals.location_tracker_impl.di.dependencies.LocationTrackerDependencies
 import com.girrafeecstud.signals.rescuer_details_impl.di.component.DaggerRescuerDetailsFeatureComponent_RescuerDetailsFeatureDependenciesComponent
@@ -75,7 +77,13 @@ class SignalsApp : Application() {
             .authFeatureApi(AuthFeatureComponent.authComponent)
             .build()
         )
-        LocationTrackerFeatureComponent.init(LocationTrackerDependenciesImpl())
+        LocationTrackerFeatureComponent.init(dependencies = DaggerLocationTrackerFeatureComponent_LocationTrackerFeatureDependenciesComponent
+            .builder()
+            .coreComponentsApi(CoreComponentsComponent.coreComponentsComponent)
+            .coreNetworkApi(CoreNetworkComponent.coreNetworkComponent)
+            .authFeatureApi(AuthFeatureComponent.authComponent)
+            .build()
+        )
         RouteBuilderFeatureComponent.init(RouteBuilderDependenciesImpl())
         // TODO how to reset class?
         SosSignalFeatureComponent.init(
@@ -83,6 +91,9 @@ class SignalsApp : Application() {
                 .builder()
                 .eventBusApi(EventBusComponent.eventBusComponent)
                 .countDownTimerFeatureApi(CountDownTimerFeatureComponent.countDownTimerFeatureComponent)
+                .coreNetworkApi(CoreNetworkComponent.coreNetworkComponent)
+                .authFeatureApi(AuthFeatureComponent.authComponent)
+                .coreComponentsApi(CoreComponentsComponent.coreComponentsComponent)
                 .build()
         )
         RescuersFeatureComponent.init(
@@ -110,6 +121,7 @@ class SignalsApp : Application() {
                 .builder()
                 .coreNetworkApi(CoreNetworkComponent.coreNetworkComponent)
                 .locationTrackerFeatureApi(LocationTrackerFeatureComponent.locationTrackerFeatureComponent)
+                .authFeatureApi(AuthFeatureComponent.authComponent)
                 .build()
         )
         SignalDetailsFeatureComponent.init(dependencies = DaggerSignalDetailsFeatureComponent_SignalDetailsFeatureDependenciesComponent
@@ -158,10 +170,6 @@ class SignalsApp : Application() {
     }
 
     private inner class CoreComponentsDependencies : ICoreComponentsDependencies {
-        override val applicationContext: Context = this@SignalsApp
-    }
-
-    private inner class LocationTrackerDependenciesImpl: LocationTrackerDependencies {
         override val applicationContext: Context = this@SignalsApp
     }
 

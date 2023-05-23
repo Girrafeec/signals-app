@@ -1,6 +1,9 @@
 package com.girrafeecstud.signals.location_tracker_impl.di
 
+import com.girrafeecstud.core_components.di.CoreComponentsApi
 import com.girrafeecstud.location_tracker_api.di.LocationTrackerFeatureApi
+import com.girrafeecstud.signals.auth_api.di.AuthFeatureApi
+import com.girrafeecstud.signals.core_network.data.di.CoreNetworkApi
 import com.girrafeecstud.signals.location_tracker_impl.di.annotation.LocationTrackerScope
 import com.girrafeecstud.signals.location_tracker_impl.di.dependencies.LocationTrackerDependencies
 import com.girrafeecstud.signals.location_tracker_impl.service.LocationTrackerService
@@ -50,13 +53,14 @@ interface LocationTrackerFeatureComponent : LocationTrackerFeatureApi {
 
     }
 
-//    @LocationTrackerScope
-//    @Component(
-//        dependencies = [
-////            CoreNetworkApi::class,
-////            CorePreferencesApi::class
-//        ]
-//    )
-//    interface LocationTrackerDependenciesComponent : LocationTrackerDependencies
+    @LocationTrackerScope
+    @Component(
+        dependencies = [
+            CoreNetworkApi::class,
+            CoreComponentsApi::class,
+            AuthFeatureApi::class
+        ]
+    )
+    interface LocationTrackerFeatureDependenciesComponent : LocationTrackerDependencies
 
 }

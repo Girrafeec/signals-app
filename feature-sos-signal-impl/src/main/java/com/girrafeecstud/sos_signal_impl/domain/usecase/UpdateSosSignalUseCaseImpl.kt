@@ -1,6 +1,7 @@
 package com.girrafeecstud.sos_signal_impl.domain.usecase
 
 import com.girrafeecstud.signals.core_base.domain.base.BusinessResult
+import com.girrafeecstud.signals.core_base.domain.base.EmptyResult
 import com.girrafeecstud.sos_signal_api.domain.UpdateSosSignalUseCase
 import com.girrafeecstud.sos_signal_api.domain.entity.SosSignal
 import com.girrafeecstud.sos_signal_impl.domain.repository.SosSignalRepository
@@ -12,6 +13,6 @@ import javax.inject.Inject
 class UpdateSosSignalUseCaseImpl @Inject constructor(
     private val repository: SosSignalRepository
 ) : UpdateSosSignalUseCase {
-    override fun invoke(sosSignal: SosSignal): Flow<BusinessResult<Nothing>> =
+    override suspend fun invoke(sosSignal: SosSignal): Flow<BusinessResult<EmptyResult>> =
         repository.updateSosSignal(sosSignal = sosSignal).flowOn(Dispatchers.IO)
 }

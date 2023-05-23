@@ -1,6 +1,9 @@
 package com.girrafeecstud.sos_signal_impl.di
 
+import com.girrafeecstud.core_components.di.CoreComponentsApi
 import com.girrafeecstud.countdown_timer_api.di.CountDownTimerFeatureApi
+import com.girrafeecstud.signals.auth_api.di.AuthFeatureApi
+import com.girrafeecstud.signals.core_network.data.di.CoreNetworkApi
 import com.girrafeecstud.signals.event_bus.di.EventBusApi
 import com.girrafeecstud.sos_signal_api.di.SosSignalFeatureApi
 import com.girrafeecstud.sos_signal_impl.di.annotation.SosSignalScope
@@ -49,7 +52,10 @@ interface SosSignalFeatureComponent : SosSignalFeatureApi {
     @Component(
         dependencies = [
             EventBusApi::class,
-            CountDownTimerFeatureApi::class
+            CountDownTimerFeatureApi::class,
+            CoreNetworkApi::class,
+            AuthFeatureApi::class,
+            CoreComponentsApi::class
         ]
     )
     interface SosSignalFeatureDependenciesComponent : SosSignalDependencies

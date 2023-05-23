@@ -82,6 +82,7 @@ dependencies {
 
     implementation(project(":core-network"))
     implementation(project(":core-preferences"))
+    implementation(project(":core-components"))
     implementation(project(":core-base"))
     implementation(project(":feature-location-tracker-api"))
     implementation(project(":feature-auth-api"))

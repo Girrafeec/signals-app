@@ -59,6 +59,8 @@ class SosSignalOverlay(
         val projection = mapView?.projection ?: return false
         val touchedGeoPoint = projection.fromPixels(e?.x?.toInt() ?: 0, e?.y?.toInt() ?: 0)
 
+        Log.i("tag sos tap", "$touchedGeoPoint")
+
         // Round the touchedGeoPoint to match the precision of the _geoPoint
         (touchedGeoPoint as GeoPoint).roundTo(numDecimalPlaces = 6)
 

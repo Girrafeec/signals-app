@@ -149,7 +149,7 @@ class SignalDetailsFragment @Inject constructor(
             return
         binding.callerProfileImage.loadAndSetImage(url = signal.signalSender.signalSenderProfileImageUrl)
         binding.callerName.text = "${signal.signalSender.signalSenderFirstName} ${signal.signalSender.signalSenderLastName}"
-        if (!signal.emergencySignalDescription.equals(""))
+        if (!signal.emergencySignalDescription.equals("") || signal.emergencySignalDescription != null)
             binding.signalDescription?.text = "\"${signal.emergencySignalDescription}\""
         else
             binding.signalDescription?.hideView()

@@ -59,11 +59,11 @@ class SosMapViewModel @Inject constructor(
     }
 
     fun updateSosSignal(context: Context, sosSignal: SosSignal) {
-        sosSignalEngine.updateSosSignal(context = context, sosSignal = sosSignal)
+        sosSignalEngine.updateSosSignal(sosSignal = sosSignal)
     }
 
     fun disableSosSignal(context: Context) {
-        sosSignalEngine.disableSosSignal(context = context)
+        sosSignalEngine.disableSosSignal()
     }
 
 }

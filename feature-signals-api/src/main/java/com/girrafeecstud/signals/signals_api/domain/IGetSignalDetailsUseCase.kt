@@ -6,6 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface IGetSignalDetailsUseCase {
 
-    operator fun invoke(signalId: String): Flow<BusinessResult<EmergencySignal>>
+    operator suspend fun invoke(signalId: String): Flow<BusinessResult<EmergencySignal>>
 
 }

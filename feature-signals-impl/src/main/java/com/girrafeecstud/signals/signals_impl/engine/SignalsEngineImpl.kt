@@ -15,7 +15,7 @@ class SignalsEngineImpl @Inject constructor(
     override fun startSignalsEngine(context: Context) =
         sendCommandToService(
             context = context,
-            action = SignalsFeatureImplUtils.ACTION_GET_SIGNAL_DETAILS
+            action = SignalsFeatureImplUtils.ACTION_GET_SIGNALS
         )
 
     override fun updateSignalDetails(context: Context, signalId: String) =

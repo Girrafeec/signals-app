@@ -31,7 +31,7 @@ object Versions {
     const val daggerVersion = "2.43"
 
     // Reactive
-    const val coroutinesVersion = "1.6.0"
+    const val coroutinesVersion = "1.6.1"
 
     // Unit-tests
     const val jUnitVersion = "4.13.2"
