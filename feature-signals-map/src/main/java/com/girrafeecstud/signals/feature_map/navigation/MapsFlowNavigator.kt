@@ -21,6 +21,9 @@ class MapsFlowNavigator : Navigator<MapsFlowDestination> {
             is MapsFlowDestination.SosMapFragment -> {
                 navController?.navigate(R.id.action_sos_map_fragment)
             }
+            is MapsFlowDestination.RescuerModeMapFragment -> {
+                navController?.navigate(R.id.rescuer_mode_map_fragment)
+            }
         }
     }
 

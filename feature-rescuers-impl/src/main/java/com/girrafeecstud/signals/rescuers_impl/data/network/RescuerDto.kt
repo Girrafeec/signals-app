@@ -5,9 +5,9 @@ import com.google.gson.annotations.SerializedName
 data class RescuerDto(
     @SerializedName("rescuerId")
     val rescuerId: String,
-    @SerializedName("rescuerFirstName")
+    @SerializedName("firstName")
     val rescuerFirstName: String,
-    @SerializedName("rescuerLastName")
+    @SerializedName("lastName")
     val rescuerLastName: String,
     @SerializedName("rescuerPhoneNumber")
     val rescuerPhoneNumber: String,

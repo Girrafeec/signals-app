@@ -13,7 +13,12 @@ import dagger.multibindings.IntoMap
 
 @Module(
     includes = [MainModule.MapsFeatureBindModule::class],
-    subcomponents = [MapComponent::class, SignalsMapComponent::class, SosMapComponent::class]
+    subcomponents = [
+        MapComponent::class,
+        SignalsMapComponent::class,
+        SosMapComponent::class,
+        RescuerModeMapComponent::class
+    ]
 )
 class MainModule {
 

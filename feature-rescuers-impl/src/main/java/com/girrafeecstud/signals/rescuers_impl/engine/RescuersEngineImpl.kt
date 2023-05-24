@@ -4,7 +4,9 @@ import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
 import com.girrafeecstud.signals.rescuers_api.engine.RescuersEngine
+import com.girrafeecstud.signals.rescuers_api.engine.RescuersEngineState
 import com.girrafeecstud.signals.rescuers_impl.service.RescuersService
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class RescuersEngineImpl @Inject constructor(
@@ -18,6 +20,8 @@ class RescuersEngineImpl @Inject constructor(
         context.startService(intent)
     }
 
+    override fun getState(): Flow<RescuersEngineState> =
+        RescuersService.rescuersEngineState
 
     private fun isRescuersServiceRunning(context: Context): Boolean {
         val activityManager: ActivityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager

@@ -32,7 +32,7 @@ class SignalDetailsFeatureReceiver : BroadcastReceiver() {
             return
         SignalDetailsFragment.signalId?.let { signalId ->
             if (SignalDetailsFragment.isShown)
-                signalsEngine.updateSignalDetails(context = context!!, signalId = signalId)
+                signalsEngine.getSignalDetails(signalId = signalId)
         }
         _signalDetailsFeatureReceiverComponent = null
     }

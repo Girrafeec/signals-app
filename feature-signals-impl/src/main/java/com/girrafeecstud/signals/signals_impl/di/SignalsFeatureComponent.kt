@@ -1,5 +1,6 @@
 package com.girrafeecstud.signals.signals_impl.di
 
+import com.girrafeecstud.core_components.di.CoreComponentsApi
 import com.girrafeecstud.location_tracker_api.di.LocationTrackerFeatureApi
 import com.girrafeecstud.signals.auth_api.di.AuthFeatureApi
 import com.girrafeecstud.signals.core_network.data.di.CoreNetworkApi
@@ -53,7 +54,8 @@ interface SignalsFeatureComponent : SignalsFeatureApi {
         dependencies = [
             CoreNetworkApi::class,
             LocationTrackerFeatureApi::class,
-            AuthFeatureApi::class
+            AuthFeatureApi::class,
+            CoreComponentsApi::class
         ]
     )
     interface SignalsFeatureDependenciesComponent : SignalsFeatureDependencies

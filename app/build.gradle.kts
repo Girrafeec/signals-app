@@ -112,4 +112,6 @@ dependencies {
     implementation(project(":feature-countdown-timer-impl"))
     implementation(project(":feature-push-notifications-api"))
     implementation(project(":feature-push-notifications-impl"))
+    implementation(project(":feature-rescuer-mode-api"))
+    implementation(project(":feature-rescuer-mode-impl"))
 }

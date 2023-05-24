@@ -7,12 +7,12 @@ import android.os.IBinder
 import android.util.Log
 import com.girrafeecstud.signals.core_base.domain.base.BusinessResult
 import com.girrafeecstud.signals.signals_api.domain.GetSignalsListUseCase
+import com.girrafeecstud.signals.signals_api.engine.SignalsEngineState
 import com.girrafeecstud.signals.signals_impl.di.SignalsFeatureComponent
 import com.girrafeecstud.signals.signals_impl.domain.GetSignalDetailsUseCase
 import com.girrafeecstud.signals.signals_impl.utils.SignalsFeatureImplUtils
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 class SignalsService : Service() {
@@ -26,6 +26,12 @@ class SignalsService : Service() {
     private val binder = SignalsServiceBinder()
 
     private val signalsServiceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+
+    companion object {
+        private val _signalsEngineState: MutableStateFlow<SignalsEngineState> =
+            MutableStateFlow(SignalsEngineState())
+        var signalsEngineState = _signalsEngineState.asStateFlow()
+    }
 
     override fun onCreate() {
         super.onCreate()
@@ -67,6 +73,9 @@ class SignalsService : Service() {
                         is BusinessResult.Error -> {}
                         is BusinessResult.Exception -> {}
                         is BusinessResult.Success -> {
+                            _signalsEngineState.update {
+                                it.copy(signals = result._data)
+                            }
                             Log.i("tag", "got signals")
                             stopSelf()
                         }
@@ -84,7 +93,9 @@ class SignalsService : Service() {
                     is BusinessResult.Error -> {}
                     is BusinessResult.Exception -> {}
                     is BusinessResult.Success -> {
-                        Log.i("tag", "got signal details")
+                        _signalsEngineState.update {
+                            it.copy(signals = listOf(result._data!!))
+                        }
                         stopSelf()
                     }
                 }

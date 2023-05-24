@@ -1,11 +1,14 @@
 package com.girrafeecstud.signals.signals_api.engine
 
 import android.content.Context
+import kotlinx.coroutines.flow.Flow
 
 interface SignalsEngine {
 
-    fun startSignalsEngine(context: Context)
+    fun startSignalsEngine()
 
-    fun updateSignalDetails(context: Context, signalId: String)
+    fun getSignalDetails(signalId: String)
+
+    fun getState(): Flow<SignalsEngineState>
 
 }

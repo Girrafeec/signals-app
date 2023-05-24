@@ -1,5 +1,6 @@
 package com.girrafeecstud.signals.signal_details_impl.di
 
+import com.girrafeecstud.signals.rescuer_mode_api.di.RescuerModeFeatureApi
 import com.girrafeecstud.signals.signal_details_impl.di.annotation.SignalDetailsFeatureScope
 import com.girrafeecstud.signals.signal_details_api.di.SignalDetailsFeatureApi
 import com.girrafeecstud.signals.signal_details_impl.ui.SignalDetailsFragment
@@ -58,7 +59,8 @@ interface SignalDetailsFeatureComponent : SignalDetailsFeatureApi {
     @SignalDetailsFeatureScope
     @Component(
         dependencies = [
-            SignalsFeatureApi::class
+            SignalsFeatureApi::class,
+            RescuerModeFeatureApi::class
         ]
     )
     interface SignalDetailsFeatureDependenciesComponent : SignalDetailsFeatureDependencies

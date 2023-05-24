@@ -21,6 +21,11 @@
         app:destination="@id/sos_map_fragment"
         app:popUpToInclusive="true"/>
 
+    <action
+        android:id="@+id/action_rescuer_mode_map_fragment"
+        app:destination="@id/rescuer_mode_map_fragment"
+        app:popUpToInclusive="true"/>
+
     <fragment
         android:id="@+id/signals_map_fragment"
         android:name="com.girrafeecstud.signals.feature_map.ui.SignalsMapFragment"
@@ -32,5 +37,11 @@
         android:name="com.girrafeecstud.signals.feature_map.ui.SosMapFragment"
         android:label="FragmentSosMap"
         tools:layout="@layout/fragment_sos_map"/>
+
+    <fragment
+        android:id="@+id/rescuer_mode_map_fragment"
+        android:name="com.girrafeecstud.signals.feature_map.ui.RescuerModeMapFragment"
+        android:label="FragmentRescuerModeMap"
+        tools:layout="@layout/fragment_rescuer_mode_map"/>
 
 </navigation>

@@ -20,6 +20,8 @@ import com.girrafeecstud.push_notifications_api.engine.INotificationTokensEngine
 import com.girrafeecstud.signals.feature_map.R
 import com.girrafeecstud.signals.feature_map.databinding.FragmentSignalsMapBinding
 import com.girrafeecstud.signals.feature_map.di.MainComponent
+import com.girrafeecstud.signals.feature_map.navigation.MapsFlowDestination
+import com.girrafeecstud.signals.feature_map.navigation.ToMapScreenNavigable
 import com.girrafeecstud.signals.feature_map.presentation.SignalsMapSharedUiState
 import com.girrafeecstud.signals.feature_map.presentation.SignalsMapSharedViewModel
 import com.girrafeecstud.signals.feature_map.presentation.SignalsMapUiState
@@ -135,6 +137,10 @@ class SignalsMapFragment : BaseFragment() {
                             }
                             SignalsMapUiState.NoEmergencySignals -> {
                                 mapSharedViewModel.clearSignals()
+                            }
+                            is SignalsMapUiState.OpenRescuerMap -> {
+                                (requireParentFragment().requireParentFragment() as ToMapScreenNavigable)
+                                    .navigateToScreen(destination = MapsFlowDestination.RescuerModeMapFragment())
                             }
                         }
                     }

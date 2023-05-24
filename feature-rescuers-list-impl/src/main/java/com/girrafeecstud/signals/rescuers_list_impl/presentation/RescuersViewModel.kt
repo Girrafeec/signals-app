@@ -4,12 +4,14 @@ import androidx.lifecycle.viewModelScope
 import com.girrafeecstud.signals.rescuers_api.domain.IGetRescuersListUseCase
 import com.girrafeecstud.signals.core_base.domain.base.BusinessResult
 import com.girrafeecstud.core_ui.presentation.BaseViewModel
+import com.girrafeecstud.signals.rescuers_api.engine.RescuersEngine
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class RescuersViewModel @Inject constructor(
-    private val getRescuersListUseCase: IGetRescuersListUseCase
+    private val getRescuersListUseCase: IGetRescuersListUseCase,
+    private val rescuersEngine: RescuersEngine
 ) : BaseViewModel<RescuersUiState>() {
 
     override var _state: MutableStateFlow<RescuersUiState> = MutableStateFlow(RescuersUiState.NoRescuers)
@@ -31,6 +33,13 @@ class RescuersViewModel @Inject constructor(
                 }
                 .launchIn(viewModelScope)
         }
+
+        rescuersEngine.getState()
+            .onEach { rescuersEngineState ->
+                if (rescuersEngineState.rescuers != null)
+                    _state.update { RescuersUiState.ShowRescuersList(rescuers = rescuersEngineState.rescuers!!) }
+            }
+            .launchIn(viewModelScope)
     }
 
 }

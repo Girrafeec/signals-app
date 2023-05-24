@@ -103,6 +103,11 @@ class MapsFlowFragment: BaseFlowFragment(
                         destination = MapsFlowDestination.SosMapFragment()
                     )
                 }
+                DefaultMapsFlowScreen.RESCUER_MODE_MAP_SCREEN -> {
+                    navigator.setStartDestination(
+                        destination = MapsFlowDestination.RescuerModeMapFragment()
+                    )
+                }
             }
         }
     }

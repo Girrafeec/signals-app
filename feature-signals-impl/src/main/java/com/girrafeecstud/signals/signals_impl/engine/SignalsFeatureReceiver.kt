@@ -29,7 +29,7 @@ class SignalsFeatureReceiver : BroadcastReceiver() {
         Log.i("tag sos signals", "receiver")
         signalsFeatureReceiverComponent.injectReceiver(receiver = this)
         if (intent?.action.equals(SignalsFeatureUtils.ACTION_START_SIGNALS_ENGINE)) {
-            signalsEngine.startSignalsEngine(context = context!!) //TODO null safety problem
+            signalsEngine.startSignalsEngine() //TODO null safety problem
         }
         _signalsFeatureReceiverComponent = null
     }

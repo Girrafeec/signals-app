@@ -14,6 +14,7 @@ import com.girrafeecstud.signals.event_bus.di.EventBusApi
 import com.girrafeecstud.signals.feature_map.di.annotation.MapsFeatureScope
 import com.girrafeecstud.signals.feature_map.di.dependencies.MainDependencies
 import com.girrafeecstud.signals.feature_map.ui.MapsFlowFragment
+import com.girrafeecstud.signals.rescuer_mode_api.di.RescuerModeFeatureApi
 import com.girrafeecstud.signals.signal_details_api.di.SignalDetailsFeatureApi
 import com.girrafeecstud.signals.signals_api.di.SignalsFeatureApi
 import com.girrafeecstud.sos_signal_api.di.SosSignalFeatureApi
@@ -40,6 +41,8 @@ interface MainComponent {
     fun signalsMapComponent(): SignalsMapComponent.Builder
 
     fun sosMapComponent(): SosMapComponent.Builder
+
+    fun rescuerModeMapComponent(): RescuerModeMapComponent.Builder
 
     @Component.Builder
     interface Builder {
@@ -83,7 +86,8 @@ interface MainComponent {
             SignalDetailsFeatureApi::class,
             EventBusApi::class,
             OnBoardFeatureApi::class,
-            PushNotificationsFeatureApi::class
+            PushNotificationsFeatureApi::class,
+            RescuerModeFeatureApi::class
         ]
     )
     interface MainDependenciesComponent: MainDependencies

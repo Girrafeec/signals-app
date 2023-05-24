@@ -114,6 +114,9 @@ class SignalDetailsFragment @Inject constructor(
 
 
     override fun setListeners() {
+        binding.assistSignalBtn.setOnClickListener {
+            signalDetailsViewModel.acceptSosSignal(signalId = signalId!!)
+        }
 //        binding.showRescuerLocationBtn.setOnClickListener {
 //            Log.i("tag", "show rescuer on map")
 //        }

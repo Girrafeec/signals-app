@@ -37,6 +37,8 @@ import com.girrafeecstud.signals.location_tracker_impl.di.LocationTrackerFeature
 import com.girrafeecstud.signals.location_tracker_impl.di.dependencies.LocationTrackerDependencies
 import com.girrafeecstud.signals.rescuer_details_impl.di.component.DaggerRescuerDetailsFeatureComponent_RescuerDetailsFeatureDependenciesComponent
 import com.girrafeecstud.signals.rescuer_details_impl.di.component.RescuerDetailsFeatureComponent
+import com.girrafeecstud.signals.rescuer_mode_impl.di.DaggerRescuerModeFeatureComponent_RescuerModeFeatureDependenciesComponent
+import com.girrafeecstud.signals.rescuer_mode_impl.di.RescuerModeFeatureComponent
 import com.girrafeecstud.signals.signal_details_impl.di.DaggerSignalDetailsFeatureComponent_SignalDetailsFeatureDependenciesComponent
 import com.girrafeecstud.signals.signal_details_impl.di.SignalDetailsFeatureComponent
 import com.girrafeecstud.signals.signals_impl.di.DaggerSignalsFeatureComponent_SignalsFeatureDependenciesComponent
@@ -120,14 +122,25 @@ class SignalsApp : Application() {
         SignalsFeatureComponent.init(
             dependencies = DaggerSignalsFeatureComponent_SignalsFeatureDependenciesComponent
                 .builder()
+                .coreComponentsApi(CoreComponentsComponent.coreComponentsComponent)
                 .coreNetworkApi(CoreNetworkComponent.coreNetworkComponent)
                 .locationTrackerFeatureApi(LocationTrackerFeatureComponent.locationTrackerFeatureComponent)
                 .authFeatureApi(AuthFeatureComponent.authComponent)
                 .build()
         )
+        RescuerModeFeatureComponent.init(dependencies = DaggerRescuerModeFeatureComponent_RescuerModeFeatureDependenciesComponent
+            .builder()
+            .coreNetworkApi(CoreNetworkComponent.coreNetworkComponent)
+            .authFeatureApi(AuthFeatureComponent.authComponent)
+            .coreComponentsApi(CoreComponentsComponent.coreComponentsComponent)
+            .locationTrackerFeatureApi(LocationTrackerFeatureComponent.locationTrackerFeatureComponent)
+            .routeBuilderFeatureApi(RouteBuilderFeatureComponent.routeBuilderFeatureComponent)
+            .build()
+        )
         SignalDetailsFeatureComponent.init(dependencies = DaggerSignalDetailsFeatureComponent_SignalDetailsFeatureDependenciesComponent
             .builder()
             .signalsFeatureApi(SignalsFeatureComponent.signalsFeatureComponent)
+            .rescuerModeFeatureApi(RescuerModeFeatureComponent.rescuerModeFeatureComponent)
             .build()
         )
         MainComponent.init(dependencies = DaggerMainComponent_MainDependenciesComponent
@@ -144,6 +157,7 @@ class SignalsApp : Application() {
             .eventBusApi(EventBusComponent.eventBusComponent)
             .onBoardFeatureApi(OnBoardFeatureComponent.onBoardFeatureComponent)
             .pushNotificationsFeatureApi(PushNotificationsFeatureComponent.pushNotificationsFeatureComponent)
+            .rescuerModeFeatureApi(RescuerModeFeatureComponent.rescuerModeFeatureComponent)
             .build()
         )
         // TODO how to reset class?

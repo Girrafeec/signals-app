@@ -16,4 +16,8 @@ sealed class MapsFlowDestination(
     class SosMapFragment(
     ) : MapsFlowDestination(_destinationId = R.id.sos_map_fragment)
 
+    class RescuerModeMapFragment() : MapsFlowDestination(
+        _destinationId = R.id.rescuer_mode_map_fragment
+    )
+
 }

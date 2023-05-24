@@ -4,13 +4,15 @@ import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.girrafeecstud.core_ui.presentation.BaseViewModel
 import com.girrafeecstud.signals.core_base.domain.base.BusinessResult
+import com.girrafeecstud.signals.rescuer_mode_api.engine.IRescuerModeEngine
 import com.girrafeecstud.signals.signals_api.domain.IGetSignalDetailsUseCase
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SignalDetailsViewModel @Inject constructor(
-    private val getSignalDetailsUseCase: IGetSignalDetailsUseCase
+    private val getSignalDetailsUseCase: IGetSignalDetailsUseCase,
+    private val rescuerModeEngine: IRescuerModeEngine
 ) : BaseViewModel<SignalDetailsUiState>() {
 
     override var _state: MutableStateFlow<SignalDetailsUiState> = MutableStateFlow(SignalDetailsUiState.SignalDetailsLoading)
@@ -48,6 +50,10 @@ class SignalDetailsViewModel @Inject constructor(
                 }
                 .launchIn(viewModelScope)
         }
+    }
+
+    fun acceptSosSignal(signalId: String) {
+        rescuerModeEngine.acceptSosSignal(signalId)
     }
 
     override fun onCleared() {

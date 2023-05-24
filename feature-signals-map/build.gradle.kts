@@ -121,4 +121,5 @@ dependencies {
     implementation(project(":feature-signals-api"))
     implementation(project(":feature-signal-details-api"))
     implementation(project(":feature-push-notifications-api"))
+    implementation(project(":feature-rescuer-mode-api"))
 }

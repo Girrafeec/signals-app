@@ -95,6 +95,33 @@ class MainActivity : AppCompatActivity(), ToFlowNavigable {
             }
         }
 
+        // If in rescuer mode
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.CREATED) {
+                val tempScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+                AppComponent.appComponent.rescuerModeEngine().getRescuerModeState()
+                    .onEach { state ->
+                        Log.i("tag start", "rescuer mode")
+                        if (state.signalAccepted == true) {
+                            flowNavigator.setStartDestination(
+                                destination = FlowDestination.MapsFlow(
+                                    _defaultScreen = DefaultMapsFlowScreen.RESCUER_MODE_MAP_SCREEN
+                                )
+                            )
+                        }
+                        else {
+                            flowNavigator.setStartDestination(
+                                destination = FlowDestination.MapsFlow(
+                                    _defaultScreen = DefaultMapsFlowScreen.SIGNALS_MAP_SCREEN
+                                )
+                            )
+                        }
+                        tempScope.cancel()
+                    }
+                    .launchIn(tempScope)
+            }
+        }
+
         // If user is unauthorized - open auth flow
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.CREATED) {

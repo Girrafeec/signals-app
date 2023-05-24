@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.girrafeecstud.signals.rescuers_api.domain.IGetRescuersListUseCase
 import com.girrafeecstud.signals.core_base.domain.base.BusinessResult
 import com.girrafeecstud.core_ui.presentation.BaseViewModel
+import com.girrafeecstud.signals.rescuers_api.engine.RescuersEngine
 import com.girrafeecstud.sos_signal_api.domain.entity.SosSignal
 import com.girrafeecstud.sos_signal_api.engine.SosSignalEngine
 import com.girrafeecstud.sos_signal_api.engine.SosSignalState
@@ -15,7 +16,8 @@ import javax.inject.Inject
 
 class SosMapViewModel @Inject constructor(
     private val sosSignalEngine: SosSignalEngine,
-    private val getRescuersListUseCase: IGetRescuersListUseCase
+    private val getRescuersListUseCase: IGetRescuersListUseCase,
+    private val rescuersEngine: RescuersEngine
 ) : BaseViewModel<SosMapUIState>() {
 
     override var _state: MutableStateFlow<SosMapUIState> = MutableStateFlow(SosMapUIState.SosSuccessSentMessage)
@@ -54,6 +56,16 @@ class SosMapViewModel @Inject constructor(
                     is SosSignalState.SosSignalDisabling -> {}
                     is SosSignalState.SosSignalDisabled -> {
                         _state.update { SosMapUIState.SosDisabled }
+                    }
+                }
+            }
+            .launchIn(viewModelScope)
+
+        rescuersEngine.getState()
+            .onEach { rescuersEngineState ->
+                if (rescuersEngineState.rescuers != null) {
+                    _state.update {
+                        SosMapUIState.DrawRescuersLocations(rescuers = rescuersEngineState.rescuers)
                     }
                 }
             }

@@ -8,4 +8,6 @@ sealed class SignalsMapUiState {
 
     class DrawSignalsLocations(val signals: List<EmergencySignal>?) : SignalsMapUiState()
 
+    class OpenRescuerMap() : SignalsMapUiState()
+
 }

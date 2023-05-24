@@ -7,10 +7,10 @@ import android.os.IBinder
 import android.util.Log
 import com.girrafeecstud.signals.rescuers_api.domain.IGetRescuersListUseCase
 import com.girrafeecstud.signals.core_base.domain.base.BusinessResult
+import com.girrafeecstud.signals.rescuers_api.engine.RescuersEngineState
 import com.girrafeecstud.signals.rescuers_impl.di.RescuersFeatureComponent
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 class RescuersService : Service() {
@@ -21,6 +21,12 @@ class RescuersService : Service() {
     private val binder = RescuersServiceBinder()
 
     private val rescuersServiceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+
+    companion object {
+        private var _rescuersEngineState: MutableStateFlow<RescuersEngineState> =
+            MutableStateFlow(RescuersEngineState())
+        val rescuersEngineState = _rescuersEngineState.asStateFlow()
+    }
 
     override fun onCreate() {
         super.onCreate()
@@ -50,7 +56,9 @@ class RescuersService : Service() {
                         is BusinessResult.Error -> {}
                         is BusinessResult.Exception -> {}
                         is BusinessResult.Success -> {
-                            Log.i("tag", "got rescuers")
+                            _rescuersEngineState.update {
+                                it.copy(rescuers = result._data)
+                            }
                             stopSelf()
                         }
                     }

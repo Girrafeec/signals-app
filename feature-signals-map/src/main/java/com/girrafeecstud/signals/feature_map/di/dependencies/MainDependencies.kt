@@ -11,8 +11,11 @@ import com.girrafeecstud.signals.rescuers_list_api.presenation.RescuersListShare
 import com.girrafeecstud.signals.rescuers_list_api.ui.RescuersListFragment
 import com.girrafeecstud.signals.core_preferences.data.repository.AuthSharedPreferencesRepository
 import com.girrafeecstud.signals.event_bus.EventBus
+import com.girrafeecstud.signals.rescuer_mode_api.engine.IRescuerModeEngine
+import com.girrafeecstud.signals.rescuers_api.engine.RescuersEngine
 import com.girrafeecstud.signals.signal_details_api.ui.BaseSignalDetailsFragment
 import com.girrafeecstud.signals.signals_api.domain.GetSignalsListUseCase
+import com.girrafeecstud.signals.signals_api.engine.SignalsEngine
 import com.girrafeecstud.sos_signal_api.engine.SosSignalEngine
 
 interface MainDependencies {
@@ -44,4 +47,10 @@ interface MainDependencies {
     fun getOnBoardSharedPreferencesDataSource(): OnBoardSharedPreferencesDataSource
 
     fun getNotificationTokensEngine(): INotificationTokensEngine
+
+    fun getSignalsEngine(): SignalsEngine
+
+    fun getRescuersEngine(): RescuersEngine
+
+    fun getRescuerModeEngine(): IRescuerModeEngine
 }

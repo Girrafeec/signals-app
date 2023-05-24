@@ -8,6 +8,7 @@ import com.girrafeecstud.signals.auth_impl.auth_common.data.AuthSharedPreference
 import com.girrafeecstud.signals.auth_impl.auth_common.data.AuthSharedPreferencesRepository
 import com.girrafeecstud.signals.core_base.presentation.base.MainViewModelFactory
 import com.girrafeecstud.signals.core_base.presentation.base.di.BaseViewModelFactoryModule
+import com.girrafeecstud.signals.rescuer_mode_impl.engine.RescuerModeEngine
 import com.girrafeecstud.sos_signal_impl.engine.SosSignalEngineImpl
 import dagger.Component
 import javax.inject.Singleton
@@ -31,6 +32,8 @@ interface AppComponent {
     fun authDataSource(): AuthSharedPreferencesDataSource
 
     fun notificationTokensDataSource(): LocalNotificationTokensDataSource
+
+    fun rescuerModeEngine(): RescuerModeEngine
 
 //    fun authRepository(): AuthSharedPreferencesRepository
 
