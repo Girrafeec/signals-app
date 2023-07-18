@@ -8,7 +8,7 @@ import com.girrafeecstud.signals.core_base.base.ExceptionType
 import com.girrafeecstud.signals.core_base.base.GpsIsNotEnabledException
 import com.girrafeecstud.signals.core_base.base.LocationPermissionsNotGrantedException
 import com.girrafeecstud.signals.core_base.domain.base.BusinessResult
-import com.girrafeecstud.signals.location_tracker_impl.uniqueLocation
+import com.girrafeecstud.signals.location_tracker_impl.extensions.uniqueLocation
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.*

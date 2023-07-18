@@ -1,4 +1,4 @@
-package com.girrafeecstud.signals.location_tracker_impl
+package com.girrafeecstud.signals.location_tracker_impl.extensions
 
 import android.location.Location
 import kotlinx.coroutines.flow.Flow
